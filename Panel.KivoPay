@@ -515,6 +515,18 @@
   const products = [
     { name:"Alight Motion Premium", img:"https://images.bukaolshop.com/hosting/181218/4a04b8d7e542788237.png",
       variants:[{label:"Private Akun 1 Tahun", price:9600}] },
+    ,
+  {
+    name: "Netflix Premium",
+    img: "https://images.bukaolshop.com/hosting/181218/e97361a0f1be36831.png",
+    variants: [
+      { label: "Sharing 1p1u 7 Day", price: 18000 },
+      { label: "Sharing 1p1u 1 Bulan", price: 31000 },
+      { label: "Sharing 1p2u 7 Day", price: 17000 },
+      { label: "Sharing 1p2u 1 Bulan", price: 27000 },
+      { label: "Private Akun 1 Bulan", price: 200000 }
+    ]
+  },
 
     { name:"Prime Video", img:"https://images.bukaolshop.com/hosting/181218/ad8345f7b9c8953792.png",
       variants:[{label:"Shared 1 Bulan", price:6700},{label:"Private 1 Bulan", price:15300}] },
