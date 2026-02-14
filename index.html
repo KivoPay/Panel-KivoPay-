@@ -2,1793 +2,500 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
-    <title>Keii Official · Premium Store</title>
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>iPhone Quote Generator</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
         }
 
-        html, body {
-            width: 100%;
+        body {
             min-height: 100vh;
-            background: #0a0c14;
-            color: #fff;
-            overflow-x: hidden;
-        }
-
-        /* INTRO LOADING - UNGU THEME */
-        .intro-screen {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle at 30% 30%, #2d1b3a, #1a0f24);
+            background: linear-gradient(145deg, #1a1a1a 0%, #2c2c2e 100%);
             display: flex;
             justify-content: center;
             align-items: center;
-            z-index: 1000;
-            transition: opacity 0.8s ease;
-            overflow: hidden;
+            padding: 12px;
         }
 
-        .intro-screen::before {
-            content: '';
-            position: absolute;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(
-                45deg,
-                transparent 30%,
-                rgba(156, 39, 176, 0.15) 50%,
-                transparent 70%
-            );
-            animation: shine 3s infinite linear;
-        }
-
-        @keyframes shine {
-            from { transform: translateX(-100%) rotate(45deg); }
-            to { transform: translateX(100%) rotate(45deg); }
-        }
-
-        .intro-screen::after {
-            content: '';
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background: repeating-linear-gradient(
-                0deg,
-                transparent,
-                transparent 2px,
-                rgba(156, 39, 176, 0.05) 2px,
-                rgba(156, 39, 176, 0.05) 4px
-            );
-            pointer-events: none;
-        }
-
-        .intro-screen.hide {
-            opacity: 0;
-            pointer-events: none;
-        }
-
-        .intro-content {
-            text-align: center;
-            padding: 20px;
-            max-width: 500px;
-            width: 90%;
+        /* iPhone Frame */
+        .iphone-frame {
+            width: 375px;
+            height: 667px;
+            background: #000;
+            border-radius: 44px;
+            padding: 12px;
+            box-shadow: 
+                0 30px 50px rgba(0, 0, 0, 0.6),
+                0 0 0 8px #2c2c2e,
+                0 0 0 12px #1c1c1e;
             position: relative;
+        }
+
+        /* Dynamic Island */
+        .dynamic-island {
+            position: absolute;
+            top: 18px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 110px;
+            height: 32px;
+            background: #111;
+            border-radius: 20px;
             z-index: 10;
-        }
-
-        /* Floating Elements */
-        .floating-elements {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            overflow: hidden;
-            z-index: 1;
-        }
-
-        .floating-elements i {
-            position: absolute;
-            color: rgba(156, 39, 176, 0.1);
-            animation: float 6s infinite ease-in-out;
-        }
-
-        .floating-elements i:nth-child(1) { top: 10%; left: 10%; font-size: 3rem; animation-delay: 0s; }
-        .floating-elements i:nth-child(2) { top: 20%; right: 15%; font-size: 4rem; animation-delay: 1s; }
-        .floating-elements i:nth-child(3) { bottom: 15%; left: 20%; font-size: 3.5rem; animation-delay: 2s; }
-        .floating-elements i:nth-child(4) { bottom: 25%; right: 10%; font-size: 4.5rem; animation-delay: 3s; }
-        .floating-elements i:nth-child(5) { top: 40%; left: 5%; font-size: 2.5rem; animation-delay: 1.5s; }
-        .floating-elements i:nth-child(6) { top: 60%; right: 5%; font-size: 3.2rem; animation-delay: 2.5s; }
-        .floating-elements i:nth-child(7) { bottom: 5%; left: 40%; font-size: 4rem; animation-delay: 0.5s; }
-        .floating-elements i:nth-child(8) { top: 80%; right: 25%; font-size: 3.8rem; animation-delay: 3.5s; }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0.1; }
-            50% { transform: translateY(-30px) rotate(10deg); opacity: 0.2; }
-        }
-
-        /* Main Icon - Logo */
-        .main-logo {
-            width: 150px;
-            height: 150px;
-            margin: 0 auto 20px;
-            border-radius: 50%;
-            overflow: hidden;
-            border: 4px solid #9c27b0;
-            box-shadow: 0 0 50px rgba(156, 39, 176, 0.6);
-            animation: pulseRotate 2s infinite;
-            background: transparent;
-            padding: 0;
-        }
-
-        .main-logo img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            object-position: center;
-            display: block;
-        }
-
-        @keyframes pulseRotate {
-            0%, 100% { 
-                transform: scale(1) rotate(0deg);
-                box-shadow: 0 0 50px rgba(156, 39, 176, 0.6);
-            }
-            33% { 
-                transform: scale(1.05) rotate(2deg);
-                box-shadow: 0 0 70px rgba(156, 39, 176, 0.8);
-            }
-            66% { 
-                transform: scale(0.98) rotate(-2deg);
-                box-shadow: 0 0 60px rgba(156, 39, 176, 0.7);
-            }
-        }
-
-        /* Title */
-        .loading-title {
-            font-size: 2.5rem;
-            font-weight: 800;
-            color: #fff;
-            margin-bottom: 20px;
-            text-shadow: 0 0 15px #9c27b0;
-            letter-spacing: 4px;
-            position: relative;
-            z-index: 5;
-        }
-
-        .loading-title span {
-            color: #ba68c8;
-            display: inline-block;
-            animation: wave 2s infinite;
-            text-shadow: 0 0 10px #9c27b0;
-        }
-
-        @keyframes wave {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-15px); }
-        }
-
-        /* Loading Bar Container */
-        .loading-container {
-            background: rgba(0, 0, 0, 0.4);
-            border-radius: 60px;
-            padding: 5px;
-            margin: 20px 0 10px;
-            border: 2px solid rgba(156, 39, 176, 0.4);
-            box-shadow: 0 0 40px rgba(156, 39, 176, 0.4);
-            position: relative;
-            z-index: 5;
-            overflow: hidden;
-        }
-
-        .loading-bar {
-            height: 25px;
-            background: linear-gradient(90deg, #9c27b0, #ba68c8, #9c27b0);
-            background-size: 300% 100%;
-            border-radius: 60px;
-            width: 0%;
-            animation: loading 3s ease-in-out forwards, gradientMove 2s infinite linear;
-            position: relative;
-            box-shadow: 0 0 30px #9c27b0;
-        }
-
-        @keyframes loading {
-            0% { width: 0%; }
-            100% { width: 100%; }
-        }
-
-        @keyframes gradientMove {
-            0% { background-position: 0% 50%; }
-            100% { background-position: 100% 50%; }
-        }
-
-        .percentage {
-            font-size: 2.5rem;
-            font-weight: bold;
-            color: #ba68c8;
-            text-shadow: 0 0 20px #9c27b0;
-            margin: 5px 0;
-        }
-
-        .loading-stats {
             display: flex;
             justify-content: space-between;
-            margin: 15px 0;
-            color: #ba68c8;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-
-        .stat-item {
-            display: flex;
             align-items: center;
-            gap: 5px;
+            padding: 0 12px;
+            box-shadow: inset 0 2px 4px rgba(255, 255, 255, 0.05);
         }
 
-        .stat-item i {
-            color: #ba68c8;
-            animation: spin 2s infinite linear;
+        .dynamic-island .camera {
+            width: 12px;
+            height: 12px;
+            background: #2a2a2a;
+            border-radius: 50%;
+            position: relative;
         }
 
-        @keyframes spin {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
-        /* Products Preview */
-        .products-preview {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 8px;
-            margin: 15px 0;
-            max-width: 400px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .preview-item {
-            background: linear-gradient(145deg, rgba(156, 39, 176, 0.2), rgba(156, 39, 176, 0.05));
-            border: 1px solid rgba(156, 39, 176, 0.4);
-            border-radius: 50px;
-            padding: 8px 5px;
-            font-size: 0.9rem;
-            color: #fff;
-            animation: previewGlow 2s infinite alternate;
-            text-align: center;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        @keyframes previewGlow {
-            from { box-shadow: 0 0 5px rgba(156, 39, 176, 0.3); }
-            to { box-shadow: 0 0 15px rgba(156, 39, 176, 0.6); }
-        }
-
-        /* Enter Button */
-        .enter-btn {
-            background: linear-gradient(45deg, #9c27b0, #ba68c8);
-            background-size: 200% 100%;
-            color: white;
-            border: none;
-            padding: 15px 40px;
-            font-size: 1.3rem;
-            font-weight: bold;
-            border-radius: 60px;
-            cursor: pointer;
-            box-shadow: 0 0 40px #9c27b0;
-            transition: all 0.3s;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            margin-top: 20px;
-            opacity: 0;
-            transform: translateY(30px) scale(0.9);
-            animation: fadeInUpScale 0.8s ease 3.2s forwards;
-        }
-
-        @keyframes fadeInUpScale {
-            to { opacity: 1; transform: translateY(0) scale(1); }
-        }
-
-        /* Particles */
-        .particles {
+        .dynamic-island .camera::after {
+            content: '';
             position: absolute;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            z-index: 2;
-            pointer-events: none;
-        }
-          .particle {
-            position: absolute;
+            top: 2px;
+            left: 2px;
             width: 4px;
             height: 4px;
-            background: #ba68c8;
+            background: #3a3a3a;
             border-radius: 50%;
-            animation: particleFloat 4s infinite;
-            box-shadow: 0 0 10px #9c27b0;
         }
 
-        @keyframes particleFloat {
-            0% { transform: translateY(0) translateX(0); opacity: 0; }
-            10% { opacity: 1; }
-            90% { opacity: 1; }
-            100% { transform: translateY(-100px) translateX(50px); opacity: 0; }
+        .dynamic-island .speaker {
+            width: 40px;
+            height: 6px;
+            background: #2a2a2a;
+            border-radius: 3px;
         }
 
-        /* Pop Up Join Saluran */
-        .channel-popup {
-            position: fixed;
-            top: 0;
-            left: 0;
+        /* iPhone Screen */
+        .iphone-screen {
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            backdrop-filter: blur(10px);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 2000;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s ease;
-            padding: 15px;
-        }
-
-        .channel-popup.show {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .popup-content {
-            background: linear-gradient(145deg, #2d1b3a, #1a0f24);
-            border-radius: 30px;
-            padding: 30px;
-            max-width: 450px;
-            width: 90%;
-            text-align: center;
-            border: 2px solid #9c27b0;
-            box-shadow: 0 0 50px rgba(156, 39, 176, 0.5);
-            animation: popupScale 0.3s ease;
-        }
-
-        @keyframes popupScale {
-            from { transform: scale(0.8); opacity: 0; }
-            to { transform: scale(1); opacity: 1; }
-        }
-
-        .popup-icon {
-            width: 80px;
-            height: 80px;
-            background: #9c27b0;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 20px;
-        }
-
-        .popup-icon i {
-            font-size: 3rem;
-            color: white;
-        }
-
-        .popup-content h2 {
-            color: #ba68c8;
-            margin-bottom: 15px;
-            font-size: 1.8rem;
-        }
-
-        .popup-content p {
-            color: #ccc;
-            margin-bottom: 25px;
-            line-height: 1.6;
-            font-size: 1rem;
-        }
-
-        .popup-buttons {
-            display: flex;
-            gap: 10px;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        .popup-btn {
-            padding: 12px 25px;
-            border-radius: 50px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s;
-            border: none;
-            font-size: 1rem;
-        }
-
-        .popup-btn.join {
-            background: #9c27b0;
-            color: white;
-            box-shadow: 0 0 20px #9c27b0;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .popup-btn.close {
-            background: #333;
-            color: white;
-            border: 1px solid #666;
-        }
-
-        /* MAIN CONTENT - WARNA BIRU MENYALA */
-        .main-content {
-            max-width: 600px;
-            margin: 0 auto;
-            padding: 15px;
-            animation: fadeIn 0.5s ease;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        /* Header - Biru */
-        .header {
-            background: linear-gradient(145deg, #1a3a6a, #0a1a3a);
-            border-radius: 20px;
-            padding: 20px;
-            margin-bottom: 15px;
-            border: 1px solid #4a9eff;
-            box-shadow: 0 10px 20px rgba(74, 158, 255, 0.3);
-        }
-
-        .store-name {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: #4a9eff;
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            text-shadow: 0 0 10px #4a9eff;
-        }
-
-        .store-name i {
-            font-size: 1.8rem;
-            color: #4a9eff;
-        }
-
-        .status-container {
-            background: #0a1a3a;
-            border-radius: 16px;
-            padding: 15px;
-            margin-bottom: 15px;
-            border: 1px solid #4a9eff;
-        }
-
-        .status-row {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 15px;
-        }
-
-        .status-badge {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            background: #1a3a6a;
-            padding: 8px 15px;
-            border-radius: 30px;
-            border: 1px solid #4a9eff;
-        }
-
-        .dot {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            display: inline-block;
-            animation: pulse 1.5s infinite;
-        }
-
-        .dot.online {
-            background: #4a9eff;
-            box-shadow: 0 0 10px #4a9eff;
-        }
-
-        .dot.offline {
-            background: #ff4646;
-            box-shadow: 0 0 10px #ff4646;
-        }
-
-        .status-text {
-            font-weight: 600;
-            font-size: 1rem;
-        }
-
-        .status-text.online {
-            color: #4a9eff;
-        }
-
-        .status-text.offline {
-            color: #ff4646;
-        }
-
-        .schedule {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-            margin-top: 10px;
-        }
-
-        .schedule-item {
-            background: #1a3a6a;
-            border-radius: 12px;
-            padding: 10px;
-            text-align: center;
-            border: 1px solid #4a9eff;
-        }
-
-        .schedule-item i {
-            color: #4a9eff;
-            margin-right: 5px;
-        }
-
-        .schedule-item .time {
-            font-weight: 600;
-            color: #fff;
-            margin: 5px 0;
-        }
-
-        .schedule-item .session {
-            color: #aaccff;
-            font-size: 0.8rem;
-        }
-
-        .warning {
-            background: rgba(255, 70, 70, 0.1);
-            border: 1px solid #ff4646;
-            border-radius: 12px;
-            padding: 12px;
-            font-size: 0.9rem;
-            color: #ff9999;
-            margin-top: 10px;
-            text-align: center;
-        }
-
-        .warning i {
-            margin-right: 5px;
-            color: #ff4646;
-        }
-
-        .section-title {
-            font-size: 1.2rem;
-            margin: 20px 0 15px;
-            color: #fff;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .section-title i {
-            color: #4a9eff;
-            font-size: 1.1rem;
-        }
-
-        .section-title span {
-            color: #aaccff;
-            font-size: 0.9rem;
-            margin-left: auto;
-        }
-
-        /* Kategori Grid - Biru */
-        .kategori-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-            margin-bottom: 20px;
-        }
-
-        .kategori-card {
-            background: linear-gradient(145deg, #1a3a6a, #0a1a3a);
-            border-radius: 16px;
-            padding: 15px;
-            border: 1px solid #4a9eff;
-            cursor: pointer;
-            transition: all 0.3s;
-            animation: cardFloat 3s infinite alternate;
-        }
-
-        @keyframes cardFloat {
-            from { transform: translateY(0); }
-            to { transform: translateY(-5px); }
-        }
-
-        .kategori-card:hover {
-            border-color: #aaccff;
-            transform: translateY(-8px) scale(1.02);
-            box-shadow: 0 15px 30px rgba(74, 158, 255, 0.4);
-        }
-
-        .kategori-header {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 12px;
-        }
-
-        .kategori-header img {
-            width: 35px;
-            height: 35px;
-            object-fit: contain;
-            background: #fff;
-            padding: 5px;
-            border-radius: 10px;
-            border: 1px solid #4a9eff;
-            animation: rotateLogo 5s infinite linear;
-        }
-
-        @keyframes rotateLogo {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
-        .kategori-header h3 {
-            font-size: 1rem;
-            font-weight: 600;
-            color: #aaccff;
-        }
-
-        .kategori-info {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            color: #aaccff;
-            font-size: 0.85rem;
-            border-top: 1px solid #4a9eff;
-            padding-top: 10px;
-        }
-
-        .kategori-paket {
-            color: #aaccff;
-        }
-
-        .kategori-harga {
-            color: #4a9eff;
-            font-weight: bold;
-            font-size: 1rem;
-            animation: priceGlow 1s infinite alternate;
-            }
-        @keyframes priceGlow {
-            from { text-shadow: 0 0 5px #4a9eff; }
-            to { text-shadow: 0 0 15px #4a9eff; }
-        }
-
-        .produk-view, .payment-view {
-            background: linear-gradient(145deg, #1a3a6a, #0a1a3a);
-            border-radius: 20px;
-            padding: 20px;
-            border: 1px solid #4a9eff;
-            box-shadow: 0 10px 20px rgba(74, 158, 255, 0.3);
-        }
-
-        .back-btn {
-            background: #0a1a3a;
-            border: 1px solid #4a9eff;
-            color: #aaccff;
-            padding: 10px 20px;
-            border-radius: 30px;
-            cursor: pointer;
-            margin-bottom: 20px;
-            font-size: 0.9rem;
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
-            transition: all 0.2s;
-        }
-
-        .back-btn:hover {
-            border-color: #aaccff;
-            color: #4a9eff;
-            transform: translateX(-5px);
-        }
-
-        .produk-header {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 20px;
-            padding-bottom: 15px;
-            border-bottom: 1px solid #4a9eff;
-        }
-
-        .produk-header img {
-            width: 45px;
-            height: 45px;
-            object-fit: contain;
-            background: #fff;
-            padding: 8px;
-            border-radius: 12px;
-            border: 1px solid #4a9eff;
-        }
-
-        .produk-header h2 {
-            color: #aaccff;
-        }
-
-        .produk-list {
+            background: linear-gradient(165deg, #f5f5f7 0%, #e8e8ed 100%);
+            border-radius: 36px;
+            overflow: hidden;
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            position: relative;
         }
 
-        .produk-item {
-            background: #0a1a3a;
-            border-radius: 12px;
-            padding: 12px 15px;
+        /* Status Bar */
+        .status-bar {
+            padding: 20px 24px 10px;
             display: flex;
             justify-content: space-between;
+            font-size: 15px;
+            font-weight: 600;
+            color: #1c1c1e;
+            background: transparent;
+        }
+
+        .time {
+            font-weight: 500;
+        }
+
+        .battery {
+            display: flex;
             align-items: center;
-            border: 1px solid #4a9eff;
-            cursor: pointer;
-            transition: all 0.3s;
-            animation: itemPulse 2s infinite alternate;
+            gap: 6px;
         }
 
-        @keyframes itemPulse {
-            from { transform: scale(1); }
-            to { transform: scale(1.02); }
+        .battery-icon {
+            width: 22px;
+            height: 10px;
+            border: 1.5px solid #1c1c1e;
+            border-radius: 3px;
+            position: relative;
         }
 
-        .produk-item:hover {
-            border-color: #aaccff;
-            transform: translateX(5px) scale(1.02);
-            background: #1a3a6a;
+        .battery-icon::after {
+            content: '';
+            position: absolute;
+            right: -3px;
+            top: 2px;
+            width: 3px;
+            height: 4px;
+            background: #1c1c1e;
+            border-radius: 1px;
         }
 
-        .produk-nama {
-            font-size: 0.95rem;
+        .battery-icon::before {
+            content: '';
+            position: absolute;
+            left: 2px;
+            top: 2px;
+            width: 14px;
+            height: 4px;
+            background: #1c1c1e;
+            border-radius: 1px;
+        }
+
+        /* Main Content */
+        .content {
             flex: 1;
-            color: #aaccff;
+            padding: 20px 24px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
         }
 
-        .produk-harga {
-            color: #4a9eff;
-            font-weight: bold;
-            margin-left: 10px;
+        h1 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 30px;
+            color: #1c1c1e;
+            letter-spacing: -0.5px;
+            background: linear-gradient(135deg, #1c1c1e, #2c2c2e);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
-        .produk-catatan {
-            font-size: 0.8rem;
-            color: #ff9999;
-            margin-top: 5px;
-            padding: 5px 0;
-            border-top: 1px dashed #4a9eff;
+        /* Quote Card */
+        .quote-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 24px;
+            padding: 30px 24px;
+            margin-bottom: 30px;
+            box-shadow: 
+                0 20px 40px rgba(0, 0, 0, 0.1),
+                0 4px 12px rgba(0, 0, 0, 0.05),
+                inset 0 1px 2px rgba(255, 255, 255, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            width: 100%;
+            min-height: 250px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            transition: all 0.3s ease;
         }
 
-        /* Selected Info */
-        .selected-info {
-            background: #0a1a3a;
-            border-radius: 12px;
-            padding: 15px;
-            text-align: center;
+        .quote-text {
+            font-size: 20px;
+            line-height: 1.4;
+            font-weight: 400;
+            color: #1c1c1e;
             margin-bottom: 20px;
-            border: 1px solid #4a9eff;
+            font-style: italic;
+            position: relative;
         }
 
-        .selected-info h3 {
-            color: #aaccff;
-            margin-bottom: 5px;
-            font-size: 1.2rem;
+        .quote-text::before {
+            content: '"';
+            font-size: 60px;
+            position: absolute;
+            left: -15px;
+            top: -20px;
+            opacity: 0.3;
+            color: #8e8e93;
         }
 
-        .selected-info .produk-nama-payment {
-            color: #fff;
-            margin: 5px 0;
-        }
-
-        .selected-harga {
-            font-size: 1.5rem;
-            color: #4a9eff;
-            font-weight: bold;
-            margin-top: 5px;
-        }
-
-        /* Payment Metode */
-        .payment-metode {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-            margin: 20px 0;
-        }
-
-        .metode-card {
-            background: #0a1a3a;
-            border-radius: 12px;
-            padding: 15px;
-            border: 1px solid #4a9eff;
-            transition: all 0.3s;
-        }
-
-        .metode-card:hover {
-            border-color: #aaccff;
-            transform: scale(1.02);
-        }
-
-        .metode-header {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            margin-bottom: 12px;
-        }
-
-        .metode-header img {
-            width: 25px;
-            height: 25px;
-            object-fit: contain;
-            background: #fff;
-            border-radius: 5px;
-            padding: 2px;
-        }
-
-        .metode-header span {
+        .quote-author {
+            font-size: 16px;
             font-weight: 600;
-            font-size: 0.95rem;
-            color: #aaccff;
+            color: #8e8e93;
+            text-align: right;
+            letter-spacing: 0.3px;
         }
 
-        .nomor {
-            background: #1a3a6a;
-            padding: 8px;
-            border-radius: 8px;
-            font-family: monospace;
-            font-size: 0.9rem;
-            text-align: center;
-            margin: 10px 0;
-            color: #aaccff;
-            border: 1px solid #4a9eff;
+        .quote-author::before {
+            content: '— ';
         }
 
-        .btn-popup {
-            background: #4a9eff;
-            color: white;
+        /* Generate Button */
+        .generate-btn {
+            background: #007aff;
             border: none;
-            padding: 8px;
-            border-radius: 8px;
-            font-weight: 600;
-            font-size: 0.9rem;
-            cursor: pointer;
+            border-radius: 30px;
+            padding: 16px 32px;
             width: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 5px;
-            transition: all 0.2s;
-        }
-
-        .btn-popup:hover {
-            background: #6aaeff;
-            transform: scale(0.98);
-        }
-
-        .qris-img {
-            width: 100%;
-            max-width: 120px;
-            margin: 10px auto;
-            display: block;
-            border-radius: 8px;
-            border: 2px solid #4a9eff;
-        }
-
-        .metode-card.full {
-            grid-column: span 2;
-        }
-
-        /* FORMAT ORDER - BISA DIISI */
-        .format-order-container {
-            background: #0a1a3a;
-            border-radius: 16px;
-            padding: 20px;
-            margin: 20px 0;
-            border: 2px dashed #4a9eff;
-            animation: borderGlow 2s infinite alternate;
-        }
-
-        @keyframes borderGlow {
-            from { border-color: #4a9eff; box-shadow: 0 0 10px #4a9eff; }
-            to { border-color: #aaccff; box-shadow: 0 0 20px #aaccff; }
-        }
-
-        .format-order-container h3 {
-            color: #aaccff;
-            margin-bottom: 15px;
-            font-size: 1.2rem;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-
-        .format-order-container h3 i {
-            color: #4a9eff;
-        }
-
-        .format-order-box {
-            background: #1a3a6a;
-            border-radius: 12px;
-            padding: 15px;
-            margin-bottom: 15px;
-            border: 1px solid #4a9eff;
-        }
-
-        .format-row {
-            display: flex;
-            margin: 10px 0;
-            align-items: center;
-        }
-
-        .format-label {
-            width: 80px;
-            color: #aaccff;
+            font-size: 17px;
             font-weight: 600;
-        }
-
-        .format-input {
-            flex: 1;
-            background: #0a1a3a;
-            border: 1px solid #4a9eff;
-            border-radius: 6px;
-            padding: 8px 12px;
             color: white;
-            font-size: 0.95rem;
-        }
-
-        .format-input:focus {
-            outline: none;
-            border-color: #aaccff;
-            box-shadow: 0 0 10px #4a9eff;
-        }
-
-        .format-value {
-            flex: 1;
-            color: #4a9eff;
-            font-weight: 600;
-            padding: 8px 12px;
-        }
-
-        .format-buttons {
-            display: flex;
-            gap: 10px;
-            margin-top: 15px;
-        }
-
-        .format-btn {
-            flex: 1;
-            background: #4a9eff;
-            color: white;
-            border: none;
-            padding: 12px;
-            border-radius: 8px;
-            font-weight: 600;
+            box-shadow: 
+                0 8px 16px rgba(0, 122, 255, 0.3),
+                0 2px 4px rgba(0, 0, 0, 0.1);
             cursor: pointer;
-            transition: all 0.3s;
+            transition: all 0.2s ease;
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 8px;
+            margin-bottom: 20px;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
         }
 
-        .format-btn:hover {
-            background: #6aaeff;
-            transform: scale(1.02);
+        .generate-btn:active {
+            transform: scale(0.97);
+            box-shadow: 0 4px 8px rgba(0, 122, 255, 0.2);
         }
 
-        .format-btn.copy {
-            background: #0a1a3a;
-            border: 1px solid #4a9eff;
+        .generate-btn i {
+            font-size: 20px;
         }
 
-        .format-btn.copy:hover {
-            background: #1a3a6a;
-        }
-
-        /* ADMIN CONTACT - SATU BARIS */
-        .admin-contact-single {
-            background: #0a1a3a;
-            border-radius: 12px;
-            padding: 20px;
-            margin: 20px 0 10px;
-            text-align: center;
-            border: 1px solid #4a9eff;
-        }
-
-        .admin-contact-single p {
-            color: #aaccff;
-            margin-bottom: 15px;
-            font-size: 0.95rem;
-        }
-
-        .admin-buttons {
+        /* Share Buttons */
+        .share-buttons {
             display: flex;
             gap: 15px;
             justify-content: center;
-            flex-wrap: wrap;
         }
 
-        .admin-btn-single {
-            display: inline-flex;
+        .share-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 25px;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+            display: flex;
             align-items: center;
             justify-content: center;
-            gap: 8px;
-            background: #25D366;
-            color: white;
-            padding: 12px 25px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 1rem;
-            transition: all 0.3s;
-            min-width: 180px;
-        }
-
-        .admin-btn-single.tele {
-            background: #0088cc;
-            }
-        .admin-btn-single:hover {
-            transform: translateY(-3px) scale(1.05);
-            filter: brightness(1.1);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-        }
-
-        .respon {
-            font-size: 0.8rem;
-            opacity: 0.8;
-            margin-left: 5px;
-        }
-
-        .note {
-            text-align: center;
-            margin-top: 15px;
-            color: #aaccff;
-            font-size: 0.9rem;
-        }
-
-        .suntik-note {
-            background: #0a1a3a;
-            border-radius: 12px;
-            padding: 15px;
-            margin: 20px 0;
-            text-align: center;
-            border: 1px dashed #4a9eff;
-            animation: noteGlow 2s infinite alternate;
-        }
-
-        @keyframes noteGlow {
-            from { box-shadow: 0 0 10px #4a9eff; }
-            to { box-shadow: 0 0 20px #4a9eff; }
-        }
-
-        .suntik-note i {
-            color: #4a9eff;
-            margin-right: 8px;
-        }
-
-        .suntik-note a {
-            color: #4a9eff;
-            text-decoration: none;
-            font-weight: bold;
-        }
-
-        .suntik-note a:hover {
-            text-decoration: underline;
-            color: #aaccff;
-        }
-
-        /* Modal */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.95);
-            backdrop-filter: blur(15px);
-            align-items: center;
-            justify-content: center;
-            z-index: 2000;
-            padding: 15px;
-        }
-
-        .modal-content {
-            background: #0a1a3a;
-            padding: 30px;
-            border-radius: 20px;
-            text-align: center;
-            max-width: 600px;
-            width: 90%;
-            border: 3px solid #4a9eff;
-            animation: modalPop 0.3s ease;
-            box-shadow: 0 0 70px rgba(74, 158, 255, 0.5);
-        }
-
-        .modal-content img {
-            max-width: 100%;
-            width: 400px;
-            height: auto;
-            margin: 20px 0;
-            border-radius: 15px;
-            border: 3px solid #4a9eff;
-            box-shadow: 0 0 30px rgba(74, 158, 255, 0.5);
-        }
-
-        @media (min-width: 768px) {
-            .modal-content img {
-                width: 500px;
-            }
-        }
-
-        .modal-content h3 {
-            color: #4a9eff;
-            margin: 15px 0;
-            font-size: 2rem;
-        }
-
-        .close-modal {
-            background: #4a9eff;
-            color: white;
-            border: none;
-            padding: 12px 40px;
-            border-radius: 50px;
-            font-weight: bold;
-            font-size: 1.2rem;
+            font-size: 22px;
             cursor: pointer;
-            transition: all 0.3s;
-            margin-top: 15px;
+            transition: all 0.2s ease;
+            color: #007aff;
         }
 
-        .close-modal:hover {
-            background: #6aaeff;
-            transform: scale(1.05);
+        .share-btn:active {
+            transform: scale(0.9);
+            background: white;
         }
 
-        @keyframes modalPop {
-            from {
-                opacity: 0;
-                transform: scale(0.8);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1);
-            }
+        /* Home Bar */
+        .home-bar {
+            width: 140px;
+            height: 5px;
+            background: #1c1c1e;
+            border-radius: 3px;
+            margin: 10px auto 8px;
+            opacity: 0.8;
         }
 
-        audio {
-            display: none;
+        /* Notification */
+        .notification {
+            position: absolute;
+            bottom: 100px;
+            left: 20px;
+            right: 20px;
+            background: rgba(28, 28, 30, 0.9);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            color: white;
+            padding: 12px 20px;
+            border-radius: 30px;
+            text-align: center;
+            font-size: 15px;
+            font-weight: 500;
+            transform: translateY(150%);
+            transition: transform 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            z-index: 20;
+        }
+
+        .notification.show {
+            transform: translateY(0);
+        }
+
+        /* Volume Buttons (decorative) */
+        .volume-up, .volume-down, .power {
+            position: absolute;
+            width: 4px;
+            height: 60px;
+            background: #2c2c2e;
+            left: -8px;
+            top: 100px;
+            border-radius: 4px 0 0 4px;
+        }
+
+        .volume-down {
+            top: 180px;
+        }
+
+        .power {
+            left: auto;
+            right: -8px;
+            top: 140px;
+            height: 70px;
+            border-radius: 0 4px 4px 0;
         }
     </style>
 </head>
 <body>
-    <!-- INTRO LOADING - UNGU -->
-    <div class="intro-screen" id="introScreen">
-        <!-- Floating Icons -->
-        <div class="floating-elements">
-            <i class="fas fa-crown"></i>
-            <i class="fas fa-star"></i>
-            <i class="fas fa-gem"></i>
-            <i class="fas fa-bolt"></i>
-            <i class="fas fa-fire"></i>
-            <i class="fas fa-rocket"></i>
-            <i class="fas fa-shield"></i>
-            <i class="fas fa-trophy"></i>
+    <div class="iphone-frame">
+        <!-- Dynamic Island -->
+        <div class="dynamic-island">
+            <div class="camera"></div>
+            <div class="speaker"></div>
+            <div style="width: 12px;"></div>
         </div>
 
-        <!-- Particles -->
-        <div class="particles" id="particles"></div>
+        <!-- Volume and Power Buttons (decorative) -->
+        <div class="volume-up"></div>
+        <div class="volume-down"></div>
+        <div class="power"></div>
 
-        <div class="intro-content">
-            <!-- Main Logo -->
-            <div class="main-logo">
-                <img src="https://images.bukaolshop.com/hosting/181218/5c92165b6226544752.png" alt="Keii Official Logo">
-            </div>
-
-            <!-- Animated Title -->
-            <div class="loading-title">
-                <span>K</span><span>e</span><span>i</span><span>i</span><span>&nbsp;</span>
-                <span>O</span><span>f</span><span>f</span><span>i</span><span>c</span><span>i</span><span>a</span><span>l</span>
-            </div>
-
-            <!-- Loading Bar -->
-            <div class="loading-container">
-                <div class="loading-bar" id="loadingBar"></div>
-            </div>
-
-            <div class="percentage" id="percentage">0%</div>
-
-            <div class="loading-stats">
-                <div class="stat-item"><i class="fas fa-box"></i> 21 Kategori</div>
-                <div class="stat-item"><i class="fas fa-tags"></i> 70+ Produk</div>
-                <div class="stat-item"><i class="fas fa-users"></i> 1K+ Happy</div>
-            </div>
-
-            <!-- Products Preview -->
-            <div class="products-preview">
-                <span class="preview-item">Capcut</span>
-                <span class="preview-item">Netflix</span>
-                <span class="preview-item">YouTube</span>
-                <span class="preview-item">Disney+</span>
-                <span class="preview-item">ChatGPT</span>
-                <span class="preview-item">Canva</span>
-                <span class="preview-item">Jasa Web</span>
-                <span class="preview-item">Suntik WA</span>
-                <span class="preview-item">Robux</span>
-            </div>
-
-            <!-- Enter Button -->
-            <button class="enter-btn" id="enterBtn">
-                <span>MASUK STORE</span>
-                <i class="fas fa-arrow-right"></i>
-            </button>
-        </div>
-    </div>
-
-    <!-- POP UP JOIN SALURAN -->
-    <div class="channel-popup" id="channelPopup">
-        <div class="popup-content">
-            <div class="popup-icon">
-                <i class="fab fa-whatsapp"></i>
-            </div>
-            <h2>Join Saluran WhatsApp!</h2>
-            <p>Dapatkan info terbaru tentang promo, produk baru, dan update harga langsung dari saluran resmi Keii Official.</p>
-            <div class="popup-buttons">
-                <a href="https://whatsapp.com/channel/0029VbCMhxiLSmbSzw8kOv0q" target="_blank" class="popup-btn join">
-                    <i class="fab fa-whatsapp"></i> Join Saluran
-                </a>
-                <button class="popup-btn close" onclick="closeChannelPopup()">Nanti</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Main Content -->
-    <div class="main-content" id="mainContent" style="display: none;">
-        <!-- Header -->
-        <div class="header">
-            <div class="store-name">
-                <i class="fas fa-store"></i>
-                Keii Official
-            </div>
-            
-            <!-- Status Container -->
-            <div class="status-container" id="statusContainer">
-                <div class="status-row">
-                    <div class="status-badge" id="statusBadge">
-                        <span class="dot" id="statusDot"></span>
-                        <span class="status-text" id="statusText">Loading...</span>
-                    </div>
-                    <span><i class="fas fa-clock" style="color: #4a9eff;"></i> WIB</span>
-                </div>
-
-                <div class="schedule">
-                    <div class="schedule-item">
-                        <i class="fas fa-sun"></i>
-                        <div class="time">10.30 - 13.00</div>
-                        <div class="session">Jam Siang</div>
-                    </div>
-                    <div class="schedule-item">
-                        <i class="fas fa-moon"></i>
-                        <div class="time">16.30 - 22.00</div>
-                        <div class="session">Jam Malam</div>
-                    </div>
+        <!-- iPhone Screen -->
+        <div class="iphone-screen">
+            <!-- Status Bar -->
+            <div class="status-bar">
+                <span class="time" id="currentTime">09:41</span>
+                <div class="battery">
+                    <span>95%</span>
+                    <div class="battery-icon"></div>
                 </div>
             </div>
 
-            <div class="warning" id="warningText">
-                <i class="fas fa-exclamation-triangle"></i>
-                Harap Jangan Order/Transfer Ketika Status Admin Di Atas Offline
-            </div>
-        </div>
-
-        <!-- KATEGORI VIEW -->
-        <div id="kategoriView">
-            <!-- Aplikasi Premium -->
-            <div class="section-title">
-                <i class="fas fa-crown"></i>
-                Aplikasi Premium
-                <span id="totalApps"></span>
-            </div>
-            <div class="kategori-grid" id="appsGrid"></div>
-
-            <!-- Nokos & Lainnya -->
-            <div class="section-title">
-                <i class="fas fa-phone-alt"></i>
-                Nokos & Lainnya
-            </div>
-            <div class="kategori-grid" id="nokosGrid"></div>
-
-            <!-- Note Suntik Sosmed -->
-            <div class="suntik-note">
-                <i class="fas fa-rocket"></i>
-                Cari Suntik Sosmed ? 
-                <a href="#" onclick="showAdminContact()">PM Admin</a>
-            </div>
-        </div>
-
-        <!-- PRODUK VIEW -->
-        <div id="produkView" style="display: none;">
-            <div class="produk-view">
-                <button class="back-btn" id="backToKategori">
-                    <i class="fas fa-arrow-left"></i> Kembali
-                </button>
-                <div id="produkContainer"></div>
-            </div>
-        </div>
-
-        <!-- PAYMENT VIEW -->
-        <div id="paymentView" style="display: none;">
-            <div class="payment-view">
-                <button class="back-btn" id="backToProduk">
-                    <i class="fas fa-arrow-left"></i> Kembali
-                </button>
+            <!-- Main Content -->
+            <div class="content">
+                <h1>Quote<span style="font-weight: 300;">Generator</span></h1>
                 
-                <div class="selected-info" id="selectedInfo">
-                    <!-- Akan diisi oleh JavaScript -->
+                <!-- Quote Card -->
+                <div class="quote-card" id="quoteCard">
+                    <div class="quote-text" id="quoteText">Tap the button below to generate an inspiring quote</div>
+                    <div class="quote-author" id="quoteAuthor">Welcome</div>
                 </div>
 
-                <!-- METODE PEMBAYARAN (DI ATAS) -->
-                <h3 style="margin-bottom: 15px; color: #aaccff;">Metode Pembayaran</h3>
-                
-                <div class="payment-metode">
-                    <!-- Dana -->
-                    <div class="metode-card">
-                        <div class="metode-header">
-                            <img src="https://images.bukaolshop.com/hosting/181218/f2f4904ff62a785161.png" alt="Dana">
-                            <span>DANA</span>
-                        </div>
-                        <div class="nomor">0877 5351 3090</div>
-                        <button class="btn-popup" onclick="selectPaymentMethod('DANA', '087753513090')">
-                            <i class="fas fa-check"></i> Pilih & Tampilkan
-                        </button>
-                    </div>
+                <!-- Generate Button -->
+                <button class="generate-btn" id="generateBtn">
+                    <span>Generate New Quote</span>
+                </button>
 
-                    <!-- Seabank -->
-                    <div class="metode-card">
-                        <div class="metode-header">
-                            <img src="https://images.bukaolshop.com/hosting/181218/0d46bd2ba133491753.png" alt="Seabank">
-                            <span>SEABANK</span>
-                        </div>
-                        <div class="nomor">9015 1787 0612</div>
-                        <button class="btn-popup" onclick="selectPaymentMethod('SEABANK', '901517870612')">
-                            <i class="fas fa-check"></i> Pilih & Tampilkan
-                        </button>
-                    </div>
-
-                    <!-- QRIS -->
-                    <div class="metode-card full">
-                        <div class="metode-header">
-                            <img src="https://images.bukaolshop.com/hosting/181218/111e83c3a6f5204498.png" alt="QRIS">
-                            <span>QRIS</span>
-                        </div>
-                        <img src="https://images.bukaolshop.com/hosting/181218/cce817858ef1663896.png" alt="QRIS" class="qris-img">
-                        <button class="btn-popup" onclick="selectPaymentMethod('QRIS', 'QRIS')">
-                            <i class="fas fa-check"></i> Pilih QRIS
-                        </button>
-                    </div>
-                </div>
-
-                <!-- FORMAT ORDER (DI TENGAH, BISA DIISI) -->
-                <div class="format-order-container" id="formatOrderContainer">
-                    <h3><i class="fas fa-shopping-cart"></i> Format Orderan</h3>
-                    <div class="format-order-box" id="formatOrderBox">
-                        <div class="format-row">
-                            <span class="format-label">Produk:</span>
-                            <span class="format-value" id="formatProduk">-</span>
-                        </div>
-                        <div class="format-row">
-                            <span class="format-label">Harga:</span>
-                            <span class="format-value" id="formatHarga">-</span>
-                        </div>
-                        <div class="format-row">
-                            <span class="format-label">Metode:</span>
-                            <span class="format-value" id="formatMetode">-</span>
-                        </div>
-                        <div class="format-row">
-                            <span class="format-label">Nama:</span>
-                            <input type="text" class="format-input" id="inputNama" placeholder="Masukkan nama Anda" value="Customer">
-                        </div>
-                        <div class="format-row">
-                            <span class="format-label">No. HP:</span>
-                            <input type="text" class="format-input" id="inputNoHP" placeholder="08xxxxxxxxxx" value="08xxxxxxxxxx">
-                        </div>
-                        <div class="format-row">
-                            <span class="format-label">Catatan:</span>
-                            <input type="text" class="format-input" id="inputCatatan" placeholder="Tambahkan catatan (opsional)" value="-">
-                        </div>
-                    </div>
-                    <div class="format-buttons">
-                        <button class="format-btn copy" onclick="copyFormatOrder()">
-                            <i class="fas fa-copy"></i> Salin Format Order
-                        </button>
-                        <button class="format-btn" onclick="sendToWA()">
-                            <i class="fab fa-whatsapp"></i> Kirim ke WhatsApp
-                        </button>
-                    </div>
-                </div>
-
-                <!-- ADMIN CONTACT - HANYA SATU (DI BAWAH FORMAT) -->
-                <div class="admin-contact-single">
-                    <p><i class="fas fa-info-circle" style="color: #4a9eff;"></i> Hubungi admin untuk mengirim bukti transfer:</p>
-                    <div class="admin-buttons">
-                        <a href="https://wa.me/6285150895395" class="admin-btn-single wa-btn" target="_blank">
-                            <i class="fab fa-whatsapp"></i> Admin WhatsApp <span class="respon">(Slow)</span>
-                        </a>
-                        <a href="https://t.me/KivoPay1" class="admin-btn-single tele" target="_blank">
-                            <i class="fab fa-telegram"></i> Admin Telegram <span class="respon">(Fast)</span>
-                        </a>
-                    </div>
-                </div>
-
-                <div class="note">
-                    <i class="fas fa-info-circle"></i> Kirim bukti transfer ke admin setelah pembayaran
+                <!-- Share Buttons -->
+                <div class="share-buttons">
+                    <div class="share-btn" id="copyBtn" title="Copy to clipboard">📋</div>
+                    <div class="share-btn" id="twitterBtn" title="Share on Twitter">𝕏</div>
+                    <div class="share-btn" id="whatsappBtn" title="Share on WhatsApp">📱</div>
                 </div>
             </div>
+            <!-- Home Bar -->
+            <div class="home-bar"></div>
         </div>
-    </div>
 
-    <!-- Modal Seabank -->
-    <div class="modal" id="seabankModal">
-        <div class="modal-content" style="max-width: 400px;">
-            <img src="https://images.bukaolshop.com/hosting/181218/0d46bd2ba133491753.png" alt="Seabank">
-            <h3 style="color: #4a9eff; margin: 10px 0;">SEABANK</h3>
-            <div style="background: #0a1a3a; padding: 12px; border-radius: 8px; margin: 15px 0; font-family: monospace; font-size: 1.1rem; color: #aaccff;">
-                9015 1787 0612
-            </div>
-            <p style="margin-bottom: 15px;">a.n Keii Official</p>
-            <button class="close-modal" onclick="closeModal('seabankModal')">Tutup</button>
-        </div>
+        <!-- Notification -->
+        <div class="notification" id="notification">Copied to clipboard!</div>
     </div>
-
-    <!-- MODAL QRIS DIPERBESAR -->
-    <div class="modal" id="qrisModal">
-        <div class="modal-content">
-            <h3 style="color: #4a9eff; margin-bottom: 10px;">QRIS PEMBAYARAN</h3>
-            <img src="https://images.bukaolshop.com/hosting/181218/cce817858ef1663896.png" alt="QRIS">
-            <p style="color: #aaccff; margin: 20px 0 10px;">Scan QRIS di atas untuk pembayaran</p>
-            <button class="close-modal" onclick="closeModal('qrisModal')">Tutup</button>
-        </div>
-    </div>
-
-    <!-- Audio -->
-    <audio id="bgAudio" loop>
-        <source src="https://files.catbox.moe/mog6bq.mp3" type="audio/mpeg">
-    </audio>
 
     <script>
-        // DATA LENGKAP PRODUK (21 Kategori)
-        const kategoriData = [
-            { name: "Capcut Premium", paket: "6 Paket", harga: "Rp 8.000", logo: "https://images.bukaolshop.com/hosting/181218/47f862f5ed4a892435.png",
-              produk: ["Sharing 7 Hari Rp 8.000","Sharing 1 Bulan Rp 10.000","Sharing 1 Tahun Rp 25.000","Private 7 Hari Rp 11.000","Private 1 Bulan Rp 16.000","Private 1 Tahun Rp 36.000"] },
-            { name: "Apple Music", paket: "4 Paket", harga: "Rp 10.000", logo: "https://images.bukaolshop.com/hosting/181218/0b89f116be8e434425.png",
-              produk: ["Imees 1 Bulan Rp 10.000","Imees 3 Bulan Rp 14.000","Indplan 1 Bulan Rp 12.000","Famplan 1 Bulan Rp 12.000"] },
-            { name: "YouTube Premium", paket: "2 Paket", harga: "Rp 5.000", logo: "https://images.bukaolshop.com/hosting/181218/e1b9eae8982d985428.png",
-              produk: ["Famplan 1 Bulan Rp 5.000","Indplan Norush 1 Bulan Rp 11.000 +2k acc s"] },
-            { name: "Wink Premium", paket: "2 Paket", harga: "Rp 8.000", logo: "https://images.bukaolshop.com/hosting/181218/1bcea869e27c407235.png",
-              produk: ["Private 7 Hari (acc b) Rp 8.000","Private 7 Hari (acc s) Rp 11.000"] },
-            { name: "ChatGPT Premium", paket: "2 Paket", harga: "Rp 18.000", logo: "https://images.bukaolshop.com/hosting/181218/26f804d66e6e88158.png",
-              produk: ["Sharing 1 Bulan Plus Rp 18.000","Private 1 Bulan via Invite Rp 20.000"] },
-            { name: "Prime Video", paket: "3 Paket", harga: "Rp 14.000", logo: "https://images.bukaolshop.com/hosting/181218/ad8345f7b9c8953792.png",
-              produk: ["Sharing 2 User 1 Bulan Rp 16.000","Sharing 3 User 1 Bulan Rp 14.000","Private 1 Bulan Rp 20.000"] },
-            { name: "Vision+ Sport", paket: "4 Paket", harga: "Rp 15.000", logo: "https://images.bukaolshop.com/hosting/181218/072f4a242c47628279.png",
-              produk: ["Sharing 1 Bulan Paytv Rp 15.000","Sharing 1 Bulan Bkn Paytv Rp 40.000","Private 1 Bulan Paytv Rp 32.000","Private 1 Bulan Bkn Paytv Rp 40.000"] },
-            { name: "Viki Premium", paket: "1 Paket", harga: "Rp 16.000", logo: "https://images.bukaolshop.com/hosting/181218/fc34fcbdb564591085.png",
-              produk: ["Sharing 1 Bulan Rp 16.000"] },
-            { name: "Viu Premium", paket: "4 Paket", harga: "Rp 1.000", logo: "https://images.bukaolshop.com/hosting/181218/e185c3b3935534665.png",
-              produk: ["Anlim 1 Bulan Rp 1.000","Anlim 1 Tahun Rp 8.000","Liftime Rp 9.000","Viu+ 1 Bulan Rp 16.000"] },
-            { name: "Canva Premium", paket: "4 Paket", harga: "Rp 150", logo: "https://images.bukaolshop.com/hosting/181218/26f804d66e6e88158.png",
-              produk: ["Member 7 Hari Rp 150","Member 1 Bulan Rp 1.000","Member 1 Tahun Rp 12.500","Edu liftime Rp 12.000 (Gar 6b)"] },
-            { name: "Alight Motion", paket: "2 Paket", harga: "Rp 4.300", logo: "https://images.bukaolshop.com/hosting/181218/4a04b8d7e542788237.png",
-              produk: ["Private 1 Tahun (acc s) Rp 4.300","Private 1 Tahun (acc b) Rp 5.500"] },
-            { name: "Lok Lok Premium", paket: "4 Paket", harga: "Rp 20.000", logo: "https://images.bukaolshop.com/hosting/181218/281994f16dd4975145.png",
-              produk: ["Sharing 1 Bulan 3 User Basic No tv Rp 20.000","Sharing 1 Bulan 5 User all device Rp 25.000","Private 1 Bulan Basic Rp 55.000","Private 1 Bulan Standar Rp 80.000"] },
-            { name: "Disney Premium", paket: "2 Paket", harga: "Rp 25.000", logo: "https://images.bukaolshop.com/hosting/181218/db9934847fa6433172.png",
-              produk: ["Disney 6 User 1 Bulan Rp 31.000","Disney 10 User 1 Bulan Rp 25.000"] },
-            { name: "Netflix Premium", paket: "7 Paket", harga: "Rp 16.000", logo: "https://images.bukaolshop.com/hosting/181218/e97361a0f1be36831.png",
-              produk: ["Sharing 1p1u 7 Hari Rp 17.000","Sharing 1p1u 1 Bulan Rp 30.000","Sharing 1p2u 7 Hari Rp 16.000","Sharing 1p2u 1 Bulan Rp 26.000","Semi Privat 7 Hari Rp 22.000","Semi Privat 1 Bulan Rp 38.000","Private 1 Bulan Rp 200.000"] },
-            { name: "Gemini Premium", paket: "2 Paket", harga: "Rp 11.000", logo: "https://images.bukaolshop.com/hosting/181218/4a193950e401725286.png",
-              produk: ["Private 1 Bulan Rp 11.000","Private 1 Tahun Rp 25.000"] },
-            { name: "Hbo Max", paket: "4 Paket", harga: "Rp 19.000", logo: "https://images.bukaolshop.com/hosting/181218/4f504ab6ac35117507.png",
-              produk: ["Sharing 1 Bulan Standar Rp 19.000","Sharing 1 Bulan Ultimate Rp 23.000","Private 1 Bulan Standar Rp 56.000","Private 1 Bulan Ultimate Rp 66.000"] },
-            { name: "Nokos WhatsApp", paket: "5 Paket", harga: "Rp 8.000", logo: "https://images.bukaolshop.com/hosting/181218/7266732e2e41874360.png",
-              produk: ["Indonesia Rp 8.000","Filipina Rp 19.000","Hongkong Rp 11.000","Malaysia Rp 10.000","Thailand Rp 21.000"] },
-            { name: "Robux Vilog", paket: "5 Paket", harga: "Rp 27.600", logo: "https://images.bukaolshop.com/hosting/181218/c9625b182fcd73437.png",
-              produk: ["160 Robux Vilog Rp 27.600","320 Robux Vilog Rp 55.800","500 Robux Vilog Rp 72.000","1000 Robux Vilog Rp 135.800","2000 Robux Vilog Rp 268.800"] },
-            { name: "Jasa Web Store", paket: "2 Paket", harga: "Rp 30.000", logo: "https://images.bukaolshop.com/hosting/181218/99e951089ed4964596.png",
-              produk: ["Pembuatan Website Store Simple No Sound No Animasi Rp 30.000","Pembuatan Website Keren + Animasi Loading + Sound Rp 50.000"] },
-            { name: "Jasa Web Payment", paket: "2 Paket + Note", harga: "Rp 15.000", logo: "https://images.bukaolshop.com/hosting/181218/99e951089ed4964596.png",
-              produk: ["Pembuatan Website Payment Simple Tanpa Sound Rp 15.000","Pembuatan Website Payment Animasi Loading + sound Rp 35.000"],
-              catatan: "Note: Tambah Domain + Nama Sendiri Itu Bisa 500-1jt ++" },
-            { name: "Suntik WA", paket: "7 Paket", harga: "Rp 5.000", logo: "https://images.bukaolshop.com/hosting/181218/7266732e2e41874360.png",
-              produk: ["100 Pengikut Rp 5.000","300 Pengikut Rp 15.000","400 Pengikut Rp 20.000","500 Pengikut Rp 25.000","1.000 Pengikut Rp 50.000","2.000 Pengikut Rp 99.000"],
-              catatan: "Catatan: Sesudah Order Wajib Chat Admin Via Wa/Telegram Dan Sertakan Bukti Transfer !!!" }
+        // Collection of quotes
+        const quotes = [
+            { text: "The only way to do great work is to love what you do.", author: "Steve Jobs" },
+            { text: "Innovation distinguishes between a leader and a follower.", author: "Steve Jobs" },
+            { text: "Stay hungry, stay foolish.", author: "Steve Jobs" },
+            { text: "Design is not just what it looks like and feels like. Design is how it works.", author: "Steve Jobs" },
+            { text: "Your time is limited, don't waste it living someone else's life.", author: "Steve Jobs" },
+            { text: "The people who are crazy enough to think they can change the world are the ones who do.", author: "Apple" },
+            { text: "Simplicity is the ultimate sophistication.", author: "Leonardo da Vinci" },
+            { text: "The future belongs to those who believe in the beauty of their dreams.", author: "Eleanor Roosevelt" },
+            { text: "Success is not final, failure is not fatal: it is the courage to continue that counts.", author: "Winston Churchill" },
+            { text: "Everything you've ever wanted is on the other side of fear.", author: "George Addair" },
+            { text: "The only limit to our realization of tomorrow will be our doubts of today.", author: "Franklin D. Roosevelt" },
+            { text: "Do what you can, with what you have, where you are.", author: "Theodore Roosevelt" }
         ];
 
-        document.getElementById('totalApps').textContent = kategoriData.length + ' Kategori';
+        // DOM Elements
+        const quoteText = document.getElementById('quoteText');
+        const quoteAuthor = document.getElementById('quoteAuthor');
+        const generateBtn = document.getElementById('generateBtn');
+        const copyBtn = document.getElementById('copyBtn');
+        const twitterBtn = document.getElementById('twitterBtn');
+        const whatsappBtn = document.getElementById('whatsappBtn');
+        const notification = document.getElementById('notification');
+        const timeElement = document.getElementById('currentTime');
 
-        // Variables untuk payment
-        let selectedProduk = '';
-        let selectedHarga = '';
-        let selectedMetode = '';
-        let selectedMetodeNomor = '';
-
-        // Create Particles
-        function createParticles() {
-            const particlesContainer = document.getElementById('particles');
-            for (let i = 0; i < 30; i++) {
-                const particle = document.createElement('div');
-                particle.className = 'particle';
-                particle.style.left = Math.random() * 100 + '%';
-                particle.style.top = Math.random() * 100 + '%';
-                particle.style.animationDelay = Math.random() * 4 + 's';
-                particle.style.animationDuration = (3 + Math.random() * 2) + 's';
-                particlesContainer.appendChild(particle);
-            }
-        }
-        createParticles();
-         // Loading percentage
-        const loadingBar = document.getElementById('loadingBar');
-        const percentageEl = document.getElementById('percentage');
-        let width = 0;
-        const interval = setInterval(() => {
-            if (width >= 100) {
-                clearInterval(interval);
-            } else {
-                width++;
-                percentageEl.textContent = width + '%';
-            }
-        }, 30);
-
-        // Intro elements
-        const intro = document.getElementById('introScreen');
-        const main = document.getElementById('mainContent');
-        const enter = document.getElementById('enterBtn');
-        const audio = document.getElementById('bgAudio');
-        const channelPopup = document.getElementById('channelPopup');
-
-        enter.addEventListener('click', () => {
-            intro.classList.add('hide');
-            setTimeout(() => {
-                intro.style.display = 'none';
-                main.style.display = 'block';
-                setTimeout(() => {
-                    channelPopup.classList.add('show');
-                }, 500);
-            }, 800);
-            audio.play().catch(e => console.log(e));
-        });
-
-        window.closeChannelPopup = () => {
-            channelPopup.classList.remove('show');
-        };
-
-        window.onclick = (e) => {
-            if (e.target.classList.contains('channel-popup')) {
-                closeChannelPopup();
-            }
-            if (e.target.classList.contains('modal')) {
-                e.target.style.display = 'none';
-            }
-        };
-
-        document.addEventListener('click', () => {
-            if (audio.paused && intro.style.display === 'none') {
-                audio.play().catch(e => console.log(e));
-            }
-        });
-
-        // Status Online/Offline
-        function updateStatus() {
+        // Update time
+        function updateTime() {
             const now = new Date();
-            const hours = now.getHours();
-            const minutes = now.getMinutes();
-            const currentTime = hours + minutes / 60;
+            let hours = now.getHours();
+            let minutes = now.getMinutes();
+            
+            hours = hours.toString().padStart(2, '0');
+            minutes = minutes.toString().padStart(2, '0');
+            
+            timeElement.textContent = `${hours}:${minutes}`;
+        }
 
-            const siangStart = 10 + 30/60;
-            const siangEnd = 13 + 0/60;
-            const malamStart = 16 + 30/60;
-            const malamEnd = 22 + 0/60;
+        updateTime();
+        setInterval(updateTime, 1000);
 
-            const isOnline = (currentTime >= siangStart && currentTime <= siangEnd) || 
-                            (currentTime >= malamStart && currentTime <= malamEnd);
+        // Generate random quote
+        function generateQuote() {
+            const randomIndex = Math.floor(Math.random() * quotes.length);
+            const quote = quotes[randomIndex];
+            
+            quoteText.textContent = quote.text;
+            quoteAuthor.textContent = quote.author;
+        }
 
-            const statusDot = document.getElementById('statusDot');
-            const statusText = document.getElementById('statusText');
+        // Show notification
+        function showNotification(message) {
+            notification.textContent = message;
+            notification.classList.add('show');
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 2000);
+        }
 
-            if (isOnline) {
-                statusDot.className = 'dot online';
-                statusText.className = 'status-text online';
-                statusText.textContent = 'Online';
+        // Copy to clipboard
+        function copyToClipboard() {
+            const text = `"${quoteText.textContent}" — ${quoteAuthor.textContent}`;
+            
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(text)
+                    .then(() => showNotification('Copied to clipboard!'))
+                    .catch(() => showNotification('Failed to copy'));
             } else {
-                statusDot.className = 'dot offline';
-                statusText.className = 'status-text offline';
-                statusText.textContent = 'Offline';
+                // Fallback
+                const textarea = document.createElement('textarea');
+                textarea.value = text;
+                document.body.appendChild(textarea);
+                textarea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textarea);
+                showNotification('Copied to clipboard!');
             }
         }
 
-        updateStatus();
-        setInterval(updateStatus, 1000);
-
-        // Render Kategori
-        const appsGrid = document.getElementById('appsGrid');
-        const nokosGrid = document.getElementById('nokosGrid');
-
-        function renderKategori() {
-            let appsHtml = '';
-            for (let i = 0; i < 18; i++) {
-                const item = kategoriData[i];
-                appsHtml += `
-                    <div class="kategori-card" onclick="showProduk(${i})">
-                        <div class="kategori-header">
-                            <img src="${item.logo}" alt="${item.name}">
-                            <h3>${item.name}</h3>
-                        </div>
-                        <div class="kategori-info">
-                            <span class="kategori-paket">${item.paket}</span>
-                            <span class="kategori-harga">${item.harga}</span>
-                        </div>
-                    </div>
-                `;
-            }
-            appsGrid.innerHTML = appsHtml;
-
-            let nokosHtml = '';
-            for (let i = 18; i < kategoriData.length; i++) {
-                const item = kategoriData[i];
-                nokosHtml += `
-                    <div class="kategori-card" onclick="showProduk(${i})">
-                        <div class="kategori-header">
-                            <img src="${item.logo}" alt="${item.name}">
-                            <h3>${item.name}</h3>
-                        </div>
-                        <div class="kategori-info">
-                            <span class="kategori-paket">${item.paket}</span>
-                            <span class="kategori-harga">${item.harga}</span>
-                        </div>
-                    </div>
-                `;
-            }
-            nokosGrid.innerHTML = nokosHtml;
+        // Share on Twitter
+        function shareOnTwitter() {
+            const text = encodeURIComponent(`"${quoteText.textContent}" — ${quoteAuthor.textContent}`);
+            window.open(`https://twitter.com/intent/tweet?text=${text}`, '_blank');
         }
 
-        // Views
-        const kategoriView = document.getElementById('kategoriView');
-        const produkView = document.getElementById('produkView');
-        const paymentView = document.getElementById('paymentView');
-        const produkContainer = document.getElementById('produkContainer');
+        // Share on WhatsApp
+        function shareOnWhatsApp() {
+            const text = encodeURIComponent(`"${quoteText.textContent}" — ${quoteAuthor.textContent}`);
+            window.open(`https://wa.me/?text=${text}`, '_blank');
+        }
 
-        window.showProduk = (index) => {
-            const item = kategoriData[index];
-            let html = `
-                <div class="produk-header">
-                    <img src="${item.logo}" alt="${item.name}">
-                    <h2>${item.name}</h2>
-                </div>
-                <div class="produk-list">
-            `;
-            item.produk.forEach((p, i) => {
-                const parts = p.split('Rp');
-                const nama = parts[0];
-                const harga = 'Rp' + parts[1];
-                html += `
-                    <div class="produk-item" onclick="showPayment('${item.name}', '${nama}', '${harga}', ${index})">
-                        <span class="produk-nama">${nama}</span>
-                        <span class="produk-harga">${harga}</span>
-                    </div>
-                `;
-            });
-            html += '</div>';
-            if (item.catatan) {
-                html += `<div class="produk-catatan"><i class="fas fa-info-circle"></i> ${item.catatan}</div>`;
-            }
-            produkContainer.innerHTML = html;
-            kategoriView.style.display = 'none';
-            produkView.style.display = 'block';
-            paymentView.style.display = 'none';
-        };
+        // Event listeners
+        generateBtn.addEventListener('click', generateQuote);
+        copyBtn.addEventListener('click', copyToClipboard);
+        twitterBtn.addEventListener('click', shareOnTwitter);
+        whatsappBtn.addEventListener('click', shareOnWhatsApp);
 
-        window.showPayment = (kategori, produkNama, harga, index) => {
-            selectedProduk = kategori + ' - ' + produkNama;
-            selectedHarga = harga;
-            
-            document.getElementById('selectedInfo').innerHTML = `
-                <h3>${kategori}</h3>
-                <div class="produk-nama-payment">${produkNama}</div>
-                <div class="selected-harga">${harga}</div>
-            `;
-            
-            // Update format order
-            document.getElementById('formatProduk').textContent = selectedProduk;
-            document.getElementById('formatHarga').textContent = selectedHarga;
-            
-            produkView.style.display = 'none';
-            paymentView.style.display = 'block';
-        };
-
-        // Fungsi memilih metode pembayaran
-        window.selectPaymentMethod = (metode, nomor) => {
-            selectedMetode = metode;
-            selectedMetodeNomor = nomor;
-            
-            document.getElementById('formatMetode').textContent = metode + ' - ' + nomor;
-            
-            if (metode === 'QRIS') {
-                openModal('qrisModal');
-            } else if (metode === 'SEABANK') {
-                openModal('seabankModal');
-            } else if (metode === 'DANA') {
-                alert('Nomor DANA: ' + nomor);
-            }
-        };
-
-        // Fungsi copy format order
-        window.copyFormatOrder = () => {
-            const nama = document.getElementById('inputNama').value || 'Customer';
-            const noHP = document.getElementById('inputNoHP').value || '08xxxxxxxxxx';
-            const catatan = document.getElementById('inputCatatan').value || '-';
-            
-            const formatText = `ORDER BARU\n\nProduk: ${selectedProduk}\nHarga: ${selectedHarga}\nMetode: ${selectedMetode} - ${selectedMetodeNomor}\nNama: ${nama}\nNo. HP: ${noHP}\nCatatan: ${catatan}`;
-            
-            navigator.clipboard.writeText(formatText).then(() => {
-                alert('Format order berhasil disalin!');
-            });
-        };
-
-        // Fungsi kirim ke WhatsApp
-        window.sendToWA = () => {
-            const nama = document.getElementById('inputNama').value || 'Customer';
-            const noHP = document.getElementById('inputNoHP').value || '08xxxxxxxxxx';
-            const catatan = document.getElementById('inputCatatan').value || '-';
-            
-            const formatOrder = `ORDER BARU\n\n*Produk:* ${selectedProduk}\n*Harga:* ${selectedHarga}\n*Metode:* ${selectedMetode} - ${selectedMetodeNomor}\n*Nama:* ${nama}\n*No. HP:* ${noHP}\n*Catatan:* ${catatan}\n\nBukti transfer menyusul. Terima kasih.`;
-            
-            const waLink = `https://wa.me/6285150895395?text=${encodeURIComponent(formatOrder)}`;
-            window.open(waLink, '_blank');
-        };
-
-        // Back buttons
-        document.getElementById('backToKategori').addEventListener('click', () => {
-            produkView.style.display = 'none';
-            kategoriView.style.display = 'block';
-        });
-
-        document.getElementById('backToProduk').addEventListener('click', () => {
-            paymentView.style.display = 'none';
-            produkView.style.display = 'block';
-        });
-
-        // Modal functions
-        window.openModal = (id) => {
-            document.getElementById(id).style.display = 'flex';
-        };
-
-        window.closeModal = (id) => {
-            document.getElementById(id).style.display = 'none';
-        };
-
-        window.showAdminContact = () => {
-            alert('Hubungi admin:\nWA: 6285150895395 (Slow)\nTele: @KivoPay1 (Fast)');
-        };
-
-        renderKategori();
+        // Generate first quote
+        generateQuote();
     </script>
 </body>
-</html>
+</html> 
