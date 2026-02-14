@@ -22,7 +22,7 @@
             overflow-x: hidden;
         }
 
-        /* INTRO LOADING SUPER KEREN - UNGU THEME */
+        /* INTRO LOADING - UNGU THEME */
         .intro-screen {
             position: fixed;
             top: 0;
@@ -46,7 +46,7 @@
             background: linear-gradient(
                 45deg,
                 transparent 30%,
-                rgba(255, 107, 107, 0.15) 50%,
+                rgba(156, 39, 176, 0.15) 50%,
                 transparent 70%
             );
             animation: shine 3s infinite linear;
@@ -66,8 +66,8 @@
                 0deg,
                 transparent,
                 transparent 2px,
-                rgba(255, 107, 107, 0.05) 2px,
-                rgba(255, 107, 107, 0.05) 4px
+                rgba(156, 39, 176, 0.05) 2px,
+                rgba(156, 39, 176, 0.05) 4px
             );
             pointer-events: none;
         }
@@ -99,7 +99,7 @@
 
         .floating-elements i {
             position: absolute;
-            color: rgba(255, 107, 107, 0.1);
+            color: rgba(156, 39, 176, 0.1);
             animation: float 6s infinite ease-in-out;
         }
 
@@ -124,8 +124,8 @@
             margin: 0 auto 20px;
             border-radius: 50%;
             overflow: hidden;
-            border: 4px solid #ff6b6b;
-            box-shadow: 0 0 50px rgba(255, 107, 107, 0.6);
+            border: 4px solid #9c27b0;
+            box-shadow: 0 0 50px rgba(156, 39, 176, 0.6);
             animation: pulseRotate 2s infinite;
             background: transparent;
             padding: 0;
@@ -142,15 +142,15 @@
         @keyframes pulseRotate {
             0%, 100% { 
                 transform: scale(1) rotate(0deg);
-                box-shadow: 0 0 50px rgba(255, 107, 107, 0.6);
+                box-shadow: 0 0 50px rgba(156, 39, 176, 0.6);
             }
             33% { 
                 transform: scale(1.05) rotate(2deg);
-                box-shadow: 0 0 70px rgba(255, 107, 107, 0.8);
+                box-shadow: 0 0 70px rgba(156, 39, 176, 0.8);
             }
             66% { 
                 transform: scale(0.98) rotate(-2deg);
-                box-shadow: 0 0 60px rgba(255, 107, 107, 0.7);
+                box-shadow: 0 0 60px rgba(156, 39, 176, 0.7);
             }
         }
 
@@ -160,17 +160,17 @@
             font-weight: 800;
             color: #fff;
             margin-bottom: 20px;
-            text-shadow: 0 0 15px #ff6b6b;
+            text-shadow: 0 0 15px #9c27b0;
             letter-spacing: 4px;
             position: relative;
             z-index: 5;
         }
 
         .loading-title span {
-            color: #ff8a8a;
+            color: #ba68c8;
             display: inline-block;
             animation: wave 2s infinite;
-            text-shadow: 0 0 10px #ff6b6b;
+            text-shadow: 0 0 10px #9c27b0;
         }
 
         @keyframes wave {
@@ -184,8 +184,8 @@
             border-radius: 60px;
             padding: 5px;
             margin: 20px 0 10px;
-            border: 2px solid rgba(255, 107, 107, 0.4);
-            box-shadow: 0 0 40px rgba(255, 107, 107, 0.4);
+            border: 2px solid rgba(156, 39, 176, 0.4);
+            box-shadow: 0 0 40px rgba(156, 39, 176, 0.4);
             position: relative;
             z-index: 5;
             overflow: hidden;
@@ -193,13 +193,13 @@
 
         .loading-bar {
             height: 25px;
-            background: linear-gradient(90deg, #ff6b6b, #ff8a8a, #ff6b6b);
+            background: linear-gradient(90deg, #9c27b0, #ba68c8, #9c27b0);
             background-size: 300% 100%;
             border-radius: 60px;
             width: 0%;
             animation: loading 3s ease-in-out forwards, gradientMove 2s infinite linear;
             position: relative;
-            box-shadow: 0 0 30px #ff6b6b;
+            box-shadow: 0 0 30px #9c27b0;
         }
 
         @keyframes loading {
@@ -215,8 +215,8 @@
         .percentage {
             font-size: 2.5rem;
             font-weight: bold;
-            color: #ff8a8a;
-            text-shadow: 0 0 20px #ff6b6b;
+            color: #ba68c8;
+            text-shadow: 0 0 20px #9c27b0;
             margin: 5px 0;
         }
 
@@ -224,7 +224,7 @@
             display: flex;
             justify-content: space-between;
             margin: 15px 0;
-            color: #ff8a8a;
+            color: #ba68c8;
             flex-wrap: wrap;
             gap: 10px;
         }
@@ -236,7 +236,7 @@
         }
 
         .stat-item i {
-            color: #ff8a8a;
+            color: #ba68c8;
             animation: spin 2s infinite linear;
         }
 
@@ -257,8 +257,8 @@
         }
 
         .preview-item {
-            background: linear-gradient(145deg, rgba(255, 107, 107, 0.2), rgba(255, 107, 107, 0.05));
-            border: 1px solid rgba(255, 107, 107, 0.4);
+            background: linear-gradient(145deg, rgba(156, 39, 176, 0.2), rgba(156, 39, 176, 0.05));
+            border: 1px solid rgba(156, 39, 176, 0.4);
             border-radius: 50px;
             padding: 8px 5px;
             font-size: 0.9rem;
@@ -271,13 +271,13 @@
         }
 
         @keyframes previewGlow {
-            from { box-shadow: 0 0 5px rgba(255, 107, 107, 0.3); }
-            to { box-shadow: 0 0 15px rgba(255, 107, 107, 0.6); }
+            from { box-shadow: 0 0 5px rgba(156, 39, 176, 0.3); }
+            to { box-shadow: 0 0 15px rgba(156, 39, 176, 0.6); }
         }
 
         /* Enter Button */
         .enter-btn {
-            background: linear-gradient(45deg, #ff6b6b, #ff8a8a);
+            background: linear-gradient(45deg, #9c27b0, #ba68c8);
             background-size: 200% 100%;
             color: white;
             border: none;
@@ -286,7 +286,7 @@
             font-weight: bold;
             border-radius: 60px;
             cursor: pointer;
-            box-shadow: 0 0 40px #ff6b6b;
+            box-shadow: 0 0 40px #9c27b0;
             transition: all 0.3s;
             display: inline-flex;
             align-items: center;
@@ -316,10 +316,10 @@
             position: absolute;
             width: 4px;
             height: 4px;
-            background: #ff8a8a;
+            background: #ba68c8;
             border-radius: 50%;
             animation: particleFloat 4s infinite;
-            box-shadow: 0 0 10px #ff6b6b;
+            box-shadow: 0 0 10px #9c27b0;
         }
 
         @keyframes particleFloat {
@@ -360,8 +360,8 @@
             max-width: 450px;
             width: 90%;
             text-align: center;
-            border: 2px solid #ff6b6b;
-            box-shadow: 0 0 50px rgba(255, 107, 107, 0.5);
+            border: 2px solid #9c27b0;
+            box-shadow: 0 0 50px rgba(156, 39, 176, 0.5);
             animation: popupScale 0.3s ease;
         }
 
@@ -373,7 +373,7 @@
         .popup-icon {
             width: 80px;
             height: 80px;
-            background: #ff6b6b;
+            background: #9c27b0;
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -387,7 +387,7 @@
         }
 
         .popup-content h2 {
-            color: #ff8a8a;
+            color: #ba68c8;
             margin-bottom: 15px;
             font-size: 1.8rem;
         }
@@ -417,9 +417,9 @@
         }
 
         .popup-btn.join {
-            background: #ff6b6b;
+            background: #9c27b0;
             color: white;
-            box-shadow: 0 0 20px #ff6b6b;
+            box-shadow: 0 0 20px #9c27b0;
             text-decoration: none;
             display: inline-flex;
             align-items: center;
@@ -432,7 +432,7 @@
             border: 1px solid #666;
         }
 
-        /* MAIN CONTENT - WARNA BARU (MERAH/HITAM) */
+        /* MAIN CONTENT - WARNA BIRU MENYALA */
         .main-content {
             max-width: 600px;
             margin: 0 auto;
@@ -445,43 +445,38 @@
             to { opacity: 1; }
         }
 
-        /* Header - Warna Merah */
+        /* Header - Biru */
         .header {
-            background: linear-gradient(145deg, #2a1a1a, #1a0f0f);
+            background: linear-gradient(145deg, #1a3a6a, #0a1a3a);
             border-radius: 20px;
             padding: 20px;
             margin-bottom: 15px;
-            border: 1px solid #ff6b6b;
-            box-shadow: 0 10px 20px rgba(255, 107, 107, 0.2);
-            animation: headerPulse 3s infinite alternate;
+            border: 1px solid #4a9eff;
+            box-shadow: 0 10px 20px rgba(74, 158, 255, 0.3);
         }
 
-        @keyframes headerPulse {
-            from { box-shadow: 0 10px 20px rgba(255, 107, 107, 0.2); }
-            to { box-shadow: 0 10px 30px rgba(255, 107, 107, 0.4); }
-        }
-          .store-name {
+        .store-name {
             font-size: 1.5rem;
             font-weight: bold;
-            color: #ff6b6b;
+            color: #4a9eff;
             margin-bottom: 15px;
             display: flex;
             align-items: center;
             gap: 8px;
-            text-shadow: 0 0 10px #ff6b6b;
+            text-shadow: 0 0 10px #4a9eff;
         }
 
         .store-name i {
             font-size: 1.8rem;
-            color: #ff6b6b;
+            color: #4a9eff;
         }
 
         .status-container {
-            background: #2a1a1a;
+            background: #0a1a3a;
             border-radius: 16px;
             padding: 15px;
             margin-bottom: 15px;
-            border: 1px solid #ff6b6b;
+            border: 1px solid #4a9eff;
         }
 
         .status-row {
@@ -495,10 +490,10 @@
             display: flex;
             align-items: center;
             gap: 8px;
-            background: #1a0f0f;
+            background: #1a3a6a;
             padding: 8px 15px;
             border-radius: 30px;
-            border: 1px solid #ff6b6b;
+            border: 1px solid #4a9eff;
         }
 
         .dot {
@@ -510,8 +505,8 @@
         }
 
         .dot.online {
-            background: #ff6b6b;
-            box-shadow: 0 0 10px #ff6b6b;
+            background: #4a9eff;
+            box-shadow: 0 0 10px #4a9eff;
         }
 
         .dot.offline {
@@ -525,7 +520,7 @@
         }
 
         .status-text.online {
-            color: #ff6b6b;
+            color: #4a9eff;
         }
 
         .status-text.offline {
@@ -540,15 +535,15 @@
         }
 
         .schedule-item {
-            background: #1a0f0f;
+            background: #1a3a6a;
             border-radius: 12px;
             padding: 10px;
             text-align: center;
-            border: 1px solid #ff6b6b;
+            border: 1px solid #4a9eff;
         }
 
         .schedule-item i {
-            color: #ff6b6b;
+            color: #4a9eff;
             margin-right: 5px;
         }
 
@@ -559,7 +554,7 @@
         }
 
         .schedule-item .session {
-            color: #ff8a8a;
+            color: #aaccff;
             font-size: 0.8rem;
         }
 
@@ -589,17 +584,17 @@
         }
 
         .section-title i {
-            color: #ff6b6b;
+            color: #4a9eff;
             font-size: 1.1rem;
         }
 
         .section-title span {
-            color: #ff8a8a;
+            color: #aaccff;
             font-size: 0.9rem;
             margin-left: auto;
         }
 
-        /* Kategori Grid - Warna Baru */
+        /* Kategori Grid - Biru */
         .kategori-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -608,10 +603,10 @@
         }
 
         .kategori-card {
-            background: linear-gradient(145deg, #2a1a1a, #1a0f0f);
+            background: linear-gradient(145deg, #1a3a6a, #0a1a3a);
             border-radius: 16px;
             padding: 15px;
-            border: 1px solid #ff6b6b;
+            border: 1px solid #4a9eff;
             cursor: pointer;
             transition: all 0.3s;
             animation: cardFloat 3s infinite alternate;
@@ -623,9 +618,9 @@
         }
 
         .kategori-card:hover {
-            border-color: #ff8a8a;
+            border-color: #aaccff;
             transform: translateY(-8px) scale(1.02);
-            box-shadow: 0 15px 30px rgba(255, 107, 107, 0.3);
+            box-shadow: 0 15px 30px rgba(74, 158, 255, 0.4);
         }
 
         .kategori-header {
@@ -642,7 +637,7 @@
             background: #fff;
             padding: 5px;
             border-radius: 10px;
-            border: 1px solid #ff6b6b;
+            border: 1px solid #4a9eff;
             animation: rotateLogo 5s infinite linear;
         }
 
@@ -654,47 +649,47 @@
         .kategori-header h3 {
             font-size: 1rem;
             font-weight: 600;
-            color: #ff8a8a;
+            color: #aaccff;
         }
 
         .kategori-info {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            color: #ff8a8a;
+            color: #aaccff;
             font-size: 0.85rem;
-            border-top: 1px solid #ff6b6b;
+            border-top: 1px solid #4a9eff;
             padding-top: 10px;
         }
 
         .kategori-paket {
-            color: #ff8a8a;
+            color: #aaccff;
         }
 
         .kategori-harga {
-            color: #ff6b6b;
+            color: #4a9eff;
             font-weight: bold;
             font-size: 1rem;
             animation: priceGlow 1s infinite alternate;
         }
 
         @keyframes priceGlow {
-            from { text-shadow: 0 0 5px #ff6b6b; }
-            to { text-shadow: 0 0 15px #ff6b6b; }
+            from { text-shadow: 0 0 5px #4a9eff; }
+            to { text-shadow: 0 0 15px #4a9eff; }
         }
 
         .produk-view, .payment-view {
-            background: linear-gradient(145deg, #2a1a1a, #1a0f0f);
+            background: linear-gradient(145deg, #1a3a6a, #0a1a3a);
             border-radius: 20px;
             padding: 20px;
-            border: 1px solid #ff6b6b;
-            box-shadow: 0 10px 20px rgba(255, 107, 107, 0.2);
+            border: 1px solid #4a9eff;
+            box-shadow: 0 10px 20px rgba(74, 158, 255, 0.3);
         }
 
         .back-btn {
-            background: #1a0f0f;
-            border: 1px solid #ff6b6b;
-            color: #ff8a8a;
+            background: #0a1a3a;
+            border: 1px solid #4a9eff;
+            color: #aaccff;
             padding: 10px 20px;
             border-radius: 30px;
             cursor: pointer;
@@ -707,8 +702,8 @@
         }
 
         .back-btn:hover {
-            border-color: #ff8a8a;
-            color: #ff6b6b;
+            border-color: #aaccff;
+            color: #4a9eff;
             transform: translateX(-5px);
         }
 
@@ -718,21 +713,21 @@
             gap: 12px;
             margin-bottom: 20px;
             padding-bottom: 15px;
-            border-bottom: 1px solid #ff6b6b;
+            border-bottom: 1px solid #4a9eff;
         }
 
-        .produk-header img {
+         .produk-header img {
             width: 45px;
             height: 45px;
             object-fit: contain;
             background: #fff;
             padding: 8px;
             border-radius: 12px;
-            border: 1px solid #ff6b6b;
+            border: 1px solid #4a9eff;
         }
 
         .produk-header h2 {
-            color: #ff8a8a;
+            color: #aaccff;
         }
 
         .produk-list {
@@ -742,13 +737,13 @@
         }
 
         .produk-item {
-            background: #1a0f0f;
+            background: #0a1a3a;
             border-radius: 12px;
             padding: 12px 15px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border: 1px solid #ff6b6b;
+            border: 1px solid #4a9eff;
             cursor: pointer;
             transition: all 0.3s;
             animation: itemPulse 2s infinite alternate;
@@ -760,19 +755,19 @@
         }
 
         .produk-item:hover {
-            border-color: #ff8a8a;
+            border-color: #aaccff;
             transform: translateX(5px) scale(1.02);
-            background: #2a1a1a;
+            background: #1a3a6a;
         }
 
         .produk-nama {
             font-size: 0.95rem;
             flex: 1;
-            color: #ff8a8a;
+            color: #aaccff;
         }
 
         .produk-harga {
-            color: #ff6b6b;
+            color: #4a9eff;
             font-weight: bold;
             margin-left: 10px;
         }
@@ -782,127 +777,38 @@
             color: #ff9999;
             margin-top: 5px;
             padding: 5px 0;
-            border-top: 1px dashed #ff6b6b;
+            border-top: 1px dashed #4a9eff;
         }
 
-        /* Payment View - Dengan Format Order */
+        /* Selected Info */
         .selected-info {
-            background: #1a0f0f;
+            background: #0a1a3a;
             border-radius: 12px;
             padding: 15px;
             text-align: center;
             margin-bottom: 20px;
-            border: 1px solid #ff6b6b;
+            border: 1px solid #4a9eff;
         }
 
         .selected-info h3 {
-            color: #ff8a8a;
+            color: #aaccff;
             margin-bottom: 5px;
             font-size: 1.2rem;
         }
 
+        .selected-info .produk-nama-payment {
+            color: #fff;
+            margin: 5px 0;
+        }
+
         .selected-harga {
             font-size: 1.5rem;
-            color: #ff6b6b;
+            color: #4a9eff;
             font-weight: bold;
             margin-top: 5px;
         }
 
-        /* Format Order Container */
-        .format-order-container {
-            background: #1a0f0f;
-            border-radius: 12px;
-            padding: 15px;
-            margin: 20px 0;
-            border: 2px dashed #ff6b6b;
-            animation: borderGlow 2s infinite alternate;
-        }
-
-        @keyframes borderGlow {
-            from { border-color: #ff6b6b; box-shadow: 0 0 10px #ff6b6b; }
-            to { border-color: #ff8a8a; box-shadow: 0 0 20px #ff8a8a; }
-        }
-
-        .format-order-container h4 {
-            color: #ff8a8a;
-            margin-bottom: 15px;
-            font-size: 1.1rem;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-
-        .format-order-container h4 i {
-            color: #ff6b6b;
-        }
-
-        .format-order-box {
-            background: #2a1a1a;
-            border-radius: 8px;
-            padding: 15px;
-            font-family: monospace;
-            font-size: 0.95rem;
-            margin-bottom: 15px;
-            border: 1px solid #ff6b6b;
-            color: #fff;
-            line-height: 1.8;
-        }
-
-        .format-order-box div {
-            margin: 5px 0;
-        }
-
-        .format-order-box .label {
-            color: #ff8a8a;
-        }
-
-        .format-order-box .value {
-            color: #ff6b6b;
-            font-weight: bold;
-            margin-left: 5px;
-        }
-
-        .copy-btn {
-            background: #ff6b6b;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 8px;
-            font-weight: 600;
-            cursor: pointer;
-            width: 100%;
-            transition: all 0.3s;
-            margin-top: 10px;
-        }
-
-        .copy-btn:hover {
-            background: #ff8a8a;
-            transform: scale(1.02);
-        }
-
-        .send-wa-btn {
-            background: #25D366;
-            color: white;
-            border: none;
-            padding: 12px 20px;
-            border-radius: 8px;
-            font-weight: 600;
-            cursor: pointer;
-            width: 100%;
-            transition: all 0.3s;
-            margin-top: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            font-size: 1rem;
-        }
-
-        .send-wa-btn:hover {
-            background: #128C7E;
-            transform: scale(1.02);
-        }
-
+        /* Payment Metode */
         .payment-metode {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -911,15 +817,15 @@
         }
 
         .metode-card {
-            background: #1a0f0f;
+            background: #0a1a3a;
             border-radius: 12px;
             padding: 15px;
-            border: 1px solid #ff6b6b;
+            border: 1px solid #4a9eff;
             transition: all 0.3s;
         }
 
         .metode-card:hover {
-            border-color: #ff8a8a;
+            border-color: #aaccff;
             transform: scale(1.02);
         }
 
@@ -942,22 +848,23 @@
         .metode-header span {
             font-weight: 600;
             font-size: 0.95rem;
-            color: #ff8a8a;
+            color: #aaccff;
         }
 
         .nomor {
-            background: #2a1a1a;
+            background: #1a3a6a;
             padding: 8px;
             border-radius: 8px;
             font-family: monospace;
             font-size: 0.9rem;
             text-align: center;
             margin: 10px 0;
-            color: #ff8a8a;
-            border: 1px solid #ff6b6b;
-            }
+            color: #aaccff;
+            border: 1px solid #4a9eff;
+        }
+
         .btn-popup {
-            background: #ff6b6b;
+            background: #4a9eff;
             color: white;
             border: none;
             padding: 8px;
@@ -974,7 +881,7 @@
         }
 
         .btn-popup:hover {
-            background: #ff8a8a;
+            background: #6aaeff;
             transform: scale(0.98);
         }
 
@@ -984,100 +891,201 @@
             margin: 10px auto;
             display: block;
             border-radius: 8px;
-            border: 2px solid #ff6b6b;
+            border: 2px solid #4a9eff;
         }
 
         .metode-card.full {
             grid-column: span 2;
         }
 
-        .admin-contacts {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-            margin-top: 20px;
+        /* FORMAT ORDER - BISA DIISI */
+        .format-order-container {
+            background: #0a1a3a;
+            border-radius: 16px;
+            padding: 20px;
+            margin: 20px 0;
+            border: 2px dashed #4a9eff;
+            animation: borderGlow 2s infinite alternate;
         }
 
-        .admin-btn {
+        @keyframes borderGlow {
+            from { border-color: #4a9eff; box-shadow: 0 0 10px #4a9eff; }
+            to { border-color: #aaccff; box-shadow: 0 0 20px #aaccff; }
+        }
+
+        .format-order-container h3 {
+            color: #aaccff;
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .format-order-container h3 i {
+            color: #4a9eff;
+        }
+
+        .format-order-box {
+            background: #1a3a6a;
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 15px;
+            border: 1px solid #4a9eff;
+        }
+
+        .format-row {
+            display: flex;
+            margin: 10px 0;
+            align-items: center;
+        }
+
+        .format-label {
+            width: 80px;
+            color: #aaccff;
+            font-weight: 600;
+        }
+
+        .format-input {
+            flex: 1;
+            background: #0a1a3a;
+            border: 1px solid #4a9eff;
+            border-radius: 6px;
+            padding: 8px 12px;
+            color: white;
+            font-size: 0.95rem;
+        }
+
+        .format-input:focus {
+            outline: none;
+            border-color: #aaccff;
+            box-shadow: 0 0 10px #4a9eff;
+        }
+
+        .format-value {
+            flex: 1;
+            color: #4a9eff;
+            font-weight: 600;
+            padding: 8px 12px;
+        }
+
+        .format-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .format-btn {
+            flex: 1;
+            background: #4a9eff;
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 8px;
-            padding: 12px;
-            border-radius: 30px;
-            text-decoration: none;
-            color: white;
-            font-weight: 600;
-            font-size: 0.9rem;
-            transition: all 0.3s;
-            animation: btnPulse 2s infinite alternate;
         }
 
-        @keyframes btnPulse {
-            from { transform: scale(1); }
-            to { transform: scale(1.05); }
+        .format-btn:hover {
+            background: #6aaeff;
+            transform: scale(1.02);
         }
 
-        .admin-btn:hover {
-            transform: translateY(-2px) scale(1.1);
-            filter: brightness(1.1);
+        .format-btn.copy {
+            background: #0a1a3a;
+            border: 1px solid #4a9eff;
         }
 
-        .wa-btn {
+        .format-btn.copy:hover {
+            background: #1a3a6a;
+        }
+
+        /* Admin Contacts - Hanya Satu */
+        .admin-contact-single {
+            background: #0a1a3a;
+            border-radius: 12px;
+            padding: 15px;
+            margin: 20px 0;
+            text-align: center;
+            border: 1px solid #4a9eff;
+        }
+
+        .admin-contact-single p {
+            color: #aaccff;
+            margin-bottom: 10px;
+            font-size: 0.95rem;
+        }
+
+        .admin-btn-single {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
             background: #25D366;
-        }
-
-        .tele-btn {
+            color: white;
+            padding: 12px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s;
+            margin: 5px;
+            }
+            .admin-btn-single.tele {
             background: #0088cc;
         }
 
+        .admin-btn-single:hover {
+            transform: translateY(-2px) scale(1.05);
+            filter: brightness(1.1);
+        }
+
         .respon {
-            font-size: 0.7rem;
+            font-size: 0.8rem;
             opacity: 0.8;
         }
 
         .note {
             text-align: center;
             margin-top: 15px;
-            color: #ff8a8a;
+            color: #aaccff;
             font-size: 0.9rem;
-            animation: textGlow 2s infinite alternate;
-        }
-
-        @keyframes textGlow {
-            from { text-shadow: 0 0 5px #ff6b6b; }
-            to { text-shadow: 0 0 15px #ff6b6b; }
         }
 
         .suntik-note {
-            background: #1a0f0f;
+            background: #0a1a3a;
             border-radius: 12px;
             padding: 15px;
             margin: 20px 0;
             text-align: center;
-            border: 1px dashed #ff6b6b;
+            border: 1px dashed #4a9eff;
             animation: noteGlow 2s infinite alternate;
         }
 
         @keyframes noteGlow {
-            from { box-shadow: 0 0 10px #ff6b6b; }
-            to { box-shadow: 0 0 20px #ff6b6b; }
+            from { box-shadow: 0 0 10px #4a9eff; }
+            to { box-shadow: 0 0 20px #4a9eff; }
         }
 
         .suntik-note i {
-            color: #ff6b6b;
+            color: #4a9eff;
             margin-right: 8px;
         }
 
         .suntik-note a {
-            color: #ff6b6b;
+            color: #4a9eff;
             text-decoration: none;
             font-weight: bold;
         }
 
         .suntik-note a:hover {
             text-decoration: underline;
-            color: #ff8a8a;
+            color: #aaccff;
         }
 
         /* Modal */
@@ -1097,15 +1105,15 @@
         }
 
         .modal-content {
-            background: #1a0f0f;
+            background: #0a1a3a;
             padding: 30px;
             border-radius: 20px;
             text-align: center;
             max-width: 600px;
             width: 90%;
-            border: 3px solid #ff6b6b;
+            border: 3px solid #4a9eff;
             animation: modalPop 0.3s ease;
-            box-shadow: 0 0 70px rgba(255, 107, 107, 0.5);
+            box-shadow: 0 0 70px rgba(74, 158, 255, 0.5);
         }
 
         .modal-content img {
@@ -1114,8 +1122,8 @@
             height: auto;
             margin: 20px 0;
             border-radius: 15px;
-            border: 3px solid #ff6b6b;
-            box-shadow: 0 0 30px rgba(255, 107, 107, 0.5);
+            border: 3px solid #4a9eff;
+            box-shadow: 0 0 30px rgba(74, 158, 255, 0.5);
         }
 
         @media (min-width: 768px) {
@@ -1124,20 +1132,14 @@
             }
         }
 
-        @media (min-width: 1200px) {
-            .modal-content img {
-                width: 550px;
-            }
-        }
-
         .modal-content h3 {
-            color: #ff6b6b;
+            color: #4a9eff;
             margin: 15px 0;
             font-size: 2rem;
         }
 
         .close-modal {
-            background: #ff6b6b;
+            background: #4a9eff;
             color: white;
             border: none;
             padding: 12px 40px;
@@ -1150,7 +1152,7 @@
         }
 
         .close-modal:hover {
-            background: #ff8a8a;
+            background: #6aaeff;
             transform: scale(1.05);
         }
 
@@ -1171,7 +1173,7 @@
     </style>
 </head>
 <body>
-    <!-- INTRO LOADING SUPER KEREN - MERAH THEME -->
+    <!-- INTRO LOADING - UNGU -->
     <div class="intro-screen" id="introScreen">
         <!-- Floating Icons -->
         <div class="floating-elements">
@@ -1267,7 +1269,7 @@
                         <span class="dot" id="statusDot"></span>
                         <span class="status-text" id="statusText">Loading...</span>
                     </div>
-                    <span><i class="fas fa-clock" style="color: #ff6b6b;"></i> WIB</span>
+                    <span><i class="fas fa-clock" style="color: #4a9eff;"></i> WIB</span>
                 </div>
 
                 <div class="schedule">
@@ -1332,30 +1334,12 @@
                     <i class="fas fa-arrow-left"></i> Kembali
                 </button>
                 
-                <div class="selected-info" id="selectedInfo"></div>
-
-                <!-- FORMAT ORDER OTOMATIS -->
-                <div class="format-order-container" id="formatOrderContainer">
-                    <h4><i class="fas fa-shopping-cart"></i> Format Orderan</h4>
-                    <div class="format-order-box" id="formatOrderBox">
-                        <div><span class="label">Produk:</span> <span class="value" id="formatProduk">-</span></div>
-                        <div><span class="label">Harga:</span> <span class="value" id="formatHarga">-</span></div>
-                        <div><span class="label">Metode:</span> <span class="value" id="formatMetode">-</span></div>
-                        <div><span class="label">Nama:</span> <span class="value" id="formatNama">[Isi Nama]</span></div>
-                        <div><span class="label">No. HP:</span> <span class="value" id="formatNoHP">[Isi No. HP]</span></div>
-                        <div><span class="label">Catatan:</span> <span class="value" id="formatCatatan">-</span></div>
-                    </div>
-                    
-                    <button class="copy-btn" onclick="copyFormatOrder()">
-                        <i class="fas fa-copy"></i> Salin Format Order
-                    </button>
-                    
-                    <a href="#" id="sendWABtn" target="_blank" class="send-wa-btn">
-                        <i class="fab fa-whatsapp"></i> Kirim ke WhatsApp Admin
-                    </a>
+                <div class="selected-info" id="selectedInfo">
+                    <!-- Akan diisi oleh JavaScript -->
                 </div>
 
-                <h3 style="margin-bottom: 15px; color: #ff8a8a;">Metode Pembayaran</h3>
+                <!-- METODE PEMBAYARAN (DI ATAS) -->
+                <h3 style="margin-bottom: 15px; color: #aaccff;">Metode Pembayaran</h3>
                 
                 <div class="payment-metode">
                     <!-- Dana -->
@@ -1395,22 +1379,60 @@
                     </div>
                 </div>
 
-                <!-- Admin Contacts -->
-                <div class="admin-contacts">
-                    <a href="https://wa.me/6285150895395" class="admin-btn wa-btn" target="_blank">
-                        <i class="fab fa-whatsapp"></i> 
-                        <span>WhatsApp</span>
-                        <span class="respon">(Slow)</span>
-                    </a>
-                    <a href="https://t.me/KivoPay1" class="admin-btn tele-btn" target="_blank">
-                        <i class="fab fa-telegram"></i> 
-                        <span>Telegram</span>
-                        <span class="respon">(Fast)</span>
-                    </a>
+                <!-- FORMAT ORDER (DI TENGAH, BISA DIISI) -->
+                <div class="format-order-container" id="formatOrderContainer">
+                    <h3><i class="fas fa-shopping-cart"></i> Format Orderan</h3>
+                    <div class="format-order-box" id="formatOrderBox">
+                        <div class="format-row">
+                            <span class="format-label">Produk:</span>
+                            <span class="format-value" id="formatProduk">-</span>
+                        </div>
+                        <div class="format-row">
+                            <span class="format-label">Harga:</span>
+                            <span class="format-value" id="formatHarga">-</span>
+                        </div>
+                        <div class="format-row">
+                            <span class="format-label">Metode:</span>
+                            <span class="format-value" id="formatMetode">-</span>
+                        </div>
+                        <div class="format-row">
+                            <span class="format-label">Nama:</span>
+                            <input type="text" class="format-input" id="inputNama" placeholder="Masukkan nama Anda" value="Customer">
+                        </div>
+                        <div class="format-row">
+                            <span class="format-label">No. HP:</span>
+                            <input type="text" class="format-input" id="inputNoHP" placeholder="08xxxxxxxxxx" value="08xxxxxxxxxx">
+                        </div>
+                        <div class="format-row">
+                            <span class="format-label">Catatan:</span>
+                            <input type="text" class="format-input" id="inputCatatan" placeholder="Tambahkan catatan (opsional)" value="-">
+                        </div>
+                    </div>
+                    
+                    <div class="format-buttons">
+                        <button class="format-btn copy" onclick="copyFormatOrder()">
+                            <i class="fas fa-copy"></i> Salin Format Order
+                        </button>
+                        <button class="format-btn" onclick="sendToWA()">
+                            <i class="fab fa-whatsapp"></i> Kirim ke Supermarket
+                        </button>
+                    </div>
+                </div>
+                 <!-- ADMIN CONTACT (SATU) -->
+                <div class="admin-contact-single">
+                    <p><i class="fas fa-info-circle" style="color: #4a9eff;"></i> Hubungi admin untuk mengirim bukti transfer:</p>
+                    <div>
+                        <a href="https://wa.me/6285150895395" class="admin-btn-single wa-btn" target="_blank">
+                            <i class="fab fa-whatsapp"></i> Admin WhatsApp <span class="respon">(Slow)</span>
+                        </a>
+                        <a href="https://t.me/KivoPay1" class="admin-btn-single tele" target="_blank">
+                            <i class="fab fa-telegram"></i> Admin Telegram <span class="respon">(Fast)</span>
+                        </a>
+                    </div>
                 </div>
 
                 <div class="note">
-                    <i class="fas fa-info-circle"></i> Hubungi Admin Via WhatsApp/Telegram Untuk Mengirim Bukti Transfer
+                    <i class="fas fa-info-circle"></i> Kirim bukti transfer ke admin setelah pembayaran
                 </div>
             </div>
         </div>
@@ -1420,8 +1442,8 @@
     <div class="modal" id="seabankModal">
         <div class="modal-content" style="max-width: 400px;">
             <img src="https://images.bukaolshop.com/hosting/181218/0d46bd2ba133491753.png" alt="Seabank">
-            <h3 style="color: #ff6b6b; margin: 10px 0;">SEABANK</h3>
-            <div style="background: #1a0f0f; padding: 12px; border-radius: 8px; margin: 15px 0; font-family: monospace; font-size: 1.1rem; color: #ff8a8a;">
+            <h3 style="color: #4a9eff; margin: 10px 0;">SEABANK</h3>
+            <div style="background: #0a1a3a; padding: 12px; border-radius: 8px; margin: 15px 0; font-family: monospace; font-size: 1.1rem; color: #aaccff;">
                 9015 1787 0612
             </div>
             <p style="margin-bottom: 15px;">a.n Keii Official</p>
@@ -1432,9 +1454,9 @@
     <!-- MODAL QRIS DIPERBESAR -->
     <div class="modal" id="qrisModal">
         <div class="modal-content">
-            <h3 style="color: #ff6b6b; margin-bottom: 10px;">QRIS PEMBAYARAN</h3>
+            <h3 style="color: #4a9eff; margin-bottom: 10px;">QRIS PEMBAYARAN</h3>
             <img src="https://images.bukaolshop.com/hosting/181218/cce817858ef1663896.png" alt="QRIS">
-            <p style="color: #ff8a8a; margin: 20px 0 10px;">Scan QRIS di atas untuk pembayaran</p>
+            <p style="color: #aaccff; margin: 20px 0 10px;">Scan QRIS di atas untuk pembayaran</p>
             <button class="close-modal" onclick="closeModal('qrisModal')">Tutup</button>
         </div>
     </div>
@@ -1443,7 +1465,8 @@
     <audio id="bgAudio" loop>
         <source src="https://files.catbox.moe/mog6bq.mp3" type="audio/mpeg">
     </audio>
-       <script>
+
+    <script>
         // DATA LENGKAP PRODUK (21 Kategori)
         const kategoriData = [
             { name: "Capcut Premium", paket: "6 Paket", harga: "Rp 8.000", logo: "https://images.bukaolshop.com/hosting/181218/47f862f5ed4a892435.png",
@@ -1491,8 +1514,7 @@
               produk: ["100 Pengikut Rp 5.000","300 Pengikut Rp 15.000","400 Pengikut Rp 20.000","500 Pengikut Rp 25.000","1.000 Pengikut Rp 50.000","2.000 Pengikut Rp 99.000"],
               catatan: "Catatan: Sesudah Order Wajib Chat Admin Via Wa/Telegram Dan Sertakan Bukti Transfer !!!" }
         ];
-
-        document.getElementById('totalApps').textContent = kategoriData.length + ' Kategori';
+       document.getElementById('totalApps').textContent = kategoriData.length + ' Kategori';
 
         // Variables untuk payment
         let selectedProduk = '';
@@ -1682,7 +1704,7 @@
             
             document.getElementById('selectedInfo').innerHTML = `
                 <h3>${kategori}</h3>
-                <p style="margin: 5px 0;">${produkNama}</p>
+                <div class="produk-nama-payment">${produkNama}</div>
                 <div class="selected-harga">${harga}</div>
             `;
             
@@ -1708,45 +1730,31 @@
             } else if (metode === 'DANA') {
                 alert('Nomor DANA: ' + nomor);
             }
-            
-            // Update link WhatsApp
-            updateWALink();
         };
-            // Fungsi update link WhatsApp dengan format order
-        function updateWALink() {
-            const nama = prompt('Masukkan nama Anda:', 'Customer');
-            if (!nama) return;
-            
-            const noHP = prompt('Masukkan nomor HP Anda:', '08xxxxxxxxxx');
-            if (!noHP) return;
-            
-            document.getElementById('formatNama').textContent = nama;
-            document.getElementById('formatNoHP').textContent = noHP;
-            
-            const catatan = document.getElementById('formatCatatan').textContent;
-            
-            const formatOrder = `*ORDER BARU*
-            
-*Produk:* ${selectedProduk}
-*Harga:* ${selectedHarga}
-*Metode:* ${selectedMetode} - ${selectedMetodeNomor}
-*Nama:* ${nama}
-*No. HP:* ${noHP}
-*Catatan:* ${catatan}
-
-Bukti transfer menyusul. Terima kasih.`;
-            
-            const waLink = `https://wa.me/6285150895395?text=${encodeURIComponent(formatOrder)}`;
-            document.getElementById('sendWABtn').href = waLink;
-        }
 
         // Fungsi copy format order
         window.copyFormatOrder = () => {
-            const formatText = `ORDER BARU\n\nProduk: ${selectedProduk}\nHarga: ${selectedHarga}\nMetode: ${selectedMetode} - ${selectedMetodeNomor}\nNama: ${document.getElementById('formatNama').textContent}\nNo. HP: ${document.getElementById('formatNoHP').textContent}\nCatatan: ${document.getElementById('formatCatatan').textContent}`;
+            const nama = document.getElementById('inputNama').value || 'Customer';
+            const noHP = document.getElementById('inputNoHP').value || '08xxxxxxxxxx';
+            const catatan = document.getElementById('inputCatatan').value || '-';
+            
+            const formatText = `ORDER BARU\n\nProduk: ${selectedProduk}\nHarga: ${selectedHarga}\nMetode: ${selectedMetode} - ${selectedMetodeNomor}\nNama: ${nama}\nNo. HP: ${noHP}\nCatatan: ${catatan}`;
             
             navigator.clipboard.writeText(formatText).then(() => {
                 alert('Format order berhasil disalin!');
             });
+        };
+
+        // Fungsi kirim ke WhatsApp
+        window.sendToWA = () => {
+            const nama = document.getElementById('inputNama').value || 'Customer';
+            const noHP = document.getElementById('inputNoHP').value || '08xxxxxxxxxx';
+            const catatan = document.getElementById('inputCatatan').value || '-';
+            
+            const formatOrder = `ORDER BARU\n\n*Produk:* ${selectedProduk}\n*Harga:* ${selectedHarga}\n*Metode:* ${selectedMetode} - ${selectedMetodeNomor}\n*Nama:* ${nama}\n*No. HP:* ${noHP}\n*Catatan:* ${catatan}\n\nBukti transfer menyusul. Terima kasih.`;
+            
+            const waLink = `https://wa.me/6285150895395?text=${encodeURIComponent(formatOrder)}`;
+            window.open(waLink, '_blank');
         };
 
         // Back buttons
@@ -1776,4 +1784,4 @@ Bukti transfer menyusul. Terima kasih.`;
         renderKategori();
     </script>
 </body>
-</html>
+</html> 
