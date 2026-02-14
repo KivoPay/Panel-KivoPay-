@@ -3,9 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ACCESS DENIED // DARK WEB TERMINAL v3.7.1</title>
+    <title>CODE REALM // ANIMATED DEV TERMINAL</title>
     <style>
-        /* Reset & Base */
         * {
             margin: 0;
             padding: 0;
@@ -13,30 +12,16 @@
         }
 
         body {
-            background: #000;
-            font-family: 'Courier New', monospace;
+            background: #0a0c0f;
+            font-family: 'Fira Code', 'Courier New', monospace;
             height: 100vh;
             overflow: hidden;
             position: relative;
+            color: #e6e6e6;
         }
 
-        /* Glitch Effect Overlay */
-        .glitch-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(45deg, transparent 50%, rgba(255,0,0,0.1) 50%);
-            background-size: 4px 4px;
-            pointer-events: none;
-            z-index: 999;
-            animation: glitch 0.3s infinite;
-            opacity: 0.1;
-        }
-
-        /* Matrix Canvas */
-        #matrixCanvas {
+        /* Animated Background */
+        .animated-bg {
             position: fixed;
             top: 0;
             left: 0;
@@ -45,15 +30,35 @@
             z-index: 0;
         }
 
-        /* Binary Rain Canvas */
-        #binaryCanvas {
+        .gradient-orb {
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(0,255,255,0.15) 0%, rgba(0,255,0,0.05) 50%, transparent 70%);
+            border-radius: 50%;
+            filter: blur(60px);
+            animation: orbFloat 20s infinite ease-in-out;
+        }
+
+        .orb-1 { top: -200px; right: -200px; background: radial-gradient(circle, rgba(255,0,255,0.15), rgba(0,255,255,0.05)); animation-delay: -5s; }
+        .orb-2 { bottom: -200px; left: -200px; background: radial-gradient(circle, rgba(0,255,0,0.15), rgba(255,255,0,0.05)); animation-delay: -10s; }
+        .orb-3 { top: 50%; left: 50%; transform: translate(-50%, -50%); width: 800px; height: 800px; opacity: 0.5; }
+
+        @keyframes orbFloat {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            25% { transform: translate(50px, 50px) scale(1.1); }
+            50% { transform: translate(-30px, 30px) scale(0.9); }
+            75% { transform: translate(-50px, -50px) scale(1.05); }
+        }
+
+        /* Particles */
+        #particleCanvas {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             z-index: 1;
-            opacity: 0.2;
             pointer-events: none;
         }
 
@@ -62,290 +67,193 @@
             position: relative;
             z-index: 100;
             width: 95%;
-            max-width: 1300px;
-            height: 92vh;
-            margin: 2vh auto;
-            background: rgba(0, 5, 0, 0.92);
-            border: 2px solid #0f0;
-            border-radius: 12px;
-            box-shadow: 0 0 50px #0f0, inset 0 0 30px rgba(0,255,0,0.3);
-            backdrop-filter: blur(4px);
-            padding: 20px;
+            max-width: 1400px;
+            height: 90vh;
+            margin: 5vh auto;
+            background: rgba(10, 12, 15, 0.85);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(0, 255, 255, 0.3);
+            border-radius: 16px;
+            box-shadow: 0 0 50px rgba(0, 255, 255, 0.2);
             display: flex;
             flex-direction: column;
-            animation: pulse 4s infinite;
+            overflow: hidden;
+            animation: containerPulse 4s infinite;
+        }
+
+        @keyframes containerPulse {
+            0%, 100% { box-shadow: 0 0 50px rgba(0, 255, 255, 0.2); }
+            50% { box-shadow: 0 0 70px rgba(0, 255, 255, 0.3); }
         }
 
         /* Header */
         .terminal-header {
             display: flex;
             align-items: center;
+            padding: 16px 20px;
+            background: rgba(0, 0, 0, 0.3);
+            border-bottom: 1px solid rgba(0, 255, 255, 0.3);
             gap: 12px;
-            padding-bottom: 12px;
-            border-bottom: 2px solid #0f0;
-            margin-bottom: 15px;
-            position: relative;
         }
 
-        .status {
+        .window-controls {
+            display: flex;
+            gap: 8px;
+        }
+
+        .window-btn {
             width: 16px;
             height: 16px;
             border-radius: 50%;
-            display: inline-block;
-            animation: blink 1.5s infinite;
-        }
-
-        .red { background: #ff0000; box-shadow: 0 0 20px #ff0000; }
-        .yellow { background: #ffff00; box-shadow: 0 0 20px #ffff00; animation-delay: 0.5s; }
-        .green { background: #00ff00; box-shadow: 0 0 20px #00ff00; animation-delay: 1s; }
-
-        .title {
-            margin-left: auto;
-            color: #0f0;
-            font-size: 1.2rem;
-            letter-spacing: 3px;
-            text-shadow: 0 0 10px #0f0;
-            animation: flicker 3s infinite;
-        }
-
-        /* Welcome Screen */
-        .welcome-screen {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: #000;
-            z-index: 1000;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            animation: welcomeFade 5s forwards;
-            pointer-events: none;
-        }
-
-        .welcome-text {
-            color: #0f0;
-            font-size: 4rem;
-            text-shadow: 0 0 30px #0f0;
-            margin-bottom: 20px;
-            animation: textPulse 2s infinite;
-        }
-
-        .warning-text {
-            color: #ff0;
-            font-size: 1.5rem;
-            margin: 10px;
-            opacity: 0;
-            animation: fadeIn 1s forwards 2s;
-        }
-
-        .danger-text {
-            color: #f00;
-            font-size: 2rem;
-            margin: 10px;
-            opacity: 0;
-            animation: fadeIn 1s forwards 3s;
-        }
-
-        /* Main Terminal */
-        .terminal {
-            flex: 1;
-            background: rgba(0, 0, 0, 0.8);
-            border: 2px solid #0f0;
-            border-radius: 8px;
-            padding: 20px;
-            overflow-y: auto;
-            font-size: 1.1rem;
-            line-height: 1.6;
-            box-shadow: inset 0 0 40px rgba(0,255,0,0.2);
-            margin-bottom: 15px;
-            position: relative;
-        }
-
-        .output {
-            white-space: pre-wrap;
-            word-wrap: break-word;
-        }
-
-        .output div {
-            margin: 5px 0;
-            animation: slideIn 0.3s ease;
-        }
-
-        /* Message Types */
-        .system { color: #0ff; text-shadow: 0 0 8px #0ff; }
-        .success { color: #0f0; text-shadow: 0 0 8px #0f0; }
-        .warning { color: #ff0; text-shadow: 0 0 8px #ff0; }
-        .error { color: #f00; text-shadow: 0 0 8px #f00; }
-        .access { color: #f0f; text-shadow: 0 0 8px #f0f; }
-        .scan { color: #ffa500; text-shadow: 0 0 8px #ffa500; }
-
-        /* Input Area */
-        .input-area {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            background: rgba(0, 20, 0, 0.7);
-            border: 2px solid #0f0;
-            border-radius: 8px;
-            padding: 12px 16px;
-            margin-bottom: 15px;
             transition: all 0.3s;
         }
 
-        .input-area:focus-within {
-            border-color: #ff0;
-            box-shadow: 0 0 25px #ff0;
+        .close { background: #ff5f56; }
+        .minimize { background: #ffbd2e; }
+        .maximize { background: #27c93f; }
+
+        .window-btn:hover {
+            filter: brightness(1.2);
+            transform: scale(1.1);
         }
 
-        .prompt {
-            color: #0f0;
-            font-weight: bold;
-            font-size: 1.3rem;
-            text-shadow: 0 0 8px #0f0;
-        }
-
-        #commandInput {
+        .tab-bar {
+            display: flex;
+            gap: 20px;
+            margin-left: 20px;
             flex: 1;
-            background: transparent;
-            border: none;
-            color: #0f0;
-            font-family: 'Courier New', monospace;
-            font-size: 1.2rem;
-            outline: none;
         }
 
-        #commandInput::placeholder {
-            color: #0f0;
-            opacity: 0.2;
+        .tab {
+            color: #888;
+            font-size: 0.9rem;
+            padding: 4px 0;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.3s;
         }
 
-        /* Progress Area */
-        .progress-area {
-            background: rgba(20, 0, 0, 0.7);
-            border: 2px solid #f00;
-            border-radius: 8px;
-            padding: 15px;
-            margin-bottom: 15px;
-            animation: glow 2s infinite;
+        .tab.active {
+            color: #0ff;
         }
 
-        .progress-label {
-            margin-bottom: 10px;
-            font-size: 1rem;
-            color: #f00;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-
-        .progress-bar {
+        .tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
             width: 100%;
-            height: 25px;
-            background: #1a0000;
-            border: 2px solid #f00;
-            border-radius: 5px;
+            height: 2px;
+            background: #0ff;
+            animation: tabGlow 2s infinite;
+        }
+
+        @keyframes tabGlow {
+            0%, 100% { opacity: 1; box-shadow: 0 0 5px #0ff; }
+            50% { opacity: 0.5; box-shadow: 0 0 10px #0ff; }
+        }
+
+        .header-time {
+            color: #0ff;
+            font-size: 0.9rem;
+            animation: timePulse 1s infinite;
+        }
+
+        /* Main Content */
+        .main-content {
+            display: flex;
+            flex: 1;
             overflow: hidden;
         }
 
-        .progress-fill {
+        /* Sidebar */
+        .sidebar {
+            width: 250px;
+            background: rgba(0, 0, 0, 0.4);
+            border-right: 1px solid rgba(0, 255, 255, 0.3);
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .file-tree {
+            margin-bottom: 30px;
+        }
+
+        .tree-title {
+            color: #0ff;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+            animation: titleGlow 3s infinite;
+        }
+
+        .tree-item {
+            color: #888;
+            padding: 6px 12px;
+            margin: 2px 0;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tree-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 2px;
             height: 100%;
-            width: 0%;
-            background: linear-gradient(90deg, #f00, #ff0, #f00);
-            box-shadow: 0 0 25px #f00;
-            transition: width 0.3s;
-            animation: progressPulse 1s infinite;
+            background: #0ff;
+            transform: scaleY(0);
+            transition: transform 0.3s;
         }
 
-        .progress-percent {
-            text-align: right;
-            margin-top: 8px;
-            font-size: 1rem;
-            color: #f00;
+        .tree-item:hover {
+            background: rgba(0, 255, 255, 0.1);
+            color: #0ff;
+            padding-left: 20px;
         }
 
-        /* Status Bar */
-        .status-bar {
-            display: grid;
-            grid-template-columns: repeat(6, 1fr);
-            gap: 10px;
-            padding: 12px 16px;
-            background: rgba(0, 10, 0, 0.9);
-            border: 2px solid #0f0;
-            border-radius: 8px;
-            font-size: 0.95rem;
+        .tree-item:hover::before {
+            transform: scaleY(1);
         }
 
-        .status-item {
+        .tree-item.folder { color: #ff0; }
+        .tree-item.file { color: #0f0; }
+
+        /* Terminal Area */
+        .terminal-area {
+            flex: 1;
             display: flex;
             flex-direction: column;
-            align-items: center;
+            padding: 20px;
+            overflow: hidden;
         }
 
-        .status-label {
-            color: #0f0;
-            font-size: 0.8rem;
-            opacity: 0.7;
-        }
-
-        .status-value {
-            color: #0f0;
-            font-weight: bold;
-            font-size: 1.1rem;
-            text-shadow: 0 0 5px #0f0;
-        }
-
-        /* Alert Popup */
-        .alert-popup {
-            position: fixed;
-            top: 20px;
-            right: -300px;
-            background: rgba(255, 0, 0, 0.9);
-            border: 2px solid #ff0;
+        .code-output {
+            flex: 1;
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(0, 255, 255, 0.3);
             border-radius: 8px;
-            padding: 15px 25px;
-            color: #fff;
-            font-weight: bold;
-            z-index: 1000;
-            transition: right 0.5s;
-            box-shadow: 0 0 30px #f00;
+            padding: 20px;
+            overflow-y: auto;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            box-shadow: inset 0 0 30px rgba(0, 255, 255, 0.1);
+            margin-bottom: 15px;
         }
 
-        .alert-popup.show {
-            right: 20px;
+        .output-line {
+            margin: 4px 0;
+            opacity: 0;
+            animation: slideInLine 0.3s forwards;
         }
 
-        /* Animations */
-        @keyframes blink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.3; }
-        }
-
-        @keyframes flicker {
-            0%, 100% { opacity: 1; }
-            95% { opacity: 0.8; }
-            96% { opacity: 0.4; }
-            97% { opacity: 0.8; }
-            98% { opacity: 0.2; }
-            99% { opacity: 0.9; }
-        }
-
-        @keyframes pulse {
-            0%, 100% { box-shadow: 0 0 50px #0f0, inset 0 0 30px rgba(0,255,0,0.3); }
-            50% { box-shadow: 0 0 70px #0f0, inset 0 0 50px rgba(0,255,0,0.5); }
-        }
-
-        @keyframes textPulse {
-            0%, 100% { text-shadow: 0 0 30px #0f0; }
-            50% { text-shadow: 0 0 60px #0f0; }
-        }
-
-        @keyframes fadeIn {
-            to { opacity: 1; }
-        }
-
-        @keyframes slideIn {
+        @keyframes slideInLine {
             from {
                 opacity: 0;
                 transform: translateX(-20px);
@@ -356,496 +264,462 @@
             }
         }
 
-        @keyframes glitch {
-            0% { transform: translate(0); }
-            20% { transform: translate(-2px, 2px); }
-            40% { transform: translate(-2px, -2px); }
-            60% { transform: translate(2px, 2px); }
-            80% { transform: translate(2px, -2px); }
-            100% { transform: translate(0); }
+        /* Syntax Highlighting */
+        .keyword { color: #ff79c6; }
+        .function { color: #50fa7b; }
+        .string { color: #f1fa8c; }
+        .comment { color: #6272a4; }
+        .number { color: #bd93f9; }
+        .operator { color: #ffb86c; }
+        .variable { color: #8be9fd; }
+        .type { color: #ff5555; }
+
+        /* Typing Animation */
+        .typing-line {
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
-        @keyframes glow {
-            0%, 100% { box-shadow: 0 0 20px #f00; }
-            50% { box-shadow: 0 0 40px #f00; }
-        }
-
-        @keyframes progressPulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.8; }
-        }
-
-        /* Scrollbar */
-        .terminal::-webkit-scrollbar {
+        .typing-cursor {
             width: 10px;
+            height: 20px;
+            background: #0ff;
+            animation: cursorBlink 1s infinite;
         }
 
-        .terminal::-webkit-scrollbar-track {
-            background: #000;
-            border: 2px solid #0f0;
+        @keyframes cursorBlink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
         }
 
-        .terminal::-webkit-scrollbar-thumb {
-            background: #0f0;
-            border-radius: 5px;
-            box-shadow: 0 0 10px #0f0;
+        /* Input Area */
+        .input-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(0, 255, 255, 0.3);
+            border-radius: 8px;
+            padding: 12px 16px;
+            transition: all 0.3s;
+        }
+
+        .input-container:focus-within {
+            border-color: #0ff;
+            box-shadow: 0 0 25px rgba(0, 255, 255, 0.3);
+        }
+
+        .input-prompt {
+            color: #0ff;
+            font-weight: bold;
+            font-size: 1.1rem;
+            animation: promptGlow 2s infinite;
+        }
+
+        @keyframes promptGlow {
+            0%, 100% { text-shadow: 0 0 5px #0ff; }
+            50% { text-shadow: 0 0 15px #0ff; }
+        }
+
+        #commandInput {
+            flex: 1;
+            background: transparent;
+            border: none;
+            color: #0ff;
+            font-family: 'Fira Code', monospace;
+            font-size: 1rem;
+            outline: none;
+        }
+
+        #commandInput::placeholder {
+            color: #0ff;
+            opacity: 0.2;
+        }
+
+        /* Stats Bar */
+        .stats-bar {
+            display: flex;
+            gap: 25px;
+            padding: 12px 20px;
+            background: rgba(0, 0, 0, 0.3);
+            border-top: 1px solid rgba(0, 255, 255, 0.3);
+            font-size: 0.85rem;
+        }
+
+        .stat {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: #888;
+        }
+
+        .stat-value {
+            color: #0ff;
+            font-weight: bold;
+            animation: statPulse 2s infinite;
+        }
+
+        @keyframes statPulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        /* Loading Bar */
+        .loading-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, #0ff, #f0f, #ff0, #0ff);
+            background-size: 300% 100%;
+            animation: loadingMove 3s infinite linear;
+            z-index: 1000;
+        }
+
+        @keyframes loadingMove {
+            0% { background-position: 0% 0; }
+            100% { background-position: 300% 0; }
+        }
+
+        /* Floating Code */
+        .floating-code {
+            position: fixed;
+            color: rgba(0, 255, 255, 0.1);
+            font-size: 14px;
+            white-space: nowrap;
+            animation: floatCode 20s linear infinite;
+            z-index: 5;
+            pointer-events: none;
+        }
+
+        @keyframes floatCode {
+            from { transform: translateY(100vh); }
+            to { transform: translateY(-100vh); }
         }
     </style>
 </head>
 <body>
-    <!-- Welcome Screen -->
-    <div class="welcome-screen" id="welcomeScreen">
-        <div class="welcome-text">ACCESSING DARK WEB</div>
-        <div class="warning-text">⚠️ ENCRYPTED CONNECTION DETECTED ⚠️</div>
-        <div class="danger-text">💀 ENTERING RESTRICTED ZONE 💀</div>
+    <!-- Animated Background -->
+    <div class="animated-bg">
+        <div class="gradient-orb orb-1"></div>
+        <div class="gradient-orb orb-2"></div>
+        <div class="gradient-orb orb-3"></div>
     </div>
 
-    <!-- Glitch Overlay -->
-    <div class="glitch-overlay"></div>
+    <canvas id="particleCanvas"></canvas>
 
-    <!-- Canvases -->
-    <canvas id="matrixCanvas"></canvas>
-    <canvas id="binaryCanvas"></canvas>
+    <!-- Floating Code Lines -->
+    <div id="floatingCodeContainer"></div>
 
-    <!-- Alert Popup -->
-    <div class="alert-popup" id="alertPopup">
-        ⚠️ INTRUSION DETECTED ⚠️
-    </div>
-
-    <!-- Main Container -->
+    <!-- Main Terminal -->
     <div class="terminal-container">
         <div class="terminal-header">
-            <span class="status red"></span>
-            <span class="status yellow"></span>
-            <span class="status green"></span>
-            <span class="title">DARK WEB TERMINAL // ROOT ACCESS</span>
+            <div class="window-controls">
+                <div class="window-btn close"></div>
+                <div class="window-btn minimize"></div>
+                <div class="window-btn maximize"></div>
+            </div>
+            <div class="tab-bar">
+                <div class="tab active">~/code/main.js</div>
+                <div class="tab">~/code/styles.css</div>
+                <div class="tab">~/code/index.html</div>
+                <div class="tab">~/code/server.py</div>
+            </div>
+            <div class="header-time" id="currentTime">00:00:00</div>
         </div>
 
-        <div class="terminal" id="terminal">
-            <div class="output" id="output"></div>
+        <div class="main-content">
+            <div class="sidebar">
+                <div class="file-tree">
+                    <div class="tree-title">📁 EXPLORER</div>
+                    <div class="tree-item folder">📂 src</div>
+                    <div class="tree-item file" style="margin-left: 20px;">📄 main.js</div>
+                    <div class="tree-item file" style="margin-left: 20px;">📄 utils.js</div>
+                    <div class="tree-item file" style="margin-left: 20px;">📄 api.js</div>
+                    <div class="tree-item folder">📂 components</div>
+                    <div class="tree-item file" style="margin-left: 20px;">📄 Header.jsx</div>
+                    <div class="tree-item file" style="margin-left: 20px;">📄 Footer.jsx</div>
+                    <div class="tree-item folder">📂 styles</div>
+                    <div class="tree-item file" style="margin-left: 20px;">📄 main.css</div>
+                    <div class="tree-item file" style="margin-left: 20px;">📄 animations.css</div>
+                    <div class="tree-item file">📄 package.json</div>
+                    <div class="tree-item file">📄 README.md</div>
+                    <div class="tree-item file">📄 .gitignore</div>
+                </div>
+                <div class="file-tree">
+                    <div class="tree-title">🔍 LIVE PREVIEW</div>
+                    <div class="tree-item">▶️ Localhost:3000</div>
+                    <div class="tree-item">🔄 Hot Reload: Active</div>
+                    <div class="tree-item">📦 Dependencies: 143</div>
+                </div>
+            </div>
+
+            <div class="terminal-area">
+                <div class="code-output" id="codeOutput">
+                    <div class="output-line"><span class="keyword">import</span> <span class="string">'react'</span> <span class="keyword">from</span> <span class="string">'react'</span>;</div>
+                    <div class="output-line"><span class="keyword">import</span> <span class="variable">useState</span> <span class="keyword">from</span> <span class="string">'react'</span>;</div>
+                    <div class="output-line"> </div>
+                    <div class="output-line"><span class="keyword">function</span> <span class="function">App</span>() {</div>
+                    <div class="output-line">  <span class="keyword">const</span> [<span class="variable">count</span>, <span class="variable">setCount</span>] = <span class="function">useState</span>(<span class="number">0</span>);</div>
+                    <div class="output-line">  </div>
+                    <div class="output-line">  <span class="keyword">return</span> (</div>
+                    <div class="output-line">    <span class="operator"><</span><span class="variable">div</span><span class="operator">></span></div>
+                    <div class="output-line">      <span class="operator"><</span><span class="variable">h1</span><span class="operator">></span>Count: {count}<span class="operator"><</span>/<span class="variable">h1</span><span class="operator">></span></div>
+                    <div class="output-line">      <span class="operator"><</span><span class="variable">button</span> <span class="variable">onClick</span>={<span class="function">()</span> <span class="operator">=></span> <span class="function">setCount</span>(count + <span class="number">1</span>)}<span class="operator">></span></div>
+                    <div class="output-line">        Increment</div>
+                    <div class="output-line">      <span class="operator"><</span>/<span class="variable">button</span><span class="operator">></span></div>
+                    <div class="output-line">    <span class="operator"><</span>/<span class="variable">div</span><span class="operator">></span></div>
+                    <div class="output-line">  );</div>
+                    <div class="output-line">}</div>
+                    <div class="output-line"> </div>
+                    <div class="output-line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="function">App</span>;</div>
+                </div>
+
+                <div class="input-container">
+                    <span class="input-prompt">~/code $</span>
+                    <input type="text" id="commandInput" placeholder="Type 'help' for commands, 'animate' for show, 'code' for coding..." autofocus>
+                </div>
+            </div>
         </div>
 
-        <div class="input-area">
-            <span class="prompt">#</span>
-            <input type="text" id="commandInput" placeholder="Enter command... (type 'help' or 'hack')" autofocus>
-        </div>
-
-        <div class="progress-area" id="progressArea" style="display: none;">
-            <div class="progress-label" id="progressLabel">EXECUTING HACK SEQUENCE</div>
-            <div class="progress-bar">
-                <div class="progress-fill" id="progressFill"></div>
-            </div>
-            <div class="progress-percent" id="progressPercent">0%</div>
-        </div>
-
-        <div class="status-bar">
-            <div class="status-item">
-                <span class="status-label">IP ADDRESS</span>
-                <span class="status-value" id="ipAddress">***.***.***.***</span>
-            </div>
-            <div class="status-item">
-                <span class="status-label">CONNECTION</span>
-                <span class="status-value" id="connectionStatus">TOR</span>
-                /div>
-            <div class="status-item">
-                <span class="status-label">ENCRYPTION</span>
-                <span class="status-value" id="encryption">AES-256</span>
-            </div>
-            <div class="status-item">
-                <span class="status-label">ACCESS</span>
-                <span class="status-value" id="accessLevel">ROOT</span>
-            </div>
-            <div class="status-item">
-                <span class="status-label">THREAT LEVEL</span>
-                <span class="status-value" id="threatLevel">98%</span>
-            </div>
-            <div class="status-item">
-                <span class="status-label">ANONYMITY</span>
-                <span class="status-value" id="anonymity">MAX</span>
-            </div>
+        <div class="stats-bar">
+            <div class="stat"><span>📊 Lines of Code:</span><span class="stat-value" id="loc">14,392</span></div>
+            <div class="stat"><span>🐛 Bugs Fixed:</span><span class="stat-value" id="bugs">1,247</span></div>
+            <div class="stat"><span>⚡ API Calls:</span><span class="stat-value" id="apiCalls">3,892</span></div>
+            <div class="stat"><span>🔄 Compile Time:</span><span class="stat-value" id="compileTime">243ms</span></div>
+            <div class="stat"><span>📦 Memory:</span><span class="stat-value" id="memory">324MB</span></div>
         </div>
     </div>
 
+    <div class="loading-bar"></div>
+
     <script>
-        // Welcome Screen Fade
-        setTimeout(() => {
-            document.getElementById('welcomeScreen').style.display = 'none';
-        }, 5000);
-
-        // Initialize outputs
-        const output = document.getElementById('output');
-        const terminal = document.getElementById('terminal');
-        const commandInput = document.getElementById('commandInput');
-        const progressArea = document.getElementById('progressArea');
-        const progressFill = document.getElementById('progressFill');
-        const progressLabel = document.getElementById('progressLabel');
-        const progressPercent = document.getElementById('progressPercent');
-        const alertPopup = document.getElementById('alertPopup');
-
-        // Matrix Rain Effect
-        const canvas = document.getElementById('matrixCanvas');
+        // Particle Animation
+        const canvas = document.getElementById('particleCanvas');
         const ctx = canvas.getContext('2d');
 
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
 
-        const matrixChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890@#$%^&*()_+{}:<>?";
-        const matrixArray = matrixChars.split("");
-        const fontSize = 14;
-        const columns = canvas.width / fontSize;
-        const drops = [];
-
-        for(let x = 0; x < columns; x++) {
-            drops[x] = Math.floor(Math.random() * canvas.height);
+        const particles = [];
+        for (let i = 0; i < 100; i++) {
+            particles.push({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                vx: (Math.random() - 0.5) * 0.5,
+                vy: (Math.random() - 0.5) * 0.5,
+                size: Math.random() * 2,
+                color: `rgba(${Math.random() * 100 + 155}, 255, 255, ${Math.random() * 0.5})`
+            });
         }
 
-        function drawMatrix() {
-            ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-            ctx.fillStyle = '#0f0';
-            ctx.font = fontSize + 'px monospace';
-
-            for(let i = 0; i < drops.length; i++) {
-                const text = matrixArray[Math.floor(Math.random() * matrixArray.length)];
-                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
-
-                if(drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
-                    drops[i] = 0;
-                }
-                drops[i]++;
-            }
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            particles.forEach(p => {
+                p.x += p.vx;
+                p.y += p.vy;
+                
+                if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
+                if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
+                
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                ctx.fillStyle = p.color;
+                ctx.fill();
+            });
+            
+            requestAnimationFrame(animateParticles);
         }
 
-        setInterval(drawMatrix, 40);
+        animateParticles();
 
-        // Binary Rain Effect
-        const binaryCanvas = document.getElementById('binaryCanvas');
-        const binaryCtx = binaryCanvas.getContext('2d');
-
-        binaryCanvas.width = window.innerWidth;
-        binaryCanvas.height = window.innerHeight;
-
-        const binaryChars = "01";
-        const binaryArray = binaryChars.split("");
-        const binaryDrops = [];
-
-        for(let x = 0; x < columns; x++) {
-            binaryDrops[x] = Math.floor(Math.random() * canvas.height);
-        }
-
-        function drawBinary() {
-            binaryCtx.fillStyle = 'rgba(0, 0, 0, 0.1)';
-            binaryCtx.fillRect(0, 0, binaryCanvas.width, binaryCanvas.height);
-
-            binaryCtx.fillStyle = '#f00';
-            binaryCtx.font = fontSize + 'px monospace';
-
-            for(let i = 0; i < binaryDrops.length; i++) {
-                const text = binaryArray[Math.floor(Math.random() * binaryArray.length)];
-                binaryCtx.fillText(text, i * fontSize, binaryDrops[i] * fontSize);
-
-                if(binaryDrops[i] * fontSize > canvas.height && Math.random() > 0.975) {
-                    binaryDrops[i] = 0;
-                }
-                binaryDrops[i]++;
-            }
-        }
-
-        setInterval(drawBinary, 50);
-
-        // System Messages
-        const systemMessages = [
-            "> SYSTEM BOOT SEQUENCE INITIALIZED",
-            "> KERNEL LOADED: DARKWEB v3.7.1",
-            "> ENCRYPTION MODULES: ACTIVE",
-            "> TOR NETWORK: CONNECTED",
-            "> ANONYMITY LEVEL: MAXIMUM",
-            "> FIREWALL BYPASS: ENABLED",
-            "> INTRUSION DETECTION: ACTIVE",
-            "> 3 BACKDOORS DETECTED",
-            "> PATCHING VULNERABILITIES...",
-            "> SYSTEM HARDENED"
+        // Floating Code
+        const floatingContainer = document.getElementById('floatingCodeContainer');
+        const codeSnippets = [
+            'const App = () => {',
+            'useEffect(() => {',
+            'return ( <div> )',
+            'setState(true)',
+            'npm install react',
+            'console.log("hello")',
+            'function animate()',
+            'import React from',
+            'export default',
+            'while(true) {',
+            'async await',
+            'try { catch }',
+            'new Promise()',
+            'class Component',
+            'interface Props',
+            'type State =',
+            '@media screen',
+            'flex: 1 1 auto',
+            'grid-template',
+            'animation: slide'
         ];
-
-        // Initial boot sequence
-        let msgIndex = 0;
-        const bootInterval = setInterval(() => {
-            if (msgIndex < systemMessages.length) {
-                addOutput(systemMessages[msgIndex], "system");
-                msgIndex++;
-            } else {
-                clearInterval(bootInterval);
-                addOutput("> SYSTEM READY // DARK WEB ACCESS GRANTED", "success");
-                addOutput("> TYPE 'help' FOR COMMANDS OR 'hack' TO BEGIN", "warning");
-            }
-        }, 400);
-
-        function addOutput(text, type = "system") {
+        for (let i = 0; i < 30; i++) {
             const div = document.createElement('div');
-            div.className = type;
-            div.textContent = text;
-            output.appendChild(div);
-            terminal.scrollTop = terminal.scrollHeight;
+            div.className = 'floating-code';
+            div.textContent = codeSnippets[Math.floor(Math.random() * codeSnippets.length)];
+            div.style.left = Math.random() * 100 + '%';
+            div.style.animationDuration = (Math.random() * 10 + 15) + 's';
+            div.style.animationDelay = Math.random() * 10 + 's';
+            div.style.color = `rgba(${Math.random()*100+155}, 255, 255, 0.1)`;
+            floatingContainer.appendChild(div);
         }
 
-        function showAlert(message) {
-            alertPopup.textContent = `⚠️ ${message} ⚠️`;
-            alertPopup.classList.add('show');
-            setTimeout(() => {
-                alertPopup.classList.remove('show');
-            }, 3000);
+        // Update Time
+        function updateTime() {
+            const now = new Date();
+            document.getElementById('currentTime').textContent = 
+                now.toLocaleTimeString();
+        }
+        setInterval(updateTime, 1000);
+
+        // Command System
+        const output = document.getElementById('codeOutput');
+        const commandInput = document.getElementById('commandInput');
+        let codeCount = 0;
+
+        function addCodeLine(code, className = '') {
+            const line = document.createElement('div');
+            line.className = 'output-line';
+            
+            // Simple syntax highlighting
+            const highlighted = code
+                .replace(/\b(const|let|var|function|return|if|else|for|while|import|from|export|default|class|interface|type|new|try|catch|async|await)\b/g, '<span class="keyword">$1</span>')
+                .replace(/\b(useState|useEffect|useRef|useContext|console|log|setState|map|filter|reduce)\b/g, '<span class="function">$1</span>')
+                .replace(/'([^']*)'/g, '<span class="string">\'$1\'</span>')
+                .replace(/\b([0-9]+)\b/g, '<span class="number">$1</span>')
+                .replace(/(\{|\}|\(|\)|\[|\]|=>)/g, '<span class="operator">$1</span>');
+            
+            line.innerHTML = highlighted;
+            output.appendChild(line);
+            output.scrollTop = output.scrollHeight;
         }
 
-        // Progress functions
-        function startProgress(action, duration = 5000) {
-            progressArea.style.display = 'block';
-            let progress = 0;
-            progressFill.style.width = '0%';
-            progressPercent.textContent = '0%';
-            progressLabel.textContent = action;
+        function animateCode() {
+            const animations = [
+                "for (let i = 0; i < 100; i++) {",
+                "  console.log(`Animation frame ${i}`);",
+                "  await new Promise(r => setTimeout(r, 50));",
+                "  particles[i].x += Math.random() * 5;",
+                "  particles[i].y += Math.random() * 5;",
+                "  ctx.beginPath();",
+                "  ctx.arc(x, y, 5, 0, Math.PI * 2);",
+                "  ctx.fillStyle = `hsl(${i * 3.6}, 100%, 50%)`;",
+                "  ctx.fill();",
+                "}"
+            ];
 
-            const interval = setInterval(() => {
-                progress += Math.random() * 15;
-                if (progress >= 100) {
-                    progress = 100;
-                    clearInterval(interval);
-                }
-                progressFill.style.width = progress + '%';
-                progressPercent.textContent = Math.floor(progress) + '%';
-            }, duration / 10);
-
-            return interval;
+            animations.forEach((line, index) => {
+                setTimeout(() => addCodeLine(line), index * 300);
+            });
         }
 
-        function completeProgress(interval) {
-            clearInterval(interval);
-            progressFill.style.width = '100%';
-            progressPercent.textContent = '100%';
-            setTimeout(() => {
-                progressArea.style.display = 'none';
-            }, 1000);
-        }
-
-        // Command Processing
         commandInput.addEventListener('keypress', (e) => {
             if (e.key === 'Enter') {
-                const command = commandInput.value.trim().toLowerCase();
-                if (command === '') return;
-
-                addOutput(`root@darkweb:~# ${command}`, "system");
-
-                // Random alert on commands
-                if (Math.random() > 0.7) {
-                    showAlert("INTRUSION DETECTION SYSTEM TRIGGERED");
-                }
-
+                const command = commandInput.value.trim();
+                
+                addCodeLine(`$ ${command}`, 'comment');
+                
                 switch(command) {
                     case 'help':
-                        addOutput("╔════════════════════════════════════╗", "success");
-                        addOutput("║        AVAILABLE COMMANDS          ║", "success");
-                        addOutput("╠════════════════════════════════════╣", "success");
-                        addOutput("║ hack     - Start dark web attack   ║", "success");
-                        addOutput("║ scan     - Network reconnaissance  ║", "success");
-                        addOutput("║ crack    - Password cracking       ║", "success");
-                        addOutput("║ exploit  - Run exploit             ║", "success");
-                        addOutput("║ decrypt  - Decrypt files           ║", "success");
-                        addOutput("║ trace    - Trace target            ║", "success");
-                        addOutput("║ wipe     - Wipe logs               ║", "warning");
-                        addOutput("║ status   - System status           ║", "success");
-                        addOutput("║ clear    - Clear screen            ║", "success");
-                        addOutput("╚════════════════════════════════════╝", "success");
+                        addCodeLine('Available commands:', 'comment');
+                        addCodeLine('  help     - Show this help', 'comment');
+                        addCodeLine('  animate  - Run animation code', 'comment');
+                        addCodeLine('  code     - Generate random code', 'comment');
+                        addCodeLine('  compile  - Compile project', 'comment');
+                        addCodeLine('  test     - Run tests', 'comment');
+                        addCodeLine('  deploy   - Deploy app', 'comment');
+                        addCodeLine('  clear    - Clear screen', 'comment');
                         break;
-
-                    case 'hack':
-                        addOutput("> INITIATING DARK WEB PENETRATION...", "error");
-                        const hackInterval = startProgress("BYPASSING SECURE LAYERS", 8000);
                         
-                        setTimeout(() => {
-                            addOutput("> LAYER 1 BYPASSED: FIREWALL", "success");
-                            addOutput("> LAYER 2 BYPASSED: IDS", "success");
-                            addOutput("> LAYER 3 BYPASSED: ENCRYPTION", "success");
-                            addOutput("> LAYER 4 BYPASSED: AUTHENTICATION", "success");
-                        }, 2000);
-
-                        setTimeout(() => {
-                            addOutput("> ACCESSING DARK WEB DATABASE...", "warning");
-                            addOutput("> DATABASE: DARKWEB_MARKET", "access");
-                            addOutput("> RECORDS FOUND: 1,433,921", "access");
-                        }, 4000);
-
-                        setTimeout(() => {
-                            addOutput("> EXTRACTING DATA...", "warning");
-                            addOutput("> DATA EXTRACTED: 2.4GB", "success");
-                            addOutput("> HACK COMPLETE // ALL DATA ACQUIRED", "success");
-                            completeProgress(hackInterval);
-                            showAlert("DATA BREACH SUCCESSFUL");
-                        }, 8000);
+                    case 'animate':
+                        addCodeLine('// Starting animation sequence...', 'comment');
+                        animateCode();
                         break;
-
-                    case 'scan':
-                        addOutput("> INITIATING NETWORK SCAN...", "scan");
-                        const scanInterval = startProgress("SCANNING DARK WEB NODES", 5000);
                         
-                        setTimeout(() => {
-                            addOutput("╔════════════════════════════════════╗", "scan");
-                            addOutput("║        DARK WEB NODES FOUND       ║", "scan");
-                            addOutput("╠════════════════════════════════════╣", "scan");
-                            addOutput("║ 45.133.89.22   [ONION NODE]      ║", "scan");
-                            addOutput("║ 67.205.149.123 [MARKETPLACE]     ║", "scan");
-                            addOutput("║ 89.45.23.167   [FORUM]           ║", "scan");
-                            addOutput("║ 134.56.78.234  [MAIL SERVER]     ║", "scan");
-                            addOutput("║ 192.168.45.12  [HIDDEN SERVICE]  ║", "scan");
-                            addOutput("╚════════════════════════════════════╝", "scan");
-                            completeProgress(scanInterval);
-                        }, 5000);
+                    case 'code':
+                        const randomCode = [
+                            'const [data, setData] = useState(null);',
+                            'useEffect(() => { fetch("/api").then(res => res.json()).then(setData); }, []);',
+                            'const handleClick = useCallback(() => { setCount(c => c + 1); }, []);',
+                            'return ( <div className="container"> {data.map(item => ( <Card key={item.id} {...item} /> ))} </div> );',
+                            'const styles = { display: "flex", alignItems: "center", justifyContent: "space-between" };'
+                        ];
+                        addCodeLine(randomCode[Math.floor(Math.random() * randomCode.length)]);
                         break;
-
-                    case 'crack':
-                        addOutput("> LOADING PASSWORD DATABASE...", "warning");
-                        addOutput("> TARGET HASH: 5f4dcc3b5aa765d61d8327deb882cf99", "error");
                         
-                        const crackInterval = startProgress("CRACKING PASSWORD HASH", 6000);
+                    case 'compile':
+                        addCodeLine('> Compiling TypeScript...', 'comment');
+                        setTimeout(() => addCodeLine('> Found 3 errors in 2 files', 'error'), 1000);
+                        setTimeout(() => addCodeLine('> Compilation failed :(', 'error'), 1500);
+                        break;
                         
-                        setTimeout(() => {
-                            addOutput("> DICTIONARY ATTACK: 1,433,921 WORDS", "success");
-                            addOutput("> BRUTE FORCE: 256 COMBINATIONS/SEC", "success");
-                        }, 2000);
-
-                        setTimeout(() => {
-                            addOutput("> PASSWORD CRACKED: darkweb@2024", "success");
-                            addOutput("> HASH TYPE: MD5", "success");
-                            addOutput("> PLAINTEXT FOUND", "access");
-                            completeProgress(crackInterval);
-                        }, 6000);
+                    case 'test':
+                        addCodeLine('> Running test suite...', 'comment');
+                        setTimeout(() => addCodeLine('> ✓ App component renders (23ms)', 'success'), 500);
+                        setTimeout(() => addCodeLine('> ✓ Button click works (12ms)', 'success'), 1000);
+                        setTimeout(() => addCodeLine('> ✓ API mock called (45ms)', 'success'), 1500);
+                        setTimeout(() => addCodeLine('> Test Suites: 3 passed, 3 total', 'success'), 2000);
                         break;
-
-                    case 'exploit':
-                        addOutput("> SEARCHING FOR VULNERABILITIES...", "warning");
-                        const exploitInterval = startProgress("EXPLOITING CVE-2024-1234", 7000);
                         
-                        setTimeout(() => {
-                            addOutput("> VULNERABILITY: RCE IN APACHE 2.4.49", "error");
-                            addOutput("> EXPLOIT CODE: python3 exploit.py --target 192.168.45.12", "success");
-                        }, 2000);
-
-                        setTimeout(() => {
-                            addOutput("> EXPLOIT SUCCESSFUL", "success");
-                            addOutput("> SHELL OBTAINED: 192.168.45.12:4444", "access");
-                            addOutput("> BACKDOOR INSTALLED // PERSISTENCE ACHIEVED", "warning");
-                            completeProgress(exploitInterval);
-                        }, 7000);
+                    case 'deploy':
+                        addCodeLine('> Building for production...', 'comment');
+                        setTimeout(() => addCodeLine('> Optimizing bundles...', 'comment'), 800);
+                        setTimeout(() => addCodeLine('> Deploying to Netlify...', 'comment'), 1600);
+                        setTimeout(() => addCodeLine('> ✓ Deployed! https://app.netlify.com/sites/cool-project', 'success'), 2400);
                         break;
-
-                    case 'decrypt':
-                        addOutput("> LOCATING ENCRYPTED FILES...", "system");
-                        const decryptInterval = startProgress("DECRYPTING AES-256", 5000);
                         
-                        setTimeout(() => {
-                            addOutput("> FILES FOUND: encrypted_data.bin", "success");
-                            addOutput("> KEY FOUND: 0x7E3F9A2B8C4D1E5F", "success");
-                        }, 2000);
-
-                        setTimeout(() => {
-                            addOutput("> DECRYPTION COMPLETE", "success");
-                            addOutput("> DATA: 'DARK_WEB_ACCESS_GRANTED'", "access");
-                            completeProgress(decryptInterval);
-                        }, 5000);
-                        break;
-
-                    case 'trace':
-                        addOutput("> TRACING TARGET CONNECTION...", "warning");
-                        addOutput("> TARGET IP: 192.168.45.129", "error");
-                        
-                        setTimeout(() => {
-                            addOutput("> HOP 1: 10.0.0.1 [LOCAL GATEWAY]", "system");
-                            addOutput("> HOP 2: 172.16.1.45 [ISP NODE]", "system");
-                            addOutput("> HOP 3: 89.34.12.67 [TOR ENTRY]", "system");
-                            addOutput("> HOP 4: 45.133.89.22 [TOR MIDDLE]", "system");
-                            addOutput("> HOP 5: 67.205.149.123 [TOR EXIT]", "system");
-                            addOutput("> HOP 6: ***.***.***.*** [HIDDEN]", "access");
-                            addOutput("> TRACE COMPLETE // TARGET LOCATED", "success");
-                        }, 2000);
-                        break;
-
-                    case 'wipe':
-                        addOutput("> WARNING: THIS WILL WIPE ALL LOGS", "error");
-                        const wipeInterval = startProgress("WIPING SYSTEM LOGS", 4000);
-                        
-                        setTimeout(() => {
-                            addOutput("> LOGS DELETED: /var/log/syslog", "success");
-                            addOutput("> LOGS DELETED: /var/log/auth.log", "success");
-                            addOutput("> LOGS DELETED: /var/log/kern.log", "success");
-                            addOutput("> ALL TRACES REMOVED", "success");
-                            completeProgress(wipeInterval);
-                        }, 4000);
-                        break;
-
-                    case 'status':
-                       addOutput("╔════════════════════════════════════╗", "success");
-                        addOutput("║        SYSTEM STATUS               ║", "success");
-                        addOutput("╠════════════════════════════════════╣", "success");
-                        addOutput("║ CPU: ████████░░ 78%                ║", "system");
-                        addOutput("║ RAM: ███████░░░ 3.4GB/8GB          ║", "system");
-                        addOutput("║ NET: ↑ 2.3MB/s ↓ 5.6MB/s           ║", "system");
-                        addOutput("║ CONNECTIONS: 7 ACTIVE              ║", "system");
-                        addOutput("║ FIREWALL: ACTIVE                    ║", "success");
-                        addOutput("║ IDS: TRIGGERED (3)                  ║", "warning");
-                        addOutput("║ BACKDOORS: 2 INSTALLED              ║", "error");
-                        addOutput("╚════════════════════════════════════╝", "success");
-                        break;
-
                     case 'clear':
                         output.innerHTML = '';
-                        addOutput("> SCREEN CLEARED", "system");
+                        addCodeLine('import React from \'react\';', 'comment');
+                        addCodeLine('import { useState } from \'react\';', 'comment');
                         break;
-
+                        
                     default:
-                        addOutput(`COMMAND NOT FOUND: ${command}`, "error");
-                        addOutput("> TYPE 'help' FOR AVAILABLE COMMANDS", "warning");
+                        if (command.startsWith('npm ')) {
+                            addCodeLine(`> Installing ${command.slice(4)}...`, 'comment');
+                            setTimeout(() => addCodeLine('> + package@1.2.3', 'success'), 500);
+                            setTimeout(() => addCodeLine('> added 143 packages in 3s', 'success'), 1000);
+                        } else {
+                            addCodeLine(`Command not found: ${command}`, 'error');
+                        }
                 }
-
+                
                 commandInput.value = '';
             }
         });
 
-        // Random Alerts
+        // Random Stats Updates
         setInterval(() => {
-            if (Math.random() > 0.8) {
-                const alerts = [
-                    "IDS ALERT: PORT SCAN DETECTED",
-                    "FIREWALL: BLOCKING 45.133.89.22",
-                    "BACKDOOR CONNECTION ESTABLISHED",
-                    "PACKET SNIFFING: ACTIVE",
-                    "DNS SPOOFING DETECTED",
-                    "ARP CACHE POISONED"
-                ];
-                showAlert(alerts[Math.floor(Math.random() * alerts.length)]);
+            document.getElementById('loc').textContent = Math.floor(14000 + Math.random() * 1000);
+            document.getElementById('bugs').textContent = Math.floor(1200 + Math.random() * 100);
+            document.getElementById('apiCalls').textContent = Math.floor(3800 + Math.random() * 200);
+            document.getElementById('compileTime').textContent = Math.floor(200 + Math.random() * 100) + 'ms';
+            document.getElementById('memory').textContent = Math.floor(300 + Math.random() * 50) + 'MB';
+        }, 3000);
+
+        // Auto-typing effect
+        const autoTypeCommands = [
+            'npm install react-three-fiber',
+            'import * as THREE from \'three\'',
+            'const scene = new THREE.Scene()',
+            'camera.position.z = 5',
+            'animate()'
+        ];
+
+        let cmdIndex = 0;
+        setInterval(() => {
+            if (cmdIndex < autoTypeCommands.length) {
+                addCodeLine(autoTypeCommands[cmdIndex]);
+                cmdIndex++;
             }
-        }, 8000);
-
-        // Update status bar randomly
-        setInterval(() => {
-            document.getElementById('threatLevel').textContent = Math.floor(90 + Math.random() * 10) + '%';
-            document.getElementById('ipAddress').textContent = 
-                Math.floor(Math.random() * 255) + '.' +
-                Math.floor(Math.random() * 255) + '.' +
-                Math.floor(Math.random() * 255) + '.' +
-                Math.floor(Math.random() * 255);
         }, 5000);
-
-        // Focus input
-        document.addEventListener('keydown', () => {
-            commandInput.focus();
-        });
-
-        // Handle resize
-        window.addEventListener('resize', () => {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-            binaryCanvas.width = window.innerWidth;
-            binaryCanvas.height = window.innerHeight;
-        });
     </script>
 </body>
-</html> 
+</html>
