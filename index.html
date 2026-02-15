@@ -3,108 +3,526 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Keii · Sindiran Adek</title>
+    <title>Kelas · Berkelas</title>
+    <!-- Font Awesome 6 (free) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        * { margin:0; padding:0; box-sizing:border-box; font-family:'Segoe UI',Roboto,sans-serif; }
-        body { background:#0a0c14; color:#fff; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'Playfair Display', Georgia, serif;
+        }
+
+        body {
+            background: #0c0c0c;
+            color: #e0e0e0;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* INTRO SCREEN - BERKELAS */
         .intro-screen {
-            position:fixed; top:0; left:0; width:100%; height:100%;
-            background:radial-gradient(circle at 30% 30%, #2d1b3a, #1a0f24);
-            display:flex; justify-content:center; align-items:center; z-index:1000;
-            transition:opacity 0.8s ease;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #0a0a0a;
+            background-image: radial-gradient(circle at 30% 30%, rgba(200, 170, 110, 0.08) 0%, transparent 50%),
+                              radial-gradient(circle at 70% 80%, rgba(170, 140, 90, 0.06) 0%, transparent 50%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            transition: opacity 1s cubic-bezier(0.77, 0, 0.18, 1);
+            backdrop-filter: blur(4px);
         }
-        .intro-screen.hide { opacity:0; pointer-events:none; }
-        .intro-content { text-align:center; padding:20px; max-width:600px; }
-        .main-icon { font-size:5rem; color:#ff6b6b; margin-bottom:20px; animation:pulseRotate 2s infinite; }
-        @keyframes pulseRotate { 0%,100%{ transform:scale(1) rotate(0deg); } 33%{ transform:scale(1.1) rotate(5deg); } 66%{ transform:scale(0.95) rotate(-5deg); } }
-        .loading-title { font-size:2rem; font-weight:800; color:#fff; margin-bottom:30px; text-shadow:0 0 15px #ff6b6b; }
-        .loading-title span { color:#ff8a8a; display:inline-block; animation:wave 2s infinite; }
-        @keyframes wave { 0%,100%{ transform:translateY(0); } 50%{ transform:translateY(-15px); } }
+
+        .intro-screen.hide {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .intro-content {
+            text-align: center;
+            max-width: 800px;
+            padding: 2rem;
+            border-left: 2px solid rgba(220, 190, 130, 0.3);
+            border-right: 2px solid rgba(220, 190, 130, 0.3);
+        }
+
+        .typing-container {
+            min-height: 160px;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .static-line {
+            font-size: 1.2rem;
+            letter-spacing: 4px;
+            color: #a89f86;
+            font-weight: 300;
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+            opacity: 0.7;
+        }
+
+        .dynamic-text {
+            font-size: 3rem;
+            font-weight: 400;
+            line-height: 1.4;
+            color: #f0e6d2;
+            text-shadow: 0 0 15px rgba(220, 190, 130, 0.3);
+            font-family: 'Playfair Display', 'Times New Roman', serif;
+            min-height: 4.5rem;
+        }
+
+        .dynamic-text span {
+            display: inline-block;
+        }
+
+        .cursor {
+            display: inline-block;
+            width: 3px;
+            height: 3rem;
+            background-color: #c0a86a;
+            margin-left: 8px;
+            vertical-align: middle;
+            animation: blink 1s step-end infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
         .loading-container {
-            background:rgba(0,0,0,0.4); border-radius:60px; padding:5px;
-            border:2px solid rgba(255,70,70,0.4); box-shadow:0 0 40px rgba(255,70,70,0.4);
+            width: 300px;
+            margin: 2rem auto 1rem;
+            position: relative;
         }
+
+        .loading-bar-bg {
+            width: 100%;
+            height: 1px;
+            background: #2a2a2a;
+            position: relative;
+        }
+
         .loading-bar {
-            height:25px; background:linear-gradient(90deg, #ff6b6b, #ff8a8a, #ff6b6b);
-            background-size:300% 100%; border-radius:60px; width:0%;
-            animation:loading 3s ease-in-out forwards, gradientMove 2s infinite linear;
+            width: 0%;
+            height: 1px;
+            background: linear-gradient(90deg, #d4b48c, #f0e6d2, #d4b48c);
+            position: absolute;
+            top: 0;
+            left: 0;
+            transition: width 0.1s linear;
+            box-shadow: 0 0 20px #d0b080;
         }
-        @keyframes loading { 100%{ width:100%; } }
-        @keyframes gradientMove { 100%{ background-position:100% 50%; } }
-        .percentage { font-size:2rem; font-weight:bold; color:#ff8a8a; margin:10px 0; }
+
+        .loading-percent {
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+            color: #a89f86;
+            margin-top: 1rem;
+            font-weight: 300;
+        }
+
         .enter-btn {
-            background:linear-gradient(45deg, #ff6b6b, #ff8a8a); color:white; border:none;
-            padding:15px 50px; font-size:1.3rem; font-weight:bold; border-radius:60px;
-            cursor:pointer; box-shadow:0 0 40px #ff6b6b; margin-top:20px;
-            opacity:0; transform:translateY(30px); animation:fadeInUp 0.8s ease 3.2s forwards;
+            background: transparent;
+            border: 1px solid rgba(220, 190, 130, 0.5);
+            color: #e0d5c0;
+            padding: 1rem 3rem;
+            font-size: 1rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.4s;
+            margin-top: 3rem;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeUp 0.6s ease 3.5s forwards;
+            font-weight: 300;
         }
-        @keyframes fadeInUp { to{ opacity:1; transform:translateY(0); } }
-        
-        .main-content { max-width:800px; margin:0 auto; padding:20px; }
-        .header {
-            background:linear-gradient(145deg, #2a1a1a, #1a0f0f); border-radius:20px;
-            padding:30px; margin-bottom:30px; text-align:center;
-            border:2px solid #ff6b6b; box-shadow:0 10px 30px rgba(255,70,70,0.3);
+
+        .enter-btn:hover {
+            border-color: #d4b48c;
+            color: #fff;
+            box-shadow: 0 0 25px rgba(200, 170, 110, 0.3);
+            letter-spacing: 6px;
         }
-        .header h1 { font-size:2.2rem; color:#ff8a8a; margin-bottom:10px; }
-        .quotes-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(300px,1fr)); gap:20px; }
-        .quote-card {
-            background:linear-gradient(145deg, #1a1a2a, #0f0f1a); border-radius:20px;
-            padding:25px; border-left:8px solid #ff6b6b; transition:0.3s; animation:cardFloat 3s infinite alternate;
+
+        @keyframes fadeUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
-        .quote-card:hover{ transform:translateY(-10px); box-shadow:0 20px 30px rgba(255,70,70,0.2); }
-        @keyframes cardFloat { to{ transform:translateY(-5px); } }
-        .quote-text { font-size:1.2rem; line-height:1.6; margin-bottom:15px; font-style:italic; }
-        .quote-number { color:#ff8a8a; font-weight:bold; display:flex; gap:8px; }
-        .footer { text-align:center; margin-top:40px; padding:20px; color:#666; }
-        .footer i { color:#ff6b6b; }
+
+        /* MAIN CONTENT - BERKELAS */
+        .main-content {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+            opacity: 0;
+            animation: contentFade 1s ease 0.2s forwards;
+        }
+
+        @keyframes contentFade {
+            to { opacity: 1; }
+        }
+
+        .hero {
+            text-align: center;
+            margin-bottom: 5rem;
+            padding: 3rem 0;
+            border-bottom: 1px solid rgba(220, 190, 130, 0.2);
+            border-top: 1px solid rgba(220, 190, 130, 0.2);
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 300;
+            letter-spacing: 8px;
+            color: #f0e6d2;
+            margin-bottom: 1.5rem;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            color: #a89f86;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.8;
+            font-style: italic;
+        }
+
+        .grid-quotes {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            margin: 4rem 0;
+        }
+
+        .quote-item {
+            padding: 2rem;
+            border-left: 1px solid rgba(220, 190, 130, 0.3);
+            transition: 0.3s;
+        }
+
+        .quote-item:hover {
+            border-left-color: #d4b48c;
+            transform: translateX(8px);
+        }
+
+        .quote-icon {
+            font-size: 2rem;
+            color: #d4b48c;
+            margin-bottom: 1.5rem;
+            opacity: 0.6;
+        }
+
+        .quote-text {
+            font-size: 1.3rem;
+            line-height: 1.6;
+            color: #e0d5c0;
+            margin-bottom: 1.5rem;
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+        }
+
+        .quote-author {
+            color: #a89f86;
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .quote-author i {
+            color: #d4b48c;
+            margin-right: 8px;
+            font-size: 0.7rem;
+        }
+
+        .section-title {
+            text-align: center;
+            margin: 5rem 0 3rem;
+            font-size: 2rem;
+            font-weight: 300;
+            letter-spacing: 6px;
+            color: #d4b48c;
+        }
+
+        .section-title span {
+            display: block;
+            width: 60px;
+            height: 1px;
+            background: #d4b48c;
+            margin: 1.5rem auto 0;
+        }
+
+        .wisdom-list {
+            display: flex;
+            flex-direction: column;
+            gap: 2.5rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .wisdom-item {
+            display: flex;
+            gap: 2rem;
+            align-items: flex-start;
+        }
+
+        .wisdom-number {
+            font-size: 1.5rem;
+            color: #d4b48c;
+            font-weight: 300;
+            min-width: 60px;
+            border-bottom: 1px solid #d4b48c;
+            padding-bottom: 5px;
+        }
+
+        .wisdom-content {
+            flex: 1;
+        }
+
+        .wisdom-content p {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            color: #e0d5c0;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 6rem;
+            padding: 3rem 0;
+            border-top: 1px solid rgba(220, 190, 130, 0.2);
+            color: #a89f86;
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+        }
+
+        .footer i {
+            color: #d4b48c;
+            margin: 0 5px;
+        }
+
+        @media (max-width: 700px) {
+            .dynamic-text {
+                font-size: 2rem;
+            }
+            .hero h1 {
+                font-size: 2.2rem;
+                letter-spacing: 4px;
+            }
+            .wisdom-item {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+        }
     </style>
 </head>
 <body>
+    <!-- INTRO BERKELAS -->
     <div class="intro-screen" id="introScreen">
         <div class="intro-content">
-            <div class="main-icon"><i class="fas fa-child"></i></div>
-            <div class="loading-title"><span>A</span><span>D</span><span>E</span><span>K</span><span>&nbsp;</span><span>M</span><span>U</span><span>L</span><span>U</span></div>
-            <div class="loading-container"><div class="loading-bar" id="loadingBar"></div></div>
-            <div class="percentage" id="percentage">0%</div>
-            <button class="enter-btn" id="enterBtn"><span>BUKA SINDIRAN</span> <i class="fas fa-arrow-right"></i></button>
+            <div class="static-line">— K E L A S —</div>
+            
+            <div class="typing-container">
+                <div class="dynamic-text" id="dynamicText"></div>
+                <span class="cursor" id="cursor"></span>
+            </div>
+
+            <div class="loading-container">
+                <div class="loading-bar-bg">
+                    <div class="loading-bar" id="loadingBar"></div>
+                </div>
+                <div class="loading-percent" id="loadingPercent">0%</div>
+            </div>
+             <button class="enter-btn" id="enterBtn">Memasuki Ruang</button>
         </div>
     </div>
-    <div class="main-content" id="mainContent" style="display:none;">
-        <div class="header">
-            <h1><i class="fas fa-child"></i> SINDIRAN "ADEK MULU" <i class="fas fa-frown"></i></h1>
-            <p style="color:#ccc;">Khusus yang dibilang "adek" padahal pengennya lebih</p>
+
+    <!-- MAIN CONTENT -->
+    <div class="main-content" id="mainContent">
+        <div class="hero">
+            <h1>Ruang Berkelas</h1>
+            <p>— Tempat kata-kata berhenti menjadi sekadar bunyi —</p>
         </div>
-        <div class="quotes-grid">
-            <div class="quote-card"><div class="quote-text">"Diajak lebih, jawabnya 'kakak adik aja'. Emangnya gua adek kandung?"</div><div class="quote-number"><i class="fas fa-hashtag"></i>1</div></div>
-            <div class="quote-card"><div class="quote-text">"Bilangnya sayang, tapi sayangnya model kakak ke adek. Bukan gitu coy."</div><div class="quote-number"><i class="fas fa-hashtag"></i>2</div></div>
-            <div class="quote-card"><div class="quote-text">"Ngajak serius dibilang aneh. Yang aneh tuh yang nganggep gua adek mulu."</div><div class="quote-number"><i class="fas fa-hashtag"></i>3</div></div>
-            <div class="quote-card"><div class="quote-text">"Dia cerita tentang cowok lain katanya gebetan. Lah gua apaan?"</div><div class="quote-number"><i class="fas fa-hashtag"></i>4</div></div>
-            <div class="quote-card"><div class="quote-text">"Katanya sibuk. Sibuk apaan? Sibuk ngeladenin yang lain?"</div><div class="quote-number"><i class="fas fa-hashtag"></i>5</div></div>
-            <div class="quote-card"><div class="quote-text">"Diajak ketemu dijawab 'nanti'. Nanti kapan? Nanti gua punya pacar?"</div><div class="quote-number"><i class="fas fa-hashtag"></i>6</div></div>
-            <div class="quote-card"><div class="quote-text">"Pas gua dideketin orang, dia ngambek. Kok posesif amat jadi kakak?"</div><div class="quote-number"><i class="fas fa-hashtag"></i>7</div></div>
-            <div class="quote-card"><div class="quote-text">"Katanya serius sama gua. Serius apa? Serius nganggep adek?"</div><div class="quote-number"><i class="fas fa-hashtag"></i>8</div></div>
-            <div class="quote-card"><div class="quote-text">"Tiap malem chat 'selamat malam dek'. Kapan jadi 'sayang'?"</div><div class="quote-number"><i class="fas fa-hashtag"></i>9</div></div>
-            <div class="quote-card"><div class="quote-text">"Pagi-pagi 'semangat dek'. Capek gua dipanggil dek mulu."</div><div class="quote-number"><i class="fas fa-hashtag"></i>10</div></div>
-            <div class="quote-card"><div class="quote-text">"Gua mau lebih, dia bilang 'jangan aneh'. Yang aneh siapa sebenernya?"</div><div class="quote-number"><i class="fas fa-hashtag"></i>11</div></div>
-            <div class="quote-card"><div class="quote-text">"Katanya belum siap. Belum siap apanya? Siap-siap aja deh."</div><div class="quote-number"><i class="fas fa-hashtag"></i>12</div></div>
-            <div class="quote-card"><div class="quote-text">"Dia minta perhatian terus, tapi status gua cuma adek. Enak amat."</div><div class="quote-number"><i class="fas fa-hashtag"></i>13</div></div>
-            <div class="quote-card"><div class="quote-text">"Bilangnya 'kakak sayang adek'. Lah gua bukan adek beneran."</div><div class="quote-number"><i class="fas fa-hashtag"></i>14</div></div>
-            <div class="quote-card"><div class="quote-text">"Gua mah pengennya lebih, tapi dia mah betah di zona 'adek' melulu."</div><div class="quote-number"><i class="fas fa-hashtag"></i>15</div></div>
+
+        <!-- GRID KATA BERKELAS -->
+        <div class="grid-quotes">
+            <div class="quote-item">
+                <div class="quote-icon"><i class="fas fa-feather"></i></div>
+                <div class="quote-text">"Kelas bukan tentang apa yang kau pakai, tapi bagaimana kau menjaga sikap saat tak ada yang melihat."</div>
+                <div class="quote-author"><i class="fas fa-circle"></i> Remy Sylado</div>
+            </div>
+            <div class="quote-item">
+                <div class="quote-icon"><i class="fas fa-crown"></i></div>
+                <div class="quote-text">"Kesederhanaan adalah bentuk paling canggih dari kelas. Ia bicara tanpa berteriak."</div>
+                <div class="quote-author"><i class="fas fa-circle"></i> Soe Hok Gie</div>
+            </div>
+            <div class="quote-item">
+                <div class="quote-icon"><i class="fas fa-moon"></i></div>
+                <div class="quote-text">"Mereka yang tenang biasanya menyimpan paling banyak badai. Itulah kelas sejati."</div>
+                <div class="quote-author"><i class="fas fa-circle"></i> Sapardi Djoko Damono</div>
+            </div>
         </div>
+
+        <!-- WISDOM SECTION -->
+        <h2 class="section-title">Nasehat Untuk Diri <span></span></h2>
+        <div class="wisdom-list">
+            <div class="wisdom-item">
+                <div class="wisdom-number">01</div>
+                <div class="wisdom-content">
+                    <p>Jangan pernah menjelaskan dirimu kepada siapa pun, karena yang menyukaimu tidak butuh itu, dan yang membencimu tidak akan percaya itu.</p>
+                </div>
+            </div>
+            <div class="wisdom-item">
+                <div class="wisdom-number">02</div>
+                <div class="wisdom-content">
+                    <p>Diam bukan berarti kalah. Kadang diam adalah cara terbaik untuk menunjukkan bahwa dirimu terlalu berkelas untuk sesuatu yang tak pantas diperjuangkan.</p>
+                </div>
+            </div>
+            <div class="wisdom-item">
+                <div class="wisdom-number">03</div>
+                <div class="wisdom-content">
+                    <p>Orang besar bukan yang tak pernah jatuh, melainkan yang selalu bangun dengan senyum lebih bermakna.</p>
+                </div>
+            </div>
+            <div class="wisdom-item">
+                <div class="wisdom-number">04</div>
+                <div class="wisdom-content">
+                    <p>Kadang kita harus berhenti mengejar seseorang, bukan karena tak pantas, tapi karena kita pantas mendapatkan seseorang yang tak perlu kita kejar.</p>
+                </div>
+            </div>
+            <div class="wisdom-item">
+                <div class="wisdom-number">05</div>
+                <div class="wisdom-content">
+                    <p>Jadilah seperti kopi pahit yang tak perlu gula untuk dinikmati. Cukup hangat dan hadir, sudah berarti.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECOND GRID -->
+        <h2 class="section-title">Fragmen <span></span></h2>
+        <div class="grid-quotes">
+            <div class="quote-item">
+                <div class="quote-icon"><i class="fas fa-wind"></i></div>
+                <div class="quote-text">"Angin tak pernah memilih ke mana ia bertiup. Ia hanya tahu caranya tetap menjadi angin."</div>
+                <div class="quote-author"><i class="fas fa-circle"></i> Pramoedya Ananta Toer</div>
+            </div>
+            <div class="quote-item">
+                <div class="quote-icon"><i class="fas fa-tree"></i></div>
+                <div class="quote-text">"Akar yang kuat tak pernah takut pada badai. Ia tahu goncangan hanya membuatnya lebih kokoh."</div>
+                <div class="quote-author"><i class="fas fa-circle"></i> Buya Hamka</div>
+            </div>
+            <div class="quote-item">
+                <div class="quote-icon"><i class="fas fa-feather"></i></div>
+                <div class="quote-text">"Buku adalah jendela, tapi hati adalah pintu. Jika kau ingin melihat dunia, bacalah. Jika ingin dipahami, bukalah hatimu."</div>
+                <div class="quote-author"><i class="fas fa-circle"></i> Andrea Hirata</div>
+            </div>
+        </div>
+
+        <!-- FOOTER -->
         <div class="footer">
-            <p>Dibuat dengan <i class="fas fa-frown"></i> oleh <strong>Keii Official</strong></p>
-            <p style="font-size:0.8rem;">Spesial buat yang cuma dapet status "adek" padahal pengen lebih</p>
+            <p>— <i class="fas fa-asterisk"></i> dibuat dengan kelas <i class="fas fa-asterisk"></i> —</p>
+            <p style="margin-top: 1rem; font-size: 0.7rem;">untuk yang memilih diam tapi tetap bicara lewat karya</p>
         </div>
     </div>
-    <audio id="bgAudio" loop><source src="https://files.catbox.moe/mog6bq.mp3" type="audio/mpeg"></audio>
+
     <script>
-        let w=0; const bar=document.getElementById('loadingBar'), per=document.getElementById('percentage');
-        setInterval(()=>{ if(w>=100){ clearInterval() }else{ w++; per.textContent=w+'%'; } },30);
-        const intro=document.getElementById('introScreen'), main=document.getElementById('mainContent'), enter=document.getElementById('enterBtn'), audio=document.getElementById('bgAudio');
-        enter.addEventListener('click',()=>{ intro.classList.add('hide'); setTimeout(()=>{ intro.style.display='none'; main.style.display='block'; },800); audio.play().catch(e=>{}); });
-        document.addEventListener('click',()=>{ if(audio.paused && intro.style.display==='none') audio.play().catch(e=>{}); });
+        (function() {
+            // ========== INTRO TYPING HAPUS KETIK ==========
+            const intro = document.getElementById('introScreen');
+            const main = document.getElementById('mainContent');
+            const enterBtn = document.getElementById('enterBtn');
+            const dynamicEl = document.getElementById('dynamicText');
+            const loadingBar = document.getElementById('loadingBar');
+            const percentEl = document.getElementById('loadingPercent');
+            
+            // Koleksi kata-kata berkelas untuk efek typing
+            const words = [
+                "Kelas tak pernah meminta, ia hadir.",
+                "Diam adalah jawaban tertinggi.",
+                "Berhenti menjelaskan, mulailah membuktikan.",
+                "Orang berkelas tak butuh validasi.",
+                "Sopan santun adalah mahkota jiwa.",
+                "Hidup bukan tentang memiliki, tapi tentang memberi makna.",
+                "Ketenangan adalah senjata orang bijak."
+            ];
+            
+            let wordIndex = 0;
+            let charIndex = 0;
+            let isDeleting = false;
+            let isWaiting = false;
+            
+            function typeEffect() {
+                const currentWord = words[wordIndex];
+                
+                if (!isDeleting && charIndex < currentWord.length) {
+                    // Mengetik maju
+                    dynamicEl.textContent = currentWord.substring(0, charIndex + 1);
+                    charIndex++;
+                    setTimeout(typeEffect, 80);
+                } 
+                else if (isDeleting && charIndex > 0) {
+                    // Menghapus
+                    dynamicEl.textContent = currentWord.substring(0, charIndex - 1);
+                    charIndex--;
+                    setTimeout(typeEffect, 40);
+                } 
+                else {
+                    // Selesai satu kata, ganti status
+                    if (!isDeleting && charIndex === currentWord.length) {
+                        // Selesai mengetik, tunggu sebentar lalu hapus
+                        isWaiting = true;
+                        setTimeout(() => {
+                            isDeleting = true;
+                            isWaiting = false;
+                            typeEffect();
+                        }, 2000);
+                    } 
+                    else if (isDeleting && charIndex === 0) {
+                        // Selesai menghapus, pindah ke kata berikutnya
+                        isDeleting = false;
+                        wordIndex = (wordIndex + 1) % words.length;
+                        setTimeout(typeEffect, 300);
+                    }
+                }
+            }
+            
+            // Mulai efek typing
+            setTimeout(typeEffect, 500);
+            
+            // ========== LOADING 0% → 100% ==========
+            let percent = 0;
+            const interval = setInterval(() => {
+                if (percent >= 100) {
+                    clearInterval(interval);
+                } else {
+                    percent++;
+                    loadingBar.style.width = percent + '%';
+                    percentEl.textContent = percent + '%';
+                }
+            }, 30); // 30ms * 100 = 3 detik
+            
+            // ========== TOMBOL ENTER ==========
+            enterBtn.addEventListener('click', () => {
+                intro.classList.add('hide');
+                setTimeout(() => {
+                    intro.style.display = 'none';
+                    // Main content udah muncul dari CSS
+                }, 1000);
+            });
+            
+            // ========== AUDIO (TIDAK ADA PERINTAH, TAPI UNTUK JAGA2) ==========
+            // Tidak menambahkan audio karena tidak diminta, tapi jika ingin bisa ditambah
+        })();
     </script>
 </body>
-                </html>
+    </html>
