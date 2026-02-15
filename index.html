@@ -1,264 +1,232 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="id">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Security Lock</title>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Nembak Mode Serius</title>
 <style>
   :root{
-    --g:#00ff66; --r:#ff2b2b; --bg:#050608; --mut:#7e8aa0;
+    --bg:#070912;
+    --card:rgba(255,255,255,.06);
+    --line:rgba(255,255,255,.12);
+    --txt:#eaf0ff;
+    --mut:#aab4d6;
+    --acc:#7c5cff;
+    --good:#31ff8a;
+    --bad:#ff3b5c;
   }
   *{box-sizing:border-box}
   body{
-    margin:0; background:radial-gradient(900px 520px at 20% 10%, rgba(0,255,102,.10), transparent 55%),
-                     radial-gradient(700px 420px at 80% 20%, rgba(255,43,43,.08), transparent 60%),
-                     var(--bg);
-    color:#e9f2ff; font-family:ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    margin:0; min-height:100vh; display:grid; place-items:center;
+    font-family:system-ui,Segoe UI,Roboto,Arial;
+    color:var(--txt);
+    background:
+      radial-gradient(900px 520px at 20% 10%, rgba(124,92,255,.18), transparent 55%),
+      radial-gradient(700px 420px at 85% 15%, rgba(49,255,138,.10), transparent 60%),
+      radial-gradient(700px 420px at 35% 95%, rgba(255,59,92,.10), transparent 60%),
+      var(--bg);
     overflow:hidden;
   }
-  .wrap{min-height:100vh; display:flex; align-items:center; justify-content:center; padding:20px}
-  .panel{
-    width:min(820px, 94vw);
-    border:1px solid rgba(255,255,255,.12);
-    background:rgba(0,0,0,.55);
-    backdrop-filter: blur(8px);
-    border-radius:16px;
-    box-shadow:0 20px 80px rgba(0,0,0,.55);
-    overflow:hidden;
+  .stars{position:fixed; inset:0; pointer-events:none; opacity:.25; filter:blur(.2px)}
+  .stars i{
+    position:absolute; width:2px; height:2px; background:#fff; border-radius:50%;
+    animation: tw 3.2s infinite ease-in-out;
+  }
+  @keyframes tw{0%,100%{transform:scale(1);opacity:.35}50%{transform:scale(1.9);opacity:.9}}
+  .card{
+    width:min(720px,92vw);
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:22px;
+    box-shadow:0 25px 90px rgba(0,0,0,.45);
+    backdrop-filter: blur(10px);
+    padding:22px;
+    position:relative;
   }
   .top{
-    display:flex; justify-content:space-between; align-items:center;
-    padding:12px 16px; border-bottom:1px solid rgba(255,255,255,.10);
+    display:flex; justify-content:space-between; align-items:center; gap:12px;
+    padding-bottom:14px; border-bottom:1px solid var(--line);
   }
-  .dot{width:10px;height:10px;border-radius:99px;background:rgba(255,255,255,.18);display:inline-block;margin-right:8px}
-  .title{display:flex; align-items:center; gap:8px; color:#cbd6ee; font-size:13px}
-  .badge{font-size:12px; color:var(--r); border:1px solid rgba(255,43,43,.45); padding:4px 10px; border-radius:999px}
-  .content{padding:18px 16px 16px}
-  h1{margin:0 0 10px; font-size:22px; letter-spacing:.3px}
-  .sub{color:var(--mut); font-size:13px; line-height:1.45}
-  .grid{display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:14px}
-  .card{
-    border:1px solid rgba(255,255,255,.10);
-    border-radius:14px; padding:12px 12px;
-    background:rgba(255,255,255,.03);
+  .tag{
+    font-size:12px; color:var(--mut);
+    border:1px solid rgba(255,255,255,.14);
+    padding:6px 10px; border-radius:999px;
   }
-  .k{color:#9fb1d8; font-size:12px}
-  .v{margin-top:6px; font-size:14px}
-  .v strong{color:var(--g)}
-  .log{
+  h1{margin:14px 0 6px; font-size:28px; letter-spacing:.2px}
+  p{margin:0; color:var(--mut); line-height:1.6}
+  .big{
     margin-top:14px;
-    border:1px solid rgba(255,255,255,.10);
-    border-radius:14px;
-    background:rgba(0,0,0,.45);
-    padding:12px;
-    height:220px;
-    overflow:auto;
-    font-size:13px;
-    line-height:1.45;
+    font-size:16px;
   }
-  .line{color:#cfe7ff}
-  .line b{color:var(--g)}
-  .line.err b{color:var(--r)}
-  .footer{
-    display:flex; gap:10px; justify-content:space-between; align-items:center;
-    padding:12px 16px; border-top:1px solid rgba(255,255,255,.10);
-    color:#a6b3cd; font-size:12px;
+  .box{
+    margin-top:16px;
+    border:1px solid var(--line);
+    border-radius:18px;
+    padding:16px;
+    background:rgba(0,0,0,.25);
   }
-  .btns{display:flex; gap:10px; align-items:center}
+  .q{
+    font-size:18px;
+    margin:0 0 10px;
+  }
+  .btns{
+    display:flex; gap:12px; flex-wrap:wrap;
+    margin-top:12px;
+    position:relative;
+    min-height:54px;
+  }
   button{
-    padding:10px 12px; border-radius:12px; border:1px solid rgba(255,255,255,.14);
-    background:rgba(255,255,255,.06); color:#e9f2ff; cursor:pointer;
-    font-family:inherit; font-size:13px;
-  }
-  button.primary{border-color:rgba(0,255,102,.35)}
-  button.danger{border-color:rgba(255,43,43,.35)}
-  .hint{opacity:.85}
-  .blink{animation:blink .9s infinite}
-  @keyframes blink{0%,100%{opacity:1}50%{opacity:.35}}
-  .reveal{
-    position:fixed; inset:auto 14px 14px auto;
-    font-size:12px; color:rgba(255,255,255,.35);
+    border:none;
+    padding:14px 18px;
+    border-radius:16px;
+    font-weight:700;
+    cursor:pointer;
+    color:var(--txt);
+    background:rgba(255,255,255,.08);
+    border:1px solid rgba(255,255,255,.12);
+    transition:transform .12s ease, filter .12s ease, background .12s ease;
     user-select:none;
   }
-  .sim{
-    position:fixed; inset:14px auto auto 14px;
-    font-size:12px; color:rgba(0,255,102,.40);
-    border:1px dashed rgba(0,255,102,.25);
-    padding:6px 10px; border-radius:999px;
+  button:hover{transform:translateY(-1px); filter:brightness(1.1)}
+  .yes{background:rgba(49,255,138,.14); border-color:rgba(49,255,138,.28)}
+  .no{background:rgba(255,59,92,.14); border-color:rgba(255,59,92,.28); position:absolute; left:150px}
+  .msg{
+    margin-top:14px;
+    padding:14px 16px;
+    border-radius:16px;
+    border:1px solid var(--line);
+    background:rgba(255,255,255,.05);
     display:none;
+  }
+  .msg strong{color:var(--good)}
+  .msg.bad strong{color:var(--bad)}
+  .foot{
+    margin-top:14px;
+    display:flex; justify-content:space-between; align-items:center; gap:10px;
+    color:rgba(255,255,255,.35);
+    font-size:12px;
+  }
+  .pulse{
+    width:10px;height:10px;border-radius:50%;
+    background:var(--acc);
+    box-shadow:0 0 0 0 rgba(124,92,255,.55);
+    animation:pulse 1.6s infinite;
+  }
+  @keyframes pulse{
+    0%{box-shadow:0 0 0 0 rgba(124,92,255,.55)}
+    70%{box-shadow:0 0 0 14px rgba(124,92,255,0)}
+    100%{box-shadow:0 0 0 0 rgba(124,92,255,0)}
+  }
+  .shake{animation:shake .25s linear}
+  @keyframes shake{
+    0%{transform:translateX(0)}
+    25%{transform:translateX(-6px)}
+    50%{transform:translateX(6px)}
+    75%{transform:translateX(-4px)}
+    100%{transform:translateX(0)}
   }
 </style>
 </head>
 <body>
-<div class="sim" id="sim">SIMULASI (demo)</div>
 
-<div class="wrap" id="wrap">
-  <div class="panel">
-    <div class="top">
-      <div class="title">
-        <span class="dot"></span><span class="dot"></span><span class="dot"></span>
-        <span>Security Response Console</span>
-      </div>
-      <div class="badge blink" id="status">LOCKDOWN ACTIVE</div>
+<div class="stars" id="stars"></div>
+
+<div class="card" id="card">
+  <div class="top">
+    <div style="display:flex;align-items:center;gap:10px">
+      <span class="pulse"></span>
+      <div style="font-weight:700">Mode Nembak</div>
+    </div>
+    <div class="tag">versi gak cringe (sedikit)</div>
+  </div>
+
+  <h1>Gue mau jujur.</h1>
+  <p class="big">
+    Gak mau sok cool, gak mau banyak gaya. Gue cuma pengen bilang:
+    <b>gue nyaman sama lo</b> dan gue pengen kita jalanin ini bareng.
+  </p>
+
+  <div class="box">
+    <p class="q">Lo mau jadi pacar gue?</p>
+    <p>Tenang, ini bukan jebakan. Kalau nolak pun gue tetap hormat.</p>
+
+    <div class="btns" id="btnArea">
+      <button class="yes" id="yesBtn">Iya</button>
+      <button class="no" id="noBtn">Enggak</button>
     </div>
 
-    <div class="content">
-      <h1>Perangkat terkunci sementara</h1>
-      <div class="sub">
-        Aktivitas mencurigakan terdeteksi. Sistem menjalankan pemeriksaan integritas dan isolasi sesi.
-        <br/>Jangan tutup halaman ini.
-      </div>
+    <div class="msg" id="msg"></div>
+  </div>
 
-      <div class="grid">
-        <div class="card">
-          <div class="k">SESSION</div>
-          <div class="v">#<strong id="sid">A1F3-9C2B</strong> • Mode: <strong id="mode">Isolated</strong></div>
-        </div>
-        <div class="card">
-          <div class="k">SCAN PROGRESS</div>
-          <div class="v"><strong id="prog">0%</strong> • ETA: <strong id="eta">00:20</strong></div>
-        </div>
-        <div class="card">
-          <div class="k">ACTIONS</div>
-          <div class="v">Encrypt temp cache • Lock input • Log capture</div>
-        </div>
-        <div class="card">
-          <div class="k">NOTICE</div>
-          <div class="v">This is a <strong>visual simulation</strong>. No real access.</div>
-        </div>
-      </div>
-
-      <div class="log" id="log" aria-label="log"></div>
-    </div>
-
-    <div class="footer">
-      <div class="hint">Keluar rahasia: tahan <b>ESC</b> 2 detik • atau ketik <b>UNLOCK</b></div>
-      <div class="btns">
-        <button class="primary" id="fs">Fullscreen</button>
-        <button class="danger" id="panic">Stop Demo</button>
-      </div>
-    </div>
+  <div class="foot">
+    <div>Tips: klik “Enggak” kalau berani.</div>
+    <div style="opacity:.7">keii edition</div>
   </div>
 </div>
 
-<div class="reveal">Press & hold ESC</div>
-
 <script>
-  // ---- Utilities
-  const $ = (s)=>document.querySelector(s);
-  const logEl = $("#log");
-  const sim = $("#sim");
-  const status = $("#status");
-  const progEl = $("#prog");
-  const etaEl = $("#eta");
-  const sidEl = $("#sid");
-
-  const rnd = (n)=>Math.floor(Math.random()*n);
-  sidEl.textContent = `${String.fromCharCode(65+rnd(26))}${rnd(9)}${String.fromCharCode(65+rnd(26))}${rnd(9)}-${rnd(9)}${String.fromCharCode(65+rnd(26))}${rnd(9)}${rnd(9)}`;
-
-  function addLine(text, type="ok"){
-    const div = document.createElement("div");
-    div.className = "line" + (type==="err" ? " err" : "");
-    const ts = new Date().toLocaleTimeString("id-ID", {hour12:false});
-    div.innerHTML = `[${ts}] <b>${type==="err" ? "!" : ">"}</b> ${text}`;
-    logEl.appendChild(div);
-    logEl.scrollTop = logEl.scrollHeight;
+  // bintang random biar gak sepi
+  const stars = document.getElementById("stars");
+  for(let i=0;i<80;i++){
+    const s=document.createElement("i");
+    s.style.left=Math.random()*100+"%";
+    s.style.top=Math.random()*100+"%";
+    s.style.animationDelay=(Math.random()*3)+"s";
+    s.style.opacity=(0.2+Math.random()*0.8);
+    stars.appendChild(s);
   }
 
-  // ---- Fake sequence
-  const steps = [
-    ["Inisialisasi modul isolasi sesi...", "ok"],
-    ["Memblokir input sementara (UI layer)...", "ok"],
-    ["Memindai cache & cookie lokal...", "ok"],
-    ["Mendeteksi anomali pada sesi login: token mismatch", "err"],
-    ["Menerapkan kebijakan LOCKDOWN...", "err"],
-    ["Merekam log aktivitas (simulasi)...", "ok"],
-    ["Memverifikasi integritas file sistem...", "ok"],
-    ["Membersihkan cache sementara...", "ok"],
-    ["Mengembalikan kontrol setelah verifikasi selesai...", "ok"],
-  ];
+  const yes = document.getElementById("yesBtn");
+  const no = document.getElementById("noBtn");
+  const msg = document.getElementById("msg");
+  const area = document.getElementById("btnArea");
+  const card = document.getElementById("card");
 
-  let p = 0;
-  let progress = 0;
-  let secondsLeft = 20;
+  let dodge = 0;
 
-  addLine("Security console online.", "ok");
-  addLine("Menunggu respons pengguna...", "ok");
-
-  const timer = setInterval(()=>{
-    if (p < steps.length){
-      addLine(steps[p][0], steps[p][1]);
-      p++;
-    }
-    progress = Math.min(100, progress + rnd(12) + 6);
-    secondsLeft = Math.max(0, secondsLeft - 2);
-    progEl.textContent = progress + "%";
-    etaEl.textContent = "00:" + String(secondsLeft).padStart(2,"0");
-    if (progress >= 100){
-      clearInterval(timer);
-      status.textContent = "SCAN COMPLETE";
-      status.classList.remove("blink");
-      addLine("Hasil: tidak ada akses sungguhan. Ini hanya tampilan.", "ok");
-      addLine("Ketik UNLOCK untuk menutup.", "ok");
-    }
-  }, 1200);
-
-  // ---- Fullscreen button
-  $("#fs").addEventListener("click", async ()=>{
-    try{
-      await document.documentElement.requestFullscreen();
-      addLine("Masuk fullscreen.", "ok");
-    }catch(e){
-      addLine("Fullscreen ditolak browser.", "err");
-    }
-  });
-
-  // ---- Panic stop
-  function stopDemo(){
-    document.body.innerHTML = `
-      <div style="min-height:100vh;display:flex;align-items:center;justify-content:center;background:#050608;color:#e9f2ff;font-family:ui-monospace,monospace;text-align:center;padding:24px">
-        <div style="max-width:720px">
-          <h1 style="margin:0 0 10px;font-size:22px">Selesai.</h1>
-          <p style="margin:0;color:#aab6cf;line-height:1.6">
-            Ini cuma simulasi tampilan, gak ngapa-ngapain ke perangkat. <br/>
-            Kalau lo pakai ini buat ngeganggu orang beneran, itu bukan “pelajaran”, itu lo yang bermasalah.
-          </p>
-        </div>
-      </div>
-    `;
+  function show(text, bad=false){
+    msg.style.display="block";
+    msg.className = "msg" + (bad ? " bad" : "");
+    msg.innerHTML = text;
   }
-  $("#panic").addEventListener("click", stopDemo);
 
-  // ---- Secret unlock: type UNLOCK
-  let buf = "";
-  window.addEventListener("keydown",(e)=>{
-    if (e.key.length === 1) buf += e.key.toUpperCase();
-    if (buf.length > 12) buf = buf.slice(-12);
-    if (buf.includes("UNLOCK")) stopDemo();
+  yes.addEventListener("click", ()=>{
+    show("Deal. <strong>Mulai sekarang gue jagain lo</strong> (sebisa gue). Jangan kabur ya.");
+    no.style.display="none";
+    area.style.minHeight="auto";
+    card.classList.remove("shake");
   });
 
-  // ---- Hold ESC 2s to reveal SIMULASI + exit
-  let escHold = null;
-  window.addEventListener("keydown",(e)=>{
-    if (e.key === "Escape" && !escHold){
-      sim.style.display = "block";
-      let t = 0;
-      escHold = setInterval(()=>{
-        t += 100;
-        if (t >= 2000){
-          clearInterval(escHold);
-          escHold = null;
-          stopDemo();
-        }
-      },100);
+  function moveNo(){
+    dodge++;
+    const rect = area.getBoundingClientRect();
+    const maxX = Math.max(0, rect.width - 120);
+    const maxY = Math.max(0, rect.height - 52);
+
+    // kalau area kecil, paksa tinggi biar bisa ngacir
+    area.style.minHeight = "120px";
+
+    const x = Math.random()*maxX;
+    const y = Math.random()*maxY;
+
+    no.style.left = x + "px";
+    no.style.top  = y + "px";
+
+    if(dodge === 1) show("<strong>Serius?</strong> masih ragu? klik aja, gak gigit.");
+    if(dodge === 3) show("Oke oke, gue ngerti. Tapi minimal baca dulu: gue beneran niat.");
+    if(dodge === 6) show("Lo ngejar tombol Enggak kayak ngejar sinyal. Susah ya.");
+    if(dodge >= 9){
+      show("Udah lah. Kalau lo gak mau, gue terima. <strong>Makasih udah jujur</strong>.", true);
+      no.style.display="none";
+      area.style.minHeight="auto";
     }
-  });
-  window.addEventListener("keyup",(e)=>{
-    if (e.key === "Escape" && escHold){
-      clearInterval(escHold);
-      escHold = null;
-    }
-  });
+
+    card.classList.add("shake");
+    setTimeout(()=>card.classList.remove("shake"), 250);
+  }
+
+  no.addEventListener("mouseenter", moveNo);
+  no.addEventListener("click", moveNo); // buat yang nekat tap di HP
 </script>
 </body>
 </html>
