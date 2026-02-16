@@ -1,829 +1,500 @@
-<!doctype html>
-<html lang="id">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <title>Developer Website Keii Official | IQC Generator</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Keii · Kata-Kata</title>
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
 
-  <!-- html2canvas for reliable PNG export -->
-  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+        body {
+            background: #0b0f1a;
+            color: #fff;
+            min-height: 100vh;
+        }
 
-  <style>
-    :root{
-      --bg:#070a12;
-      --glass:rgba(255,255,255,.07);
-      --stroke:rgba(255,255,255,.12);
-      --text:#eaf0ff;
-      --muted:#a9b6da;
-      --accent:#77a6ff;
-      --good:#2cffb5;
-      --danger:#ff6b6b;
+        /* ========== INTRO LOADING ========== */
+        .intro-screen {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(135deg, #2d1b3a, #1a3f5c);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            transition: opacity 0.8s ease;
+            overflow: hidden;
+        }
 
-      --cardRadius:22px;
-      --shadow: 0 18px 60px rgba(0,0,0,.55);
+        .intro-screen.hide {
+            opacity: 0;
+            pointer-events: none;
+        }
 
-      /* phone */
-      --phoneW: 380px;
-      --phoneH: 820px;
-      --phoneR: 44px;
+        /* Floating Elements */
+        .floating-elements {
+            position: absolute;
+            width: 100%; height: 100%;
+            top: 0; left: 0;
+            overflow: hidden;
+            z-index: 1;
+        }
 
-      /* iOS look */
-      --menu: rgba(24, 26, 32, .86);
-      --menuStroke: rgba(255,255,255,.14);
-      --bubble: rgba(38, 41, 48, .86);
-      --bubbleText: #f5f7ff;
-    }
+        .floating-elements i {
+            position: absolute;
+            color: rgba(255,255,255,0.03);
+            animation: float 6s infinite ease-in-out;
+        }
 
-    *{box-sizing:border-box}
-    body{
-      margin:0;
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial;
-      color:var(--text);
-      background:
-        radial-gradient(1000px 520px at 15% 10%, rgba(119,166,255,.22), transparent 55%),
-        radial-gradient(900px 520px at 85% 22%, rgba(44,255,181,.10), transparent 60%),
-        linear-gradient(180deg, #050713 0%, #02030a 100%);
-      min-height:100vh;
-    }
+        .floating-elements i:nth-child(1) { top: 10%; left: 10%; font-size: 3rem; }
+        .floating-elements i:nth-child(2) { top: 20%; right: 15%; font-size: 4rem; animation-delay: 1s; }
+        .floating-elements i:nth-child(3) { bottom: 15%; left: 20%; font-size: 3.5rem; animation-delay: 2s; }
+        .floating-elements i:nth-child(4) { bottom: 25%; right: 10%; font-size: 4.5rem; animation-delay: 3s; }
+        .floating-elements i:nth-child(5) { top: 40%; left: 5%; font-size: 2.5rem; animation-delay: 1.5s; }
+        .floating-elements i:nth-child(6) { top: 60%; right: 5%; font-size: 3.2rem; animation-delay: 2.5s; }
+        .floating-elements i:nth-child(7) { bottom: 5%; left: 40%; font-size: 4rem; animation-delay: 0.5s; }
+        .floating-elements i:nth-child(8) { top: 80%; right: 25%; font-size: 3.8rem; animation-delay: 3.5s; }
 
-    .wrap{
-      max-width: 1160px;
-      margin: 18px auto 28px;
-      padding: 14px;
-      display:grid;
-      gap: 16px;
-      grid-template-columns: 380px 1fr;
-    }
+        @keyframes float {
+            0%,100%{ transform: translateY(0) rotate(0deg); }
+            50%{ transform: translateY(-30px) rotate(10deg); }
+        }
 
-    .topbar{
-      grid-column: 1 / -1;
-      border-radius: 26px;
-      padding: 16px 16px;
-      background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.04));
-      border: 1px solid var(--stroke);
-      backdrop-filter: blur(12px);
-      box-shadow: var(--shadow);
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap: 14px;
-    }
+        .intro-card {
+            background: rgba(10, 20, 30, 0.7);
+            backdrop-filter: blur(15px);
+            border: 2px solid #a55eea;
+            border-radius: 70px;
+            padding: 3rem 2.5rem;
+            text-align: center;
+            max-width: 540px;
+            width: 90%;
+            box-shadow: 0 0 80px #a55eea;
+            position: relative;
+            z-index: 10;
+        }
 
-    .brand{
-      display:flex;
-      align-items:center;
-      gap: 12px;
-      min-width: 0;
-    }
-    .logo{
-      width: 40px; height: 40px;
-      border-radius: 12px;
-      background:
-        radial-gradient(18px 18px at 30% 30%, rgba(255,255,255,.35), transparent 60%),
-        linear-gradient(135deg, rgba(119,166,255,.95), rgba(44,255,181,.70));
-      box-shadow: 0 10px 30px rgba(0,0,0,.35);
-      border: 1px solid rgba(255,255,255,.18);
-    }
-    .title{
-      display:flex;
-      flex-direction:column;
-      gap:2px;
-      min-width: 0;
-    }
-    .title b{
-      font-size: 15px;
-      letter-spacing: .2px;
-      white-space: nowrap;
-      overflow:hidden;
-      text-overflow: ellipsis;
-    }
-    .title span{
-      font-size: 12px;
-      color: rgba(255,255,255,.70);
-      white-space: nowrap;
-      overflow:hidden;
-      text-overflow: ellipsis;
-    }
+        .intro-logo {
+            width: 140px; height: 140px;
+            margin: 0 auto 1.5rem;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 4px solid #a55eea;
+            box-shadow: 0 0 60px #a55eea;
+        }
 
-    .pill{
-      padding: 10px 12px;
-      border-radius: 999px;
-      background: rgba(0,0,0,.22);
-      border: 1px solid rgba(255,255,255,.14);
-      color: rgba(255,255,255,.85);
-      font-size: 12px;
-      white-space: nowrap;
-    }
+        .intro-logo img {
+            width: 100%; height: 100%;
+            object-fit: cover;
+        }
 
-    .card{
-      border-radius: var(--cardRadius);
-      padding: 14px;
-      background: var(--glass);
-      border: 1px solid var(--stroke);
-      backdrop-filter: blur(12px);
-      box-shadow: var(--shadow);
-    }
+        .intro-title {
+            font-size: 2.5rem; font-weight: 800;
+            color: white;
+            margin-bottom: 1rem;
+            text-shadow: 0 0 20px #5a9eff;
+        }
 
-    h2{
-      margin: 0 0 10px;
-      font-size: 16px;
-      letter-spacing: .2px;
-      display:flex;
-      align-items:center;
-      gap:10px;
-    }
-    h2 .icon{
-      width: 28px; height: 28px;
-      border-radius: 10px;
-      background: rgba(255,255,255,.08);
-      border: 1px solid rgba(255,255,255,.12);
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      font-size: 14px;
-    }
+        .intro-title span { color: #a55eea; }
 
-    label{
-      display:block;
-      margin: 10px 0 6px;
-      font-size: 12px;
-      color: var(--muted);
-    }
+        .typing-container {
+            background: rgba(0,0,0,0.3);
+            border-radius: 60px;
+            padding: 1rem 1.8rem;
+            margin: 1.8rem 0;
+            border: 1px solid #5a9eff;
+        }
 
-    input, select, textarea{
-      width:100%;
-      padding: 11px 11px;
-      border-radius: 14px;
-      border: 1px solid rgba(255,255,255,.12);
-      background: rgba(0,0,0,.25);
-      color: var(--text);
-      outline:none;
-    }
-    textarea{ min-height: 78px; resize: vertical; }
+        .typing-text {
+            font-size: 1.3rem;
+            color: #d0e0ff;
+            min-height: 3rem;
+        }
 
-    .row{ display:flex; gap:10px; }
-    .row > *{ flex:1; }
+        .typing-cursor {
+            display: inline-block;
+            width: 2px; height: 1.8rem;
+            background: #a55eea;
+            margin-left: 5px;
+            animation: blink 1s infinite;
+        }
 
-    .chips{
-      display:flex;
-      flex-wrap:wrap;
-      gap: 10px;
-      margin-top: 8px;
-    }
-    .chip{
-      padding: 10px 12px;
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.06);
-      color: rgba(255,255,255,.82);
-      font-size: 12px;
-      cursor:pointer;
-      user-select:none;
-      transition:.15s ease;
-    }
-    .chip:hover{ transform: translateY(-1px); background: rgba(255,255,255,.10); }
+        @keyframes blink { 50% { opacity: 0; } }
 
-    .btns{ display:flex; gap:10px; margin-top: 12px; }
-    button{
-      flex:1;
-      padding: 12px 12px;
-      border-radius: 14px;
-      border: 1px solid rgba(255,255,255,.14);
-      background: rgba(255,255,255,.08);
-      color: var(--text);
-      cursor:pointer;
-      transition:.15s ease;
-      font-weight: 650;
-    }
-    button:hover{ transform: translateY(-1px); background: rgba(255,255,255,.12); }
-    button.primary{
-      background: linear-gradient(180deg, rgba(119,166,255,.96), rgba(90,130,255,.86));
-      border-color: rgba(119,166,255,.55);
-      color:#050a18;
-    }
-    button.good{
-      background: linear-gradient(180deg, rgba(44,255,181,.92), rgba(28,210,150,.80));
-      border-color: rgba(44,255,181,.55);
-      color:#02110c;
-    }
-    button.danger{
-      background: linear-gradient(180deg, rgba(255,107,107,.94), rgba(220,70,70,.82));
-      border-color: rgba(255,107,107,.55);
-      color:#1a0707;
-    }
+        .loader-wrapper { margin: 2rem 0; }
+        .loader-bg {
+            width: 100%; height: 6px;
+            background: #1e2a44;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .loader-bar {
+            height: 100%; width: 0%;
+            background: linear-gradient(90deg, #a55eea, #5a9eff, #a55eea);
+            border-radius: 10px;
+            transition: width 0.1s ease;
+            box-shadow: 0 0 20px #5a9eff;
+        }
+        .loader-text {
+            margin-top: 1rem;
+            color: #aaccff;
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+        }
 
-    /* Preview */
-    .previewArea{
-      display:flex;
-      justify-content:center;
-      align-items:flex-start;
-      padding: 10px;
-    }
-    .phone{
-      width: var(--phoneW);
-      height: var(--phoneH);
-      border-radius: var(--phoneR);
-      border: 1px solid rgba(255,255,255,.16);
-      background:#0b0f18;
-      overflow:hidden;
-      position:relative;
-      box-shadow:
-        0 30px 90px rgba(0,0,0,.62),
-        0 0 0 10px rgba(0,0,0,.25);
-    }
-    .wallpaper{
-      position:absolute; inset:0;
-      background:
-        radial-gradient(900px 700px at 70% 25%, rgba(119,166,255,.30), transparent 55%),
-        radial-gradient(800px 650px at 30% 70%, rgba(44,255,181,.16), transparent 60%),
-        linear-gradient(180deg, #050710 0%, #02030a 100%);
-    }
-    .chatBlur{
-      position:absolute; inset:0;
-      background:
-        linear-gradient(180deg, rgba(0,0,0,.12), rgba(0,0,0,.42)),
-        radial-gradient(700px 340px at 75% 45%, rgba(0, 255, 204, .07), transparent 60%),
-        radial-gradient(700px 340px at 25% 55%, rgba(119, 166, 255, .10), transparent 60%);
-      filter: blur(7px);
-      opacity: .95;
-      transform: scale(1.05);
-    }
+        .enter-btn {
+            background: linear-gradient(45deg, #a55eea, #5a9eff);
+            border: none; color: white;
+            font-weight: 700; font-size: 1.2rem;
+            padding: 1rem 3rem; border-radius: 60px;
+            cursor: pointer; margin-top: 1rem;
+            opacity: 0; transform: translateY(20px);
+            animation: fadeUp 0.6s ease 4.5s forwards;
+            box-shadow: 0 20px 40px #1e3a6b;
+            transition: 0.2s;
+        }
+        .enter-btn:hover { transform: scale(1.03) translateY(-2px); }
+        @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
 
-    .notch{
-      position:absolute; top:10px; left:50%;
-      transform: translateX(-50%);
-      width: 176px; height: 32px;
-      border-radius: 0 0 18px 18px;
-      background: rgba(0,0,0,.55);
-      box-shadow: inset 0 0 0 1px rgba(255,255,255,.06);
-      z-index:3;
-    }
+        /* ========== MAIN CONTENT ========== */
+        .main-content {
+            max-width: 1100px; margin: 0 auto; padding: 2rem 1.5rem;
+            opacity: 0; animation: fadeMain 0.7s ease 0.3s forwards;
+        }
+        @keyframes fadeMain { to { opacity: 1; } }
 
-    .status{
-      position:absolute; top: 10px; left: 18px; right: 18px;
-      display:flex; justify-content:space-between; align-items:center;
-      font-size: 12px;
-      color: rgba(255,255,255,.92);
-      text-shadow: 0 1px 2px rgba(0,0,0,.35);
-      z-index: 4;
-      user-select:none;
-    }
-    .status .left, .status .right{ display:flex; align-items:center; gap:8px; }
-    .carrier{ font-weight:800; font-size: 11px; opacity:.92; }
+        /* Header */
+        .header {
+            background: rgba(10, 20, 40, 0.8);
+            backdrop-filter: blur(12px);
+            border-radius: 50px;
+            padding: 1.2rem 2rem;
+            margin-bottom: 2.5rem;
+            border: 1px solid #5a9eff;
+            display: flex; justify-content: space-between; align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        .logo-area {
+            display: flex; align-items: center; gap: 1rem;
+        }
+        .logo-small {
+            width: 50px; height: 50px;
+            border-radius: 50%; overflow: hidden;
+            border: 2px solid #a55eea;
+        }
+        .logo-small img { width: 100%; height: 100%; object-fit: cover; }
+        .logo-area h1 { font-size: 1.5rem; font-weight: 700; color: white; }
+        .logo-area h1 span { color: #5a9eff; }
 
-    .signal{
-      display:flex; gap:2px; align-items:flex-end;
-      height: 10px;
-    }
-    .signal span{
-      width:2px; border-radius:2px;
-      background: rgba(255,255,255,.92);
-    }
-    .signal span:nth-child(1){ height:3px; opacity:.55; }
-    .signal span:nth-child(2){ height:5px; opacity:.65; }
-    .signal span:nth-child(3){ height:7px; opacity:.78; }
-    .signal span:nth-child(4){ height:9px; opacity:.92; }
+        .status {
+            display: flex; gap: 1.8rem; color: #b0ccff;
+        }
+        .status i { margin-right: 5px; color: #5a9eff; }
 
-    .battery{
-      width:22px; height:10px;
-      border-radius:3px;
-      border:1px solid rgba(255,255,255,.75);
-      position:relative;
-    }
-    .battery::after{
-      content:"";
-      position:absolute;
-      right:-3px; top:3px;
-      width:2px; height:4px;
-      border-radius:1px;
-      background: rgba(255,255,255,.75);
-    }
-    .battery .fill{
-      height:100%;
-      width:50%;
-      border-radius:2px;
-      background: rgba(255,255,255,.92);
-    }
+        .admin-request {
+            background: rgba(90, 158, 255, 0.1);
+            border: 1px solid #5a9eff;
+            border-radius: 60px;
+            padding: 0.7rem 1.5rem;
+            font-size: 0.9rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .admin-request a {
+            color: #5a9eff; font-weight: 600;
+            text-decoration: none;
+        }
+        .admin-request a:hover { text-decoration: underline; }
 
-    .stage{
-      position:absolute; inset:0;
-      z-index:5;
-      display:flex;
-      justify-content:center;
-      align-items:flex-end;
-      padding: 112px 18px 118px;
-      user-select:none;
-    }
-    .bubbleWrap{
-      width:100%;
-      display:flex;
-      flex-direction:column;
-      gap: 10px;
-      align-items:flex-start;
-    }
+        /* Kata-Kata Grid */
+        .section-title {
+            font-size: 2rem; font-weight: 700;
+            margin: 2.5rem 0 1.8rem;
+            display: flex; align-items: center; gap: 12px;
+            color: white;
+            border-left: 6px solid #a55eea;
+            padding-left: 1.2rem;
+        }
+        .section-title i { color: #a55eea; }
 
-    .reactions{
-      display:inline-flex;
-      gap: 12px;
-      padding: 10px 16px;
-      border-radius: 999px;
-      background: rgba(30, 32, 38, .84);
-      border: 1px solid rgba(255,255,255,.12);
-      backdrop-filter: blur(16px);
-      box-shadow: 0 12px 34px rgba(0,0,0,.40);
-      max-width: 100%;
-    }
-    .reactions span{ font-size: 20px; line-height:1; }
+        .quotes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.8rem;
+        }
 
-    .bubble{
-      display:inline-block;
-      max-width: 88%;
-      padding: 12px 14px;
-      border-radius: 18px;
-      background: var(--bubble);
-      color: var(--bubbleText);
-      border: 1px solid rgba(255,255,255,.10);
-      backdrop-filter: blur(16px);
-      box-shadow: 0 12px 30px rgba(0,0,0,.32);
-      font-size: 16px;
-      white-space: pre-wrap;
-      word-break: break-word;
-    }
-    .bubble .time{
-      display:block;
-      margin-top: 6px;
-      font-size: 11px;
-      opacity:.55;
-      text-align:right;
-    }
+        .quote-card {
+            background: rgba(15, 25, 45, 0.8);
+            backdrop-filter: blur(8px);
+            border-radius: 40px;
+            padding: 2rem 1.8rem;
+            border: 1px solid #2f4b7a;
+            transition: 0.3s;
+            cursor: default;
+            animation: cardAppear 0.5s backwards;
+            animation-delay: calc(var(--i) * 0.07s);
+        }
+        .quote-card:hover {
+            transform: translateY(-6px);
+            border-color: #a55eea;
+            box-shadow: 0 20px 40px -12px #a55eea;
+        }
 
-    .menu{
-      width: 320px;
-      border-radius: 18px;
-      overflow:hidden;
-      border: 1px solid var(--menuStroke);
-      background: var(--menu);
-      backdrop-filter: blur(18px);
-      box-shadow: 0 16px 44px rgba(0,0,0,.48);
-      margin-top: 14px;
-    }
-    .menuItem{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      padding: 12px 14px;
-      border-top: 1px solid rgba(255,255,255,.10);
-      font-size: 16px;
-    }
-    .menuItem:first-child{ border-top:none; }
-    .menuItem .icon{
-      width: 22px;
-      display:flex;
-      justify-content:center;
-      opacity:.88;
-    }
-    .menuItem.danger{ color: rgba(255, 110, 110, .95); }
+        @keyframes cardAppear {
+            0% { opacity: 0; transform: translateY(30px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
 
-    .homebar{
-      position:absolute; bottom: 12px; left:50%;
-      transform: translateX(-50%);
-      width: 132px; height: 5px;
-      border-radius: 999px;
-      background: rgba(255,255,255,.35);
-      z-index:6;
-    }
+        .quote-icon {
+            font-size: 2rem; color: #5a9eff;
+            margin-bottom: 1rem;
+        }
 
-    /* Loader overlay */
-    .loader{
-      position:absolute; inset:0;
-      display:none;
-      z-index:20;
-      align-items:center;
-      justify-content:center;
-      padding: 16px;
-      background: rgba(0,0,0,.58);
-      backdrop-filter: blur(12px);
-    }
-    .loader.show{ display:flex; }
-    .loaderBox{
-      width: 78%;
-      border-radius: 22px;
-      border: 1px solid rgba(255,255,255,.14);
-      background: rgba(10,12,18,.72);
-      box-shadow: 0 20px 70px rgba(0,0,0,.65);
-      padding: 16px;
-    }
-    .loaderTitle{
-      font-weight: 850;
-      letter-spacing:.2px;
-      font-size: 14px;
-      margin-bottom: 10px;
-    }
-    .shimmer{
-      height: 14px;
-      border-radius: 999px;
-      background: linear-gradient(90deg,
-        rgba(255,255,255,.08),
-        rgba(255,255,255,.20),
-        rgba(255,255,255,.08));
-      background-size: 200% 100%;
-      animation: sh 1.05s linear infinite;
-      margin: 10px 0;
-    }
-    @keyframes sh{ 0%{background-position: 0% 0} 100%{background-position: 200% 0} }
-    .progress{
-      height: 10px;
-      border-radius: 999px;
-      background: rgba(255,255,255,.08);
-      overflow:hidden;
-      margin-top: 12px;
-    }
-    .progress > div{
-      height:100%;
-      width: 0%;
-      border-radius: 999px;
-      background: linear-gradient(90deg, rgba(119,166,255,.95), rgba(44,255,181,.80));
-      transition: width .18s ease;
-    }
-    .hint{ margin-top: 8px; font-size: 12px; color: rgba(255,255,255,.75); line-height:1.35; }
+        .quote-text {
+            font-size: 1.2rem; line-height: 1.7;
+            color: #e0ecff;
+            font-style: italic;
+            margin-bottom: 1.5rem;
+        }
 
-    /* How-to section */
-    .howto{
-      grid-column: 1 / -1;
-      line-height: 1.5;
-      color: rgba(255,255,255,.82);
-      font-size: 13px;
-    }
-    .howto ol{ margin: 8px 0 0 18px; padding: 0; }
-    .howto li{ margin: 6px 0; }
-    .note{
-      margin-top: 10px;
-      padding: 10px 12px;
-      border-radius: 16px;
-      border: 1px solid rgba(255,255,255,.12);
-      background: rgba(0,0,0,.22);
-      color: rgba(255,255,255,.78);
-    }
+        .quote-number {
+            color: #a55eea; font-weight: 600;
+            display: flex; align-items: center; gap: 8px;
+        }
 
-    @media (max-width: 980px){
-      .wrap{ grid-template-columns: 1fr; }
-      .previewArea{ justify-content:center; }
-      .pill{ display:none; }
-    }
-  </style>
-    </head>
-   <body>
-  <div class="wrap">
-    <div class="topbar">
-      <div class="brand">
-        <div class="logo" aria-hidden="true"></div>
-        <div class="title">
-          <b>Developer Website Keii Official</b>
-          <span>Buat iPhone Quoted Screenshot yang lebih niat (dan gak keliatan murahan)</span>
+        /* Footer */
+        .footer {
+            margin-top: 4rem; padding: 2rem 0;
+            text-align: center;
+            border-top: 1px solid #2f4b7a;
+            color: #8a9fc0;
+        }
+        .footer i { color: #a55eea; margin: 0 4px; }
+     /* Modal (untuk audio handling) */
+        .modal { display: none; }
+        audio { display: none; }
+    </style>
+</head>
+<body>
+    <!-- INTRO LOADING -->
+    <div class="intro-screen" id="introScreen">
+        <div class="floating-elements">
+            <i class="fas fa-quote-right"></i>
+            <i class="fas fa-feather"></i>
+            <i class="fas fa-heart"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-moon"></i>
+            <i class="fas fa-crown"></i>
+            <i class="fas fa-dragon"></i>
+            <i class="fas fa-brain"></i>
         </div>
-      </div>
-      <div class="pill">Generate Preview • Download PNG • Reset</div>
-    </div>
-
-    <div class="card">
-      <h2><span class="icon">✏️</span> Buat IQC Kamu</h2>
-
-      <label>Waktu (Status Bar)</label>
-      <select id="timeTop">
-        <option>00:00</option><option>01:12</option><option>08:08</option><option>09:41</option>
-        <option>10:10</option><option selected>11:26</option><option>12:01</option><option>13:37</option>
-        <option>14:20</option><option>16:44</option><option>19:05</option><option>21:00</option>
-      </select>
-
-      <label>Pesan</label>
-      <textarea id="msg" placeholder="Tulis pesan...">minimal gak ngemis</textarea>
-
-      <label>Nama Provider</label>
-      <input id="carrier" value="INDOSAT OOREDOO"/>
-
-      <div class="row">
-        <div>
-          <label>Baterai (%)</label>
-          <input id="battery" type="number" min="1" max="100" value="8"/>
-        </div>
-        <div>
-          <label>Sinyal (1-4)</label>
-          <select id="signal">
-            <option>1</option><option>2</option><option>3</option><option selected>4</option>
-          </select>
-        </div>
-      </div>
-
-      <div class="row">
-        <div>
-          <label>Network</label>
-          <select id="net">
-            <option>LTE</option>
-            <option selected>4G</option>
-            <option>5G</option>
-          </select>
-        </div>
-        <div>
-          <label>Jam Pesan</label>
-          <input id="msgTime" value="11:26"/>
-        </div>
-      </div>
-
-      <label>Reaksi Emoji (pisahkan pakai spasi)</label>
-      <input id="react" value="👍 ❤️ 😂 😮 😢 🙏"/>
-
-      <label>Template Kata-kata</label>
-      <div class="chips" id="chips">
-        <div class="chip">minimal gak ngemis</div>
-        <div class="chip">jangan lupa bahagia</div>
-        <div class="chip">capek tapi gapapa</div>
-        <div class="chip">hidup bukan untuk diratapi</div>
-        <div class="chip">pelan-pelan asal jalan</div>
-        <div class="chip">gak semua harus diumbar</div>
-      </div>
-
-      <div class="btns">
-        <button class="primary" id="gen">Generate Preview</button>
-        <button class="good" id="download">Download Image</button>
-        <button class="danger" id="reset">Reset</button>
-      </div>
-    </div>
-
-    <div class="card previewArea">
-      <div class="phone" id="capture">
-        <div class="wallpaper"></div>
-        <div class="chatBlur"></div>
-        <div class="notch"></div>
-
-        <div class="status">
-          <div class="left">
-            <div class="signal" id="pSignal" aria-hidden="true">
-              <span></span><span></span><span></span><span></span>
+        <div class="intro-card">
+            <div class="intro-logo">
+                <img src="https://images.bukaolshop.com/hosting/181218/5c92165b6226544752.png" alt="Keii Logo">
             </div>
-            <div class="carrier" id="pCarrier">INDOSAT OOREDOO</div>
-            <div id="pNet" style="font-weight:800; font-size:11px; opacity:.92;">4G</div>
-          </div>
-          <div class="right">
-            <div id="pTime" style="font-weight:900;">11:26</div>
-            <div class="battery" aria-hidden="true"><div class="fill" id="pBatFill" style="width:8%"></div></div>
-            <div id="pBat" style="font-weight:900; font-size:11px; opacity:.92;">8%</div>
-          </div>
-        </div>
-
-        <div class="stage">
-          <div class="bubbleWrap">
-            <div class="reactions" id="pReact"></div>
-
-            <div class="bubble">
-              <div id="pMsg">minimal gak ngemis</div>
-              <span class="time" id="pMsgTime">11:26</span>
+            <div class="intro-title">KEII <span>WORDS</span></div>
+            <div class="typing-container">
+                <div class="typing-text" id="typingText"></div>
+                <span class="typing-cursor"></span>
             </div>
-
-            <div class="menu" id="pMenu"></div>
-          </div>
+            <div class="loader-wrapper">
+                <div class="loader-bg">
+                    <div class="loader-bar" id="loadingBar"></div>
+                </div>
+                <div class="loader-text" id="loadingPercent">0%</div>
+            </div>
+            <button class="enter-btn" id="enterBtn">MASUK & REFLEKSI</button>
         </div>
-
-        <div class="homebar"></div>
-
-        <!-- Loader -->
-        <div class="loader" id="loader">
-          <div class="loaderBox">
-            <div class="loaderTitle">Generating preview…</div>
-            <div class="shimmer"></div>
-            <div class="shimmer" style="width:76%"></div>
-            <div class="shimmer" style="width:60%"></div>
-            <div class="progress"><div id="prog"></div></div>
-            <div class="hint" id="hint">Rendering blur, shadow, dan ego manusia…</div>
-          </div>
-        </div>
-      </div>
     </div>
 
-    <div class="card howto">
-      <h2><span class="icon">📌</span> Tata Cara Memakai</h2>
-      <ol>
-        <li>Isi <b>Waktu</b>, <b>Pesan</b>, <b>Provider</b>, <b>Baterai</b>, dan <b>Sinyal</b>.</li>
-        <li>Kalau malas ngetik, klik <b>Template Kata-kata</b> buat auto-isi pesan.</li>
-        <li>Pencet <b>Generate Preview</b> biar muncul efek loading dan preview rapih.</li>
-        <li>Pencet <b>Download Image</b> buat simpan hasilnya jadi PNG.</li>
-        <li>Pencet <b>Reset</b> kalau mau balik ke default (atau kalau hidup lo juga butuh reset).</li>
-      </ol>
-      <div class="note">
-        Tips: Semua input auto disimpan di browser. Jadi kalau kebuka lagi, data lo gak hilang.
-      </div>
+    <!-- MAIN CONTENT -->
+    <div class="main-content" id="mainContent" style="display: none;">
+        <!-- Header -->
+        <div class="header">
+            <div class="logo-area">
+                <div class="logo-small">
+                    <img src="https://images.bukaolshop.com/hosting/181218/5c92165b6226544752.png" alt="Keii">
+                </div>
+                <h1>KEII <span>OFFICIAL</span></h1>
+            </div>
+            <div class="status">
+                <span><i class="fas fa-circle" style="color:#2ecc71;"></i> Website Aktif</span>
+                <span><i class="fas fa-users"></i> 1.2k+ Pembaca</span>
+            </div>
+            <div class="admin-request">
+                <i class="fas fa-pen"></i>
+                <a href="https://wa.me/6285150895395" target="_blank">Request kata-kata via WA</a>
+            </div>
+        </div>
+
+        <!-- Kata-Kata -->
+        <div class="section-title">
+            <i class="fas fa-quote-left"></i> UNTAIAN KATA
+        </div>
+        <div class="quotes-grid">
+            <!-- 1 -->
+            <div class="quote-card" style="--i:0">
+                <div class="quote-icon"><i class="fas fa-door-open"></i></div>
+                <div class="quote-text">“Mengabaikanmu atau meninggalkanmu begitu saja, dia tidak peduli padamu. Pergilah dengan harga dirimu.”</div>
+                <div class="quote-number"><i class="fas fa-hashtag"></i> 01</div>
+            </div>
+            <!-- 2 -->
+            <div class="quote-card" style="--i:1">
+                <div class="quote-icon"><i class="fas fa-mother-child"></i></div>
+                <div class="quote-text">“Jangan belikan lipstik kepada wanita yang bibirnya belum tentu buat kamu. Lebih baik belikan beras untuk ibumu, karena sudah pasti kamu yang bakal memakannya.”</div>
+                <div class="quote-number"><i class="fas fa-hashtag"></i> 02</div>
+            </div>
+            <!-- 3 -->
+            <div class="quote-card" style="--i:2">
+                <div class="quote-icon"><i class="fas fa-shield-heart"></i></div>
+                <div class="quote-text">“Apapun kondisinya, tetaplah menjadi lelaki baik. Rasa kecewa dan sakit hati tidak boleh merubahmu menjadi jahat.”</div>
+                <div class="quote-number"><i class="fas fa-hashtag"></i> 03</div>
+            </div>
+            <!-- 4 -->
+            <div class="quote-card" style="--i:3">
+                <div class="quote-icon"><i class="fas fa-face-frown"></i></div>
+                <div class="quote-text">“Wanita setia itu omong kosong. Wanita akan tetap merespon pria lain di belakangmu, walaupun dia terlihat menyayangimu.”</div>
+                <div class="quote-number"><i class="fas fa-hashtag"></i> 04</div>
+            </div>
+            <!-- 5 -->
+            <div class="quote-card" style="--i:4">
+                <div class="quote-icon"><i class="fas fa-hand-prayer"></i></div>
+                <div class="quote-text">“Saat laki-laki sudah mengucap 'Udah tenang, doain aja' percayalah dia sudah siap pasang badan dan berusaha habis-habisan.”</div>
+                <div class="quote-number"><i class="fas fa-hashtag"></i> 05</div>
+            </div>
+            <!-- 6 -->
+            <div class="quote-card" style="--i:5">
+                <div class="quote-icon"><i class="fas fa-heart-broken"></i></div>
+                <div class="quote-text">“Cintamu boleh direbut pria lain, tapi kamu jangan sekali-kali merebut dari pria lain.”</div>
+                <div class="quote-number"><i class="fas fa-hashtag"></i> 06</div>
+            </div>
+            <!-- 7 -->
+            <div class="quote-card" style="--i:6">
+                <div class="quote-icon"><i class="fas fa-user-ninja"></i></div>
+                <div class="quote-text">“Semakin berat lukanya, semakin diam orangnya. Semakin banyak pengalamannya, semakin senyap cara dia bekerja.”</div>
+                <div class="quote-number"><i class="fas fa-hashtag"></i> 07</div>
+            </div>
+            <!-- 8 -->
+            <div class="quote-card" style="--i:7">
+                <div class="quote-icon"><i class="fas fa-briefcase"></i></div>
+                <div class="quote-text">“Yang kerja aja masih ditinggal, apalagi yang cuma pengangguran modal 'jangan lupa makan nanti sakit'. TENGGELAM KAU BUJANG!”</div>
+                <div class="quote-number"><i class="fas fa-hashtag"></i> 08</div>
+            </div>
+            <!-- 9 -->
+            <div class="quote-card" style="--i:8">
+                <div class="quote-icon"><i class="fas fa-clock"></i></div>
+                <div class="quote-text">“Kerja pagi tembus pagi aja saya sanggup, jadi gausah bahas apa itu effort dan kerja keras ><”</div>
+                <div class="quote-number"><i class="fas fa-hashtag"></i> 09</div>
+            </div>
+            <!-- 10 -->
+            <div class="quote-card" style="--i:9">
+                <div class="quote-icon"><i class="fas fa-scale-balanced"></i></div>
+                <div class="quote-text">“Ga perlu banyak klarifikasi, kenyataan akan membuktikan siapa yang sebenarnya bermasalah.”</div>
+                <div class="quote-number"><i class="fas fa-hashtag"></i> 10</div>
+            </div>
+            <!-- 11 -->
+            <div class="quote-card" style="--i:10">
+                <div class="quote-icon"><i class="fas fa-user-check"></i></div>
+                <div class="quote-text">“Manusia seperti ku sudah biasa disepelekan, kalau tiba-tiba dipedulikan berarti sedang dibutuhkan.”</div>
+                <div class="quote-number"><i class="fas fa-hashtag"></i> 11</div>
+            </div>
+            <!-- 12 -->
+            <div class="quote-card" style="--i:11">
+                <div class="quote-icon"><i class="fas fa-mask"></i></div>
+                <div class="quote-text">“Muka polosmu berhasil menipu semua orang, sampai mereka tidak tahu kalau kamu pemake handal kelas atas.”</div>
+                <div class="quote-number"><i class="fas fa-hashtag"></i> 12</div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <p><i class="fas fa-quote-left"></i> developer keii official 2026 <i class="fas fa-quote-right"></i></p>
+            <p style="margin-top: 1rem; font-size: 0.9rem;">Mau request kata-kata? <a href="https://wa.me/6285150895395" style="color:#5a9eff; text-decoration:none;">Chat admin via WA</a></p>
+        </div>
     </div>
-  </div>
 
-  <script>
-    const el = (id) => document.getElementById(id);
+    <!-- Audio Elements -->
+    <audio id="bgAudio" loop preload="auto">
+        <source src="https://files.catbox.moe/fyy9il.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="wordsAudio" preload="auto">
+        <source src="https://files.catbox.moe/mqv2u8.mp3" type="audio/mpeg">
+    </audio>
 
-    const icons = {
-      "Beri Bintang":"☆",
-      "Balas":"↩",
-      "Teruskan":"↪",
-      "Salin":"⧉",
-      "Ucapkan":"💬",
-      "Laporkan":"⚠",
-      "Hapus":"🗑"
-    };
+    <script>
+      // ========== TYPING ANIMATION ==========
+        const phrases = ["selamat datang di website keii", "kata-kata bijak", "untuk jiwa yang terluka", "renungan malam"];
+        let pIndex = 0, cIndex = 0, isDeleting = false;
+        const typingEl = document.getElementById('typingText');
 
-    function clamp(n, min, max){
-      n = parseInt(n, 10);
-      if(Number.isNaN(n)) return min;
-      return Math.max(min, Math.min(max, n));
-    }
+        function typeEffect() {
+            const current = phrases[pIndex];
+            if (!isDeleting && cIndex <= current.length) {
+                typingEl.textContent = current.substring(0, cIndex++);
+                setTimeout(typeEffect, 100);
+            } else if (isDeleting && cIndex >= 0) {
+                typingEl.textContent = current.substring(0, cIndex--);
+                setTimeout(typeEffect, 50);
+            } else {
+                isDeleting = !isDeleting;
+                if (!isDeleting) pIndex = (pIndex + 1) % phrases.length;
+                setTimeout(typeEffect, 1200);
+            }
+        }
+        setTimeout(typeEffect, 500);
 
-    function normalizeTime(s){
-      // Accept "H:M" -> "HH:MM"
-      const m = String(s || "").trim().match(/^(\d{1,2}):(\d{1,2})$/);
-      if(!m) return s || "11:26";
-      let hh = clamp(m[1], 0, 23);
-      let mm = clamp(m[2], 0, 59);
-      return String(hh).padStart(2,"0") + ":" + String(mm).padStart(2,"0");
-    }
+        // ========== LOADING PROGRESS ==========
+        let prog = 0;
+        const bar = document.getElementById('loadingBar');
+        const per = document.getElementById('loadingPercent');
+        const loadInterval = setInterval(() => {
+            if (prog >= 100) clearInterval(loadInterval);
+            else { prog++; bar.style.width = prog + '%'; per.textContent = prog + '%'; }
+        }, 35); // total ~3.5 detik
 
-    function buildMenu(){
-      const menu = el("pMenu");
-      menu.innerHTML = "";
-      const items = [
-        {text:"Beri Bintang"},
-        {text:"Balas"},
-        {text:"Teruskan"},
-        {text:"Salin"},
-        {text:"Ucapkan"},
-        {text:"Laporkan"},
-        {text:"Hapus", danger:true}
-      ];
-      items.forEach(it=>{
-        const row = document.createElement("div");
-        row.className = "menuItem" + (it.danger ? " danger" : "");
-        const left = document.createElement("div");
-        left.textContent = it.text;
-        const right = document.createElement("div");
-        right.className = "icon";
-        right.textContent = icons[it.text] || "›";
-        row.appendChild(left);
-        row.appendChild(right);
-        menu.appendChild(row);
-      });
-    }
+        // ========== INTRO & AUDIO HANDLING ==========
+        const intro = document.getElementById('introScreen');
+        const main = document.getElementById('mainContent');
+        const enterBtn = document.getElementById('enterBtn');
+        const bgAudio = document.getElementById('bgAudio');
+        const wordsAudio = document.getElementById('wordsAudio');
 
-    function setSignalBars(level){
-      const bars = el("pSignal").querySelectorAll("span");
-      bars.forEach((b, idx) => {
-        const on = (idx + 1) <= level;
-        b.style.opacity = on ? "0.92" : "0.35";
-      });
-    }
+        // Intro: putar musik intro (fyy9il.mp3) dan hentikan jika sudah masuk
+        bgAudio.play().catch(e => console.log('Autoplay intro dicegah browser, menunggu interaksi'));
 
-    function setReactions(str){
-      const wrap = el("pReact");
-      wrap.innerHTML = "";
-      const reacts = (str || "").split(" ").map(s=>s.trim()).filter(Boolean);
-      const list = reacts.length ? reacts : ["👍","❤️","😂","😮","😢","🙏"];
-      list.forEach(r=>{
-        const sp = document.createElement("span");
-        sp.textContent = r;
-        wrap.appendChild(sp);
-      });
-    }
+        // Saat tombol masuk diklik
+        enterBtn.addEventListener('click', () => {
+            intro.classList.add('hide');
+            // Fade out intro musik, ganti ke musik kata-kata
+            bgAudio.pause();
+            bgAudio.currentTime = 0;
+            
+            // Putar musik kata-kata (mqv2u8.mp3) setelah main content tampil
+            setTimeout(() => {
+                intro.style.display = 'none';
+                main.style.display = 'block';
+                wordsAudio.play().catch(e => console.log('Autoplay words dicegah, menunggu interaksi'));
+            }, 800);
+        });
 
-    function saveState(){
-      const state = {
-        timeTop: el("timeTop").value,
-        msg: el("msg").value,
-        carrier: el("carrier").value,
-        battery: el("battery").value,
-        signal: el("signal").value,
-        net: el("net").value,
-        msgTime: el("msgTime").value,
-        react: el("react").value,
-      };
-      localStorage.setItem("keii_iqc_state", JSON.stringify(state));
-    }
+        // Jika user mengklik di mana saja setelah intro hilang, pastikan words audio jalan (fallback)
+        document.addEventListener('click', function playWords() {
+            if (intro.style.display === 'none' && wordsAudio.paused) {
+                wordsAudio.play().catch(e => {});
+                document.removeEventListener('click', playWords);
+            }
+        }, { once: true });
 
-    function loadState(){
-      try{
-        const raw = localStorage.getItem("keii_iqc_state");
-        if(!raw) return;
-        const s = JSON.parse(raw);
-        if(s.timeTop) el("timeTop").value = s.timeTop;
-        if(typeof s.msg === "string") el("msg").value = s.msg;
-        if(typeof s.carrier === "string") el("carrier").value = s.carrier;
-        if(s.battery) el("battery").value = s.battery;
-        if(s.signal) el("signal").value = s.signal;
-        if(s.net) el("net").value = s.net;
-        if(s.msgTime) el("msgTime").value = s.msgTime;
-        if(typeof s.react === "string") el("react").value = s.react;
-      }catch(_){}
-    }
-
-    function setPreview(){
-      const topTime = normalizeTime(el("timeTop").value);
-      const msgTime = normalizeTime(el("msgTime").value);
-
-      const battery = clamp(el("battery").value, 1, 100);
-      el("battery").value = battery;
-
-      const signal = clamp(el("signal").value, 1, 4);
-
-      el("pTime").textContent = topTime;
-      el("pCarrier").textContent = el("carrier").value || "Carrier";
-      el("pNet").textContent = el("net").value || "4G";
-
-      el("pBat").textContent = battery + "%";
-      el("pBatFill").style.width = battery + "%";
-      setSignalBars(signal);
-
-      el("pMsg").textContent = el("msg").value || "";
-      el("pMsgTime").textContent = msgTime;
-
-      setReactions(el("react").value);
-      saveState();
-    }
-
-    async function introGenerate(){
-      const loader = el("loader");
-      const prog = el("prog");
-      const hint = el("hint");
-      const hints = [
-        "Rendering blur, shadow, dan ego manusia…",
-        "Mengatur spacing biar keliatan mahal…",
-        "Mengunci vibe iPhone biar gak malu-maluin…",
-        "Finalize…"
-      ];
-
-      loader.classList.add("show");
-      prog.style.width = "0%";
-      let p = 0;
-
-      for(let i=0;i<hints.length;i++){
-        hint.textContent = hints[i];
-        await new Promise(r=>setTimeout(r, 250));
-        p += 22;
-        prog.style.width = p + "%";
-      }
-
-      setPreview();
-
-      await new Promise(r=>setTimeout(r, 220));
-      prog.style.width = "100%";
-      await new Promise(r=>setTimeout(r, 180));
-      loader.classList.remove("show");
-    }
-
-    async function downloadPNG(){
-      // Ensure loader hidden
-      el("loader").classList.remove("show");
-
-      const node = el("capture");
-      // higher scale for sharper png
-      const canvas = await html2canvas(node, {
-        backgroundColor: null,
-        scale: 2,
-        useCORS: true
-      });
-
-      const a = document.createElement("a");
-      a.download = "keii-iqc.png";
-      a.href = canvas.toDataURL("image/png");
-      a.click();
-    }
-
-    function resetAll(){
-      localStorage.removeItem("keii_iqc_state");
-      el("timeTop").value = "11:26";
-      el("msg").value = "minimal gak ngemis";
-      el("carrier").value = "INDOSAT OOREDOO";
-      el("battery").value = "8";
-      el("signal").value = "4";
-      el("net").value = "4G";
-      el("msgTime").value = "11:26";
-      el("react").value = "👍 ❤️ 😂 😮 😢 🙏";
-      setPreview();
-    }
-     // Chips -> message
-    el("chips").addEventListener("click", (e)=>{
-      const chip = e.target.closest(".chip");
-      if(!chip) return;
-      el("msg").value = chip.textContent.trim();
-      setPreview();
-    });
-
-    // Events
-    ["timeTop","msg","carrier","battery","signal","net","msgTime","react"].forEach(id=>{
-      el(id).addEventListener("input", setPreview);
-      el(id).addEventListener("change", setPreview);
-    });
-
-    el("gen").addEventListener("click", introGenerate);
-    el("download").addEventListener("click", downloadPNG);
-    el("reset").addEventListener("click", resetAll);
-
-    // init
-    buildMenu();
-    loadState();
-    setPreview();
-  </script>
+        // Jika autoplay dicegah, pengguna akan mengklik sesuatu dan musik akan jalan
+    </script>
 </body>
-</html>   
+</html>  
