@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Keii · Kata-Kata</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <title>— ⌭ 𝐊𝐄𝐈𝐈 𝐎𝐅𝐅𝐈𝐂𝐈𝐀𝐋 | 𝐓𝟓 ⌭</title>
     <!-- Font Awesome 6 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
@@ -15,7 +15,8 @@
         }
 
         body {
-            background: #0b0f1a;
+            background: #0f0719;
+            background: linear-gradient(145deg, #1a0f2a, #0c0620);
             color: #fff;
             min-height: 100vh;
         }
@@ -24,7 +25,8 @@
         .intro-screen {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(135deg, #2d1b3a, #1a3f5c);
+            background: #0b0820;
+            background: radial-gradient(circle at 30% 30%, #3c1e6a, #0a0320);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -38,7 +40,6 @@
             pointer-events: none;
         }
 
-        /* Floating Elements */
         .floating-elements {
             position: absolute;
             width: 100%; height: 100%;
@@ -49,36 +50,52 @@
 
         .floating-elements i {
             position: absolute;
-            color: rgba(255,255,255,0.03);
-            animation: float 6s infinite ease-in-out;
+            color: rgba(160, 120, 240, 0.1);
+            font-size: 4rem;
+            animation: float 10s infinite ease-in-out;
         }
-
-        .floating-elements i:nth-child(1) { top: 10%; left: 10%; font-size: 3rem; }
-        .floating-elements i:nth-child(2) { top: 20%; right: 15%; font-size: 4rem; animation-delay: 1s; }
-        .floating-elements i:nth-child(3) { bottom: 15%; left: 20%; font-size: 3.5rem; animation-delay: 2s; }
-        .floating-elements i:nth-child(4) { bottom: 25%; right: 10%; font-size: 4.5rem; animation-delay: 3s; }
-        .floating-elements i:nth-child(5) { top: 40%; left: 5%; font-size: 2.5rem; animation-delay: 1.5s; }
-        .floating-elements i:nth-child(6) { top: 60%; right: 5%; font-size: 3.2rem; animation-delay: 2.5s; }
-        .floating-elements i:nth-child(7) { bottom: 5%; left: 40%; font-size: 4rem; animation-delay: 0.5s; }
-        .floating-elements i:nth-child(8) { top: 80%; right: 25%; font-size: 3.8rem; animation-delay: 3.5s; }
 
         @keyframes float {
             0%,100%{ transform: translateY(0) rotate(0deg); }
             50%{ transform: translateY(-30px) rotate(10deg); }
         }
 
+        .particles {
+            position: absolute;
+            width: 100%; height: 100%;
+            z-index: 2;
+        }
+        .particle {
+            position: absolute;
+            width: 4px; height: 4px;
+            background: #c07cff;
+            border-radius: 50%;
+            animation: particleFloat 5s infinite;
+        }
+        @keyframes particleFloat {
+            0% { transform: translateY(100vh) scale(1); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-10vh) scale(2); opacity: 0; }
+        }
+
         .intro-card {
-            background: rgba(10, 20, 30, 0.7);
+            background: rgba(30, 15, 50, 0.8);
             backdrop-filter: blur(15px);
-            border: 2px solid #a55eea;
-            border-radius: 70px;
+            border: 2px solid #aa66ff;
+            border-radius: 60px;
             padding: 3rem 2.5rem;
             text-align: center;
             max-width: 540px;
             width: 90%;
-            box-shadow: 0 0 80px #a55eea;
+            box-shadow: 0 0 100px #9f5eff;
             position: relative;
             z-index: 10;
+            animation: cardGlow 3s infinite alternate;
+        }
+        @keyframes cardGlow {
+            from { box-shadow: 0 0 50px #7a3fb0; }
+            to { box-shadow: 0 0 120px #b77cff; }
         }
 
         .intro-logo {
@@ -86,222 +103,365 @@
             margin: 0 auto 1.5rem;
             border-radius: 50%;
             overflow: hidden;
-            border: 4px solid #a55eea;
-            box-shadow: 0 0 60px #a55eea;
+            border: 4px solid #aa66ff;
+            box-shadow: 0 0 60px #c07cff;
+            background: white;
         }
-
         .intro-logo img {
             width: 100%; height: 100%;
             object-fit: cover;
         }
 
         .intro-title {
-            font-size: 2.5rem; font-weight: 800;
+            font-size: 2.2rem; font-weight: 800;
             color: white;
-            margin-bottom: 1rem;
-            text-shadow: 0 0 20px #5a9eff;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 0 20px #aa66ff;
         }
-
-        .intro-title span { color: #a55eea; }
+        .intro-title span { color: #d9aaff; }
 
         .typing-container {
-            background: rgba(0,0,0,0.3);
+            background: rgba(0, 0, 0, 0.2);
             border-radius: 60px;
-            padding: 1rem 1.8rem;
+            padding: 1rem 1.5rem;
             margin: 1.8rem 0;
-            border: 1px solid #5a9eff;
+            border: 1px solid #d9aaff;
         }
-
         .typing-text {
             font-size: 1.3rem;
-            color: #d0e0ff;
+            color: white;
             min-height: 3rem;
         }
-
         .typing-cursor {
             display: inline-block;
             width: 2px; height: 1.8rem;
-            background: #a55eea;
+            background: #d9aaff;
             margin-left: 5px;
             animation: blink 1s infinite;
         }
-
         @keyframes blink { 50% { opacity: 0; } }
 
         .loader-wrapper { margin: 2rem 0; }
         .loader-bg {
             width: 100%; height: 6px;
-            background: #1e2a44;
+            background: #2e1b4a;
             border-radius: 10px;
             overflow: hidden;
         }
         .loader-bar {
             height: 100%; width: 0%;
-            background: linear-gradient(90deg, #a55eea, #5a9eff, #a55eea);
+            background: linear-gradient(90deg, #aa66ff, #d9aaff, #aa66ff);
             border-radius: 10px;
             transition: width 0.1s ease;
-            box-shadow: 0 0 20px #5a9eff;
+            box-shadow: 0 0 20px #d9aaff;
         }
         .loader-text {
             margin-top: 1rem;
-            color: #aaccff;
+            color: #d9aaff;
             font-size: 0.9rem;
             letter-spacing: 2px;
         }
 
         .enter-btn {
-            background: linear-gradient(45deg, #a55eea, #5a9eff);
+            background: linear-gradient(45deg, #aa66ff, #c07cff);
             border: none; color: white;
             font-weight: 700; font-size: 1.2rem;
             padding: 1rem 3rem; border-radius: 60px;
             cursor: pointer; margin-top: 1rem;
             opacity: 0; transform: translateY(20px);
-            animation: fadeUp 0.6s ease 4.5s forwards;
-            box-shadow: 0 20px 40px #1e3a6b;
-            transition: 0.2s;
+            animation: fadeUp 0.6s ease 4.2s forwards;
+            box-shadow: 0 20px 40px #3b1b60;
         }
-        .enter-btn:hover { transform: scale(1.03) translateY(-2px); }
+        .enter-btn:hover { transform: scale(1.03) translateY(-2px); background: #b77cff; }
         @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
 
         /* ========== MAIN CONTENT ========== */
         .main-content {
-            max-width: 1100px; margin: 0 auto; padding: 2rem 1.5rem;
-            opacity: 0; animation: fadeMain 0.7s ease 0.3s forwards;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 1.5rem;
+            opacity: 0;
+            animation: fadeMain 0.7s ease 0.3s forwards;
         }
         @keyframes fadeMain { to { opacity: 1; } }
 
-        /* Header */
-        .header {
-            background: rgba(10, 20, 40, 0.8);
-            backdrop-filter: blur(12px);
-            border-radius: 50px;
-            padding: 1.2rem 2rem;
-            margin-bottom: 2.5rem;
-            border: 1px solid #5a9eff;
-            display: flex; justify-content: space-between; align-items: center;
-            flex-wrap: wrap;
-            gap: 1rem;
-        }
-        .logo-area {
-            display: flex; align-items: center; gap: 1rem;
-        }
-        .logo-small {
-            width: 50px; height: 50px;
-            border-radius: 50%; overflow: hidden;
-            border: 2px solid #a55eea;
-        }
-        .logo-small img { width: 100%; height: 100%; object-fit: cover; }
-        .logo-area h1 { font-size: 1.5rem; font-weight: 700; color: white; }
-        .logo-area h1 span { color: #5a9eff; }
-
-        .status {
-            display: flex; gap: 1.8rem; color: #b0ccff;
-        }
-        .status i { margin-right: 5px; color: #5a9eff; }
-
-        .admin-request {
-            background: rgba(90, 158, 255, 0.1);
-            border: 1px solid #5a9eff;
-            border-radius: 60px;
-            padding: 0.7rem 1.5rem;
-            font-size: 0.9rem;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .admin-request a {
-            color: #5a9eff; font-weight: 600;
-            text-decoration: none;
-        }
-        .admin-request a:hover { text-decoration: underline; }
-
-        /* Kata-Kata Grid */
-        .section-title {
-            font-size: 2rem; font-weight: 700;
-            margin: 2.5rem 0 1.8rem;
-            display: flex; align-items: center; gap: 12px;
-            color: white;
-            border-left: 6px solid #a55eea;
-            padding-left: 1.2rem;
-        }
-        .section-title i { color: #a55eea; }
-
-        .quotes-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1.8rem;
-        }
-
-        .quote-card {
-            background: rgba(15, 25, 45, 0.8);
-            backdrop-filter: blur(8px);
+        .store-header {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background: linear-gradient(145deg, #281a3a, #130b20);
             border-radius: 40px;
-            padding: 2rem 1.8rem;
-            border: 1px solid #2f4b7a;
-            transition: 0.3s;
-            cursor: default;
-            animation: cardAppear 0.5s backwards;
-            animation-delay: calc(var(--i) * 0.07s);
+            border: 1px solid #aa66ff;
         }
-        .quote-card:hover {
-            transform: translateY(-6px);
-            border-color: #a55eea;
-            box-shadow: 0 20px 40px -12px #a55eea;
+        .store-header h1 {
+            font-size: 1.8rem; font-weight: 700;
+            color: #f0e4ff;
+        }
+        .store-header p {
+            color: #d9aaff;
+            margin-top: 0.5rem;
+        }
+        .store-header a {
+            color: #c07cff;
+            text-decoration: none;
+            border-bottom: 1px dashed #aa66ff;
+        }
+
+        /* Kategori Title */
+        .kategori-title {
+            font-size: 1.6rem; font-weight: 600;
+            margin: 2rem 0 1rem;
+            color: #f0e4ff;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-left: 5px solid #aa66ff;
+            padding-left: 1rem;
+        }
+        .kategori-title i { font-size: 1.8rem; color: #c07cff; }
+
+        /* GRID PRODUK 2 KOLOM DENGAN LOGO */
+        .produk-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .produk-card {
+            background: linear-gradient(145deg, #1f1330, #140b22);
+            border-radius: 30px;
+            padding: 1.2rem 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+            border: 1px solid #4a2c70;
+            cursor: pointer;
+            transition: 0.3s;
+            animation: cardAppear 0.5s backwards;
+            animation-delay: calc(var(--i) * 0.03s);
+        }
+        .produk-card:hover {
+            border-color: #aa66ff;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px #3b1b60;
         }
 
         @keyframes cardAppear {
-            0% { opacity: 0; transform: translateY(30px); }
-            100% { opacity: 1; transform: translateY(0); }
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        .quote-icon {
-            font-size: 2rem; color: #5a9eff;
+        .produk-logo {
+            width: 40px; height: 40px;
+            background: #2e1b4a;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 5px;
+            border: 1px solid #aa66ff;
+        }
+        .produk-logo img {
+            width: 100%; height: 100%;
+            object-fit: contain;
+            filter: brightness(1.2);
+        }
+
+        .produk-nama {
+            font-size: 1rem; font-weight: 600;
+            color: white;
+        }
+        .produk-harga {
+            font-size: 1.2rem; font-weight: 700;
+            color: #ffb366;
+            margin-top: 0.3rem;
+        }
+
+        /* Payment Section */
+        .payment-section {
+            background: linear-gradient(145deg, #1f1330, #140b22);
+            border-radius: 40px;
+            padding: 2rem;
+            margin: 2rem 0;
+            border: 1px solid #aa66ff;
+        }
+        .payment-title {
+            font-size: 1.5rem; color: #d9aaff;
+            margin-bottom: 1.5rem; text-align: center;
+        }
+
+        /* Format Order */
+        .format-order {
+            background: #1a0f26;
+            border-radius: 30px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border: 2px dashed #aa66ff;
+        }
+        .format-order h4 {
+            color: #ffb366;
             margin-bottom: 1rem;
-        }
-
-        .quote-text {
-            font-size: 1.2rem; line-height: 1.7;
-            color: #e0ecff;
-            font-style: italic;
-            margin-bottom: 1.5rem;
-        }
-
-        .quote-number {
-            color: #a55eea; font-weight: 600;
             display: flex; align-items: center; gap: 8px;
         }
-
-        /* Footer */
-        .footer {
-            margin-top: 4rem; padding: 2rem 0;
-            text-align: center;
-            border-top: 1px solid #2f4b7a;
-            color: #8a9fc0;
+        .format-row {
+            display: flex; margin: 0.8rem 0; align-items: center;
         }
-        .footer i { color: #a55eea; margin: 0 4px; }
-     /* Modal (untuk audio handling) */
-        .modal { display: none; }
+        .format-label {
+            width: 80px; color: #d9aaff;
+        }
+        .format-value {
+            flex: 1; color: white; font-weight: 600;
+        }
+        .format-input {
+            flex: 1; background: #2e1b4a;
+            border: 1px solid #4a2c70; border-radius: 50px;
+            padding: 0.6rem 1rem; color: white;
+        }
+        .format-buttons {
+            display: flex; gap: 0.8rem; margin-top: 1.5rem;
+        }
+        .format-btn {
+            flex: 1; background: #aa66ff; color: white;
+            border: none; padding: 0.8rem; border-radius: 50px;
+            font-weight: 600; cursor: pointer;
+            display: flex; align-items: center; justify-content: center; gap: 8px;
+            font-size: 0.9rem;
+        }
+        .format-btn.copy { background: #2e1b4a; border: 1px solid #aa66ff; }
+
+        .warning-box {
+            background: rgba(200, 70, 70, 0.15);
+            border: 1px solid #ff6666;
+            border-radius: 30px;
+            padding: 1.2rem;
+            margin: 1.5rem 0;
+            text-align: center;
+            color: #ffaaaa;
+            font-weight: 600;
+        }
+        .warning-box i { color: #ff6666; margin-right: 8px; }
+
+        .payment-metode {
+            display: flex; flex-direction: column; gap: 1.2rem; margin-top: 1.5rem;
+        }
+        .metode-card {
+            background: #1a0f26; border-radius: 30px;
+            padding: 1.5rem; border: 1px solid #4a2c70;
+        }
+        .metode-header {
+            display: flex; align-items: center; gap: 10px;
+            margin-bottom: 1rem; font-size: 1.3rem; color: #ffb366;
+        }
+        .metode-number {
+            background: #2e1b4a; padding: 0.8rem; border-radius: 50px;
+            text-align: center; font-size: 1.2rem; color: #d9aaff;
+            border: 1px solid #aa66ff; cursor: pointer; margin-bottom: 1rem;
+        }
+        .qris-preview {
+            text-align: center; margin: 1rem 0;
+        }
+        .qris-preview img {
+            max-width: 200px; width: 100%; border-radius: 15px;
+            border: 2px solid #aa66ff; cursor: pointer;
+        }
+        .btn-popup {
+            background: #aa66ff; border: none; color: white;
+            padding: 0.8rem; border-radius: 50px; font-weight: 600;
+            cursor: pointer; width: 100%;
+        }
+        .back-btn {
+            background: #2e1b4a; border: 1px solid #aa66ff; color: white;
+            padding: 0.8rem 1.5rem; border-radius: 50px;
+            margin-bottom: 1.5rem; cursor: pointer; width: fit-content;
+        }
+          /* Admin */
+        .admin-section {
+            text-align: center; margin: 1.5rem 0;
+        }
+        .admin-btn {
+            background: #2e1b4a; border: 1px solid #aa66ff;
+            color: #d9aaff; padding: 0.6rem 1.2rem; border-radius: 50px;
+            text-decoration: none; font-weight: 600; display: inline-flex;
+            align-items: center; gap: 8px; font-size: 0.9rem;
+        }
+
+        /* Pop-up Join Saluran */
+        .channel-popup {
+            display: none; position: fixed; top: 0; left: 0;
+            width: 100%; height: 100%; background: rgba(0,0,0,0.85);
+            backdrop-filter: blur(8px); align-items: center; justify-content: center;
+            z-index: 3000; padding: 1rem;
+        }
+        .channel-popup.show { display: flex; }
+        .popup-content {
+            background: #1f1330; border-radius: 40px; padding: 1.5rem;
+            text-align: center; max-width: 320px; width: 90%;
+            border: 2px solid #25D366;
+        }
+        .popup-content i { font-size: 2.5rem; color: #25D366; margin-bottom: 0.5rem; }
+        .popup-content h2 { color: #25D366; margin-bottom: 0.5rem; font-size: 1.4rem; }
+        .popup-content p { color: #ccc; margin-bottom: 1rem; font-size: 0.85rem; }
+        .popup-buttons { display: flex; gap: 0.8rem; justify-content: center; }
+        .popup-btn {
+            padding: 0.5rem 1.2rem; border-radius: 40px; border: none;
+            font-weight: 600; cursor: pointer; font-size: 0.85rem;
+        }
+        .popup-btn.join { background: #25D366; color: white; }
+        .popup-btn.close { background: #4a2c70; color: white; }
+
+        /* Modal */
+        .modal {
+            display: none; position: fixed; top: 0; left: 0;
+            width: 100%; height: 100%; background: rgba(0,0,0,0.95);
+            backdrop-filter: blur(15px); align-items: center; justify-content: center;
+            z-index: 2000; padding: 1rem;
+        }
+        .modal-content {
+            background: #1f1330; border-radius: 60px; padding: 2rem;
+            text-align: center; max-width: 500px; width: 100%;
+            border: 3px solid #aa66ff;
+        }
+        .modal-content img {
+            max-width: 350px; width: 100%; margin: 1.5rem 0; border-radius: 20px;
+        }
+        .modal-close {
+            background: #aa66ff; color: white; border: none;
+            padding: 1rem 2.5rem; border-radius: 50px; font-weight: 600; cursor: pointer;
+        }
+
+        .footer {
+            text-align: center; margin-top: 2rem; color: #6a4a9a;
+        }
         audio { display: none; }
     </style>
 </head>
 <body>
+    <!-- POP-UP JOIN SALURAN WA -->
+    <div class="channel-popup" id="channelPopup">
+        <div class="popup-content">
+            <i class="fab fa-whatsapp"></i>
+            <h2>Join Saluran WA</h2>
+            <p>Dapatkan info terbaru, promo, dan update produk langsung dari saluran resmi Keii Official.</p>
+            <div class="popup-buttons">
+                <a href="https://whatsapp.com/channel/0029VbCMhxiLSmbSzw8kOv0q" target="_blank" class="popup-btn join"><i class="fab fa-whatsapp"></i> Join</a>
+                <button class="popup-btn close" onclick="closeChannelPopup()">Nanti</button>
+            </div>
+        </div>
+    </div>
+
     <!-- INTRO LOADING -->
     <div class="intro-screen" id="introScreen">
         <div class="floating-elements">
-            <i class="fas fa-quote-right"></i>
-            <i class="fas fa-feather"></i>
-            <i class="fas fa-heart"></i>
-            <i class="fas fa-star"></i>
-            <i class="fas fa-moon"></i>
-            <i class="fas fa-crown"></i>
-            <i class="fas fa-dragon"></i>
-            <i class="fas fa-brain"></i>
+            <i class="fas fa-crown"></i> <i class="fas fa-star"></i> <i class="fas fa-gem"></i>
+            <i class="fas fa-crown"></i> <i class="fas fa-star"></i> <i class="fas fa-gem"></i>
         </div>
+        <div class="particles" id="particles"></div>
         <div class="intro-card">
             <div class="intro-logo">
                 <img src="https://images.bukaolshop.com/hosting/181218/5c92165b6226544752.png" alt="Keii Logo">
             </div>
-            <div class="intro-title">KEII <span>WORDS</span></div>
+            <div class="intro-title">— ⌭ 𝐊𝐄𝐈𝐈 𝐎𝐅𝐅𝐈𝐂𝐈𝐀𝐋 | 𝐓𝟓 ⌭</div>
             <div class="typing-container">
                 <div class="typing-text" id="typingText"></div>
                 <span class="typing-cursor"></span>
@@ -312,189 +472,336 @@
                 </div>
                 <div class="loader-text" id="loadingPercent">0%</div>
             </div>
-            <button class="enter-btn" id="enterBtn">MASUK & REFLEKSI</button>
+            <button class="enter-btn" id="enterBtn">MASUK STORE</button>
         </div>
     </div>
 
     <!-- MAIN CONTENT -->
     <div class="main-content" id="mainContent" style="display: none;">
-        <!-- Header -->
-        <div class="header">
-            <div class="logo-area">
-                <div class="logo-small">
-                    <img src="https://images.bukaolshop.com/hosting/181218/5c92165b6226544752.png" alt="Keii">
+        <div class="store-header">
+            <h1>— ⌭ 𝐊𝐄𝐈𝐈 𝐎𝐅𝐅𝐈𝐂𝐈𝐀𝐋 | 𝐓𝟓 ⌭</h1>
+            <p><i class="fab fa-telegram"></i> <a href="https://t.me/keiiofficial">@keiiofficial</a></p>
+        </div>
+
+        <!-- VIEW PRODUK -->
+        <div id="produkView">
+            <!-- APLIKASI BUG NIKA v27 -->
+            <div class="kategori-title"><img src="https://images.bukaolshop.com/hosting/181218/14d64071e23b494337.png" style="width:30px; height:30px; border-radius:10px;"> APLIKASI BUG NIKA v27</div>
+            <div class="produk-grid" id="bugNikaGrid"></div>
+
+            <!-- APLIKASI BUG XCVI v9 -->
+            <div class="kategori-title"><img src="https://images.bukaolshop.com/hosting/181218/5c92165b6226544752.png" style="width:30px; height:30px; border-radius:10px;"> APLIKASI BUG XCVI v9</div>
+            <div class="produk-grid" id="bugXcviGrid"></div>
+
+            <!-- NOKOS WHATSAPP -->
+            <div class="kategori-title"><img src="https://images.bukaolshop.com/hosting/181218/7266732e2e41874360.png" style="width:30px; height:30px; border-radius:10px;"> NOKOS WHATSAPP</div>
+            <div class="produk-grid" id="nokosGrid"></div>
+
+            <!-- PANEL & TITLE (digabung) -->
+            <div class="kategori-title"><img src="https://images.bukaolshop.com/hosting/181218/0e2fc56f3780364168.png" style="width:30px; height:30px; border-radius:10px;"> PANEL PTERODACTYL</div>
+            <div class="produk-grid" id="panelGrid"></div>
+
+            <!-- SEWA BOT JAGA GROUP -->
+            <div class="kategori-title"><img src="https://images.bukaolshop.com/hosting/181218/0e2fc56f3780364168.png" style="width:30px; height:30px; border-radius:10px;"> SEWA BOT JAGA GROUP</div>
+            <div class="produk-grid" id="sewaBotGrid"></div>
+
+            <!-- TITLE PANEL (digabung di atas, tapi ditampilkan di sini) -->
+            <div class="kategori-title"><i class="fas fa-crown"></i> TITLE PANEL PTERODACTYL</div>
+            <div class="produk-grid" id="titleGrid"></div>
+        </div>
+
+        <!-- VIEW PEMBAYARAN -->
+        <div id="paymentView" style="display: none;">
+            <button class="back-btn" id="backToProduk"><i class="fas fa-arrow-left"></i> Kembali</button>
+
+            <div class="payment-section">
+                <div class="payment-title" id="selectedProdukInfo">Pilih produk dulu</div>
+
+                <!-- FORMAT ORDER -->
+                <div class="format-order" id="formatOrder">
+                    <h4><i class="fas fa-shopping-cart"></i> Format Order</h4>
+                    <div class="format-row">
+                        <span class="format-label">Produk:</span>
+                        <span class="format-value" id="formatProduk">-</span>
+                    </div>
+                    <div class="format-row">
+                        <span class="format-label">Harga:</span>
+                        <span class="format-value" id="formatHarga">-</span>
+                    </div>
+                    <div class="format-row">
+                        <span class="format-label">Nama:</span>
+                        <input type="text" class="format-input" id="inputNama" placeholder="Nama Anda" value="Customer">
+                    </div>
+                    <div class="format-row">
+                        <span class="format-label">No. HP:</span>
+                        <input type="text" class="format-input" id="inputNoHP" placeholder="08xxxxxxxxxx" value="08xxxxxxxxxx">
+                    </div>
+                    <div class="format-buttons">
+                        <button class="format-btn copy" onclick="copyFormat()"><i class="fas fa-copy"></i> Salin</button>
+                        <button class="format-btn" onclick="sendToTelegram()"><i class="fab fa-telegram"></i> Kirim</button>
+                    </div>
                 </div>
-                <h1>KEII <span>OFFICIAL</span></h1>
-            </div>
-            <div class="status">
-                <span><i class="fas fa-circle" style="color:#2ecc71;"></i> Website Aktif</span>
-                <span><i class="fas fa-users"></i> 1.2k+ Pembaca</span>
-            </div>
-            <div class="admin-request">
-                <i class="fas fa-pen"></i>
-                <a href="https://wa.me/6285150895395" target="_blank">Request kata-kata via WA</a>
+
+                <!-- PERINGATAN -->
+                <div class="warning-box">
+                    <i class="fas fa-exclamation-triangle"></i> Sesudah Bayar Harap Chat Admin Jika Tidak Ada Chat & Bukti Transfer Tidak Akan Di Proses
+                </div>
+
+                <!-- METODE PEMBAYARAN -->
+                <div class="payment-metode">
+                    <div class="metode-card">
+                        <div class="metode-header"><i class="fas fa-wallet"></i> DANA</div>
+                        <div class="metode-number" onclick="copyNumber('087753513090')">0877 5351 3090</div>
+                        <button class="btn-popup" onclick="showDanaModal()">Tampilkan</button>
+                    </div>
+                    <div class="metode-card">
+                        <div class="metode-header"><i class="fas fa-qrcode"></i> QRIS</div>
+                        <div class="qris-preview" onclick="openQrisModal()">
+                            <img src="https://images.bukaolshop.com/hosting/181218/15b9e709ce2931209.png" alt="QRIS">
+                        </div>
+                        <button class="btn-popup" onclick="openQrisModal()">Perbesar QRIS</button>
+                    </div>
+                </div>
+
+                <div class="admin-section">
+                    <a href="https://t.me/keiiofficial" class="admin-btn"><i class="fab fa-telegram"></i> @keiiofficial</a>
+                </div>
             </div>
         </div>
 
-        <!-- Kata-Kata -->
-        <div class="section-title">
-            <i class="fas fa-quote-left"></i> UNTAIAN KATA
-        </div>
-        <div class="quotes-grid">
-            <!-- 1 -->
-            <div class="quote-card" style="--i:0">
-                <div class="quote-icon"><i class="fas fa-door-open"></i></div>
-                <div class="quote-text">“Mengabaikanmu atau meninggalkanmu begitu saja, dia tidak peduli padamu. Pergilah dengan harga dirimu.”</div>
-                <div class="quote-number"><i class="fas fa-hashtag"></i> 01</div>
-            </div>
-            <!-- 2 -->
-            <div class="quote-card" style="--i:1">
-                <div class="quote-icon"><i class="fas fa-mother-child"></i></div>
-                <div class="quote-text">“Jangan belikan lipstik kepada wanita yang bibirnya belum tentu buat kamu. Lebih baik belikan beras untuk ibumu, karena sudah pasti kamu yang bakal memakannya.”</div>
-                <div class="quote-number"><i class="fas fa-hashtag"></i> 02</div>
-            </div>
-            <!-- 3 -->
-            <div class="quote-card" style="--i:2">
-                <div class="quote-icon"><i class="fas fa-shield-heart"></i></div>
-                <div class="quote-text">“Apapun kondisinya, tetaplah menjadi lelaki baik. Rasa kecewa dan sakit hati tidak boleh merubahmu menjadi jahat.”</div>
-                <div class="quote-number"><i class="fas fa-hashtag"></i> 03</div>
-            </div>
-            <!-- 4 -->
-            <div class="quote-card" style="--i:3">
-                <div class="quote-icon"><i class="fas fa-face-frown"></i></div>
-                <div class="quote-text">“Wanita setia itu omong kosong. Wanita akan tetap merespon pria lain di belakangmu, walaupun dia terlihat menyayangimu.”</div>
-                <div class="quote-number"><i class="fas fa-hashtag"></i> 04</div>
-            </div>
-            <!-- 5 -->
-            <div class="quote-card" style="--i:4">
-                <div class="quote-icon"><i class="fas fa-hand-prayer"></i></div>
-                <div class="quote-text">“Saat laki-laki sudah mengucap 'Udah tenang, doain aja' percayalah dia sudah siap pasang badan dan berusaha habis-habisan.”</div>
-                <div class="quote-number"><i class="fas fa-hashtag"></i> 05</div>
-            </div>
-            <!-- 6 -->
-            <div class="quote-card" style="--i:5">
-                <div class="quote-icon"><i class="fas fa-heart-broken"></i></div>
-                <div class="quote-text">“Cintamu boleh direbut pria lain, tapi kamu jangan sekali-kali merebut dari pria lain.”</div>
-                <div class="quote-number"><i class="fas fa-hashtag"></i> 06</div>
-            </div>
-            <!-- 7 -->
-            <div class="quote-card" style="--i:6">
-                <div class="quote-icon"><i class="fas fa-user-ninja"></i></div>
-                <div class="quote-text">“Semakin berat lukanya, semakin diam orangnya. Semakin banyak pengalamannya, semakin senyap cara dia bekerja.”</div>
-                <div class="quote-number"><i class="fas fa-hashtag"></i> 07</div>
-            </div>
-            <!-- 8 -->
-            <div class="quote-card" style="--i:7">
-                <div class="quote-icon"><i class="fas fa-briefcase"></i></div>
-                <div class="quote-text">“Yang kerja aja masih ditinggal, apalagi yang cuma pengangguran modal 'jangan lupa makan nanti sakit'. TENGGELAM KAU BUJANG!”</div>
-                <div class="quote-number"><i class="fas fa-hashtag"></i> 08</div>
-            </div>
-            <!-- 9 -->
-            <div class="quote-card" style="--i:8">
-                <div class="quote-icon"><i class="fas fa-clock"></i></div>
-                <div class="quote-text">“Kerja pagi tembus pagi aja saya sanggup, jadi gausah bahas apa itu effort dan kerja keras ><”</div>
-                <div class="quote-number"><i class="fas fa-hashtag"></i> 09</div>
-            </div>
-            <!-- 10 -->
-            <div class="quote-card" style="--i:9">
-                <div class="quote-icon"><i class="fas fa-scale-balanced"></i></div>
-                <div class="quote-text">“Ga perlu banyak klarifikasi, kenyataan akan membuktikan siapa yang sebenarnya bermasalah.”</div>
-                <div class="quote-number"><i class="fas fa-hashtag"></i> 10</div>
-            </div>
-            <!-- 11 -->
-            <div class="quote-card" style="--i:10">
-                <div class="quote-icon"><i class="fas fa-user-check"></i></div>
-                <div class="quote-text">“Manusia seperti ku sudah biasa disepelekan, kalau tiba-tiba dipedulikan berarti sedang dibutuhkan.”</div>
-                <div class="quote-number"><i class="fas fa-hashtag"></i> 11</div>
-            </div>
-            <!-- 12 -->
-            <div class="quote-card" style="--i:11">
-                <div class="quote-icon"><i class="fas fa-mask"></i></div>
-                <div class="quote-text">“Muka polosmu berhasil menipu semua orang, sampai mereka tidak tahu kalau kamu pemake handal kelas atas.”</div>
-                <div class="quote-number"><i class="fas fa-hashtag"></i> 12</div>
-            </div>
-        </div>
-
-        <!-- Footer -->
         <div class="footer">
-            <p><i class="fas fa-quote-left"></i> developer keii official 2026 <i class="fas fa-quote-right"></i></p>
-            <p style="margin-top: 1rem; font-size: 0.9rem;">Mau request kata-kata? <a href="https://wa.me/6285150895395" style="color:#5a9eff; text-decoration:none;">Chat admin via WA</a></p>
+            <p>© 2026 — ⌭ 𝐊𝐄𝐈𝐈 𝐎𝐅𝐅𝐈𝐂𝐈𝐀𝐋 | 𝐓𝟓 ⌭</p>
         </div>
     </div>
 
-    <!-- Audio Elements -->
+    <!-- MODALS -->
+    <div class="modal" id="danaModal">
+        <div class="modal-content">
+            <i class="fas fa-wallet" style="font-size:4rem; color:#d9aaff;"></i>
+            <h2 style="color:#d9aaff;">DANA</h2>
+            <div style="background:#2e1b4a; padding:1rem; border-radius:50px; font-size:1.5rem;">0877 5351 3090</div>
+            <button class="modal-close" onclick="closeModal('danaModal')">Tutup</button>
+        </div>
+    </div>
+    <div class="modal" id="qrisModal">
+        <div class="modal-content">
+            <h2 style="color:#d9aaff;">QRIS</h2>
+            <img src="https://images.bukaolshop.com/hosting/181218/15b9e709ce2931209.png" alt="QRIS">
+            <button class="modal-close" onclick="closeModal('qrisModal')">Tutup</button>
+        </div>
+    </div>
+
+    <!-- AUDIO -->
     <audio id="bgAudio" loop preload="auto">
-        <source src="https://files.catbox.moe/fyy9il.mp3" type="audio/mpeg">
-    </audio>
-    <audio id="wordsAudio" preload="auto">
-        <source src="https://files.catbox.moe/mqv2u8.mp3" type="audio/mpeg">
+        <source src="https://files.catbox.moe/mog6bq.mp3" type="audio/mpeg">
     </audio>
 
     <script>
-      // ========== TYPING ANIMATION ==========
-        const phrases = ["selamat datang di website keii", "kata-kata bijak", "untuk jiwa yang terluka", "renungan malam"];
+        // ========== DATA PRODUK ==========
+        const produkData = {
+            bugNika: [
+                { nama: "Akses 7 Hari", harga: "Rp 25.000" },
+                { nama: "Akses 1 Bulan", harga: "Rp 35.000" },
+                { nama: "Akses 2 Bulan", harga: "Rp 45.000" },
+                { nama: "Akses Permanen", harga: "Rp 55.000" }
+            ],
+            bugXcvi: [
+                { nama: "7 Hari", harga: "Rp 10.000" },
+                { nama: "15 Hari", harga: "Rp 20.000" },
+                { nama: "1 Bulan", harga: "Rp 25.000" },
+                { nama: "2 Bulan", harga: "Rp 35.000" },
+                { nama: "Permanen", harga: "Rp 50.000" }
+            ],
+            nokos: [
+                { nama: "Nokos Indonesia", harga: "Rp 8.000" },
+                { nama: "Nokos Filipina", harga: "Rp 19.000" },
+                { nama: "Nokos Malaysia", harga: "Rp 10.000" },
+                { nama: "Nokos Hongkong", harga: "Rp 12.000" }
+            ],
+            panel: [
+                { nama: "4 GB", harga: "Rp 3.000" }, { nama: "5 GB", harga: "Rp 4.000" },
+                { nama: "6 GB", harga: "Rp 5.000" }, { nama: "7 GB", harga: "Rp 6.000" },
+                { nama: "8 GB", harga: "Rp 7.000" }, { nama: "9 GB", harga: "Rp 8.000" },
+                { nama: "10 GB", harga: "Rp 9.000" }, { nama: "Unlimited", harga: "Rp 10.000" }
+            ],
+            sewaBot: [
+                { nama: "5 Hari", harga: "Rp 3.000" }, { nama: "10 Hari", harga: "Rp 5.000" },
+                { nama: "15 Hari", harga: "Rp 10.000" }, { nama: "1 Bulan", harga: "Rp 25.000" },
+                { nama: "2 Bulan", harga: "Rp 30.000" }, { nama: "3 Bulan", harga: "Rp 35.000" },
+                { nama: "Script Bot", harga: "Rp 30.000 Free Panel" }
+            ],
+            title: [
+                { nama: "Reseller Panel", harga: "Rp 15.000" },
+                { nama: "Admin Panel", harga: "Rp 20.000 (Spek Vps Ram 16GB c8)" }
+            ]
+        };
+
+        let selectedKategori = '', selectedNama = '', selectedHarga = '';
+
+        function renderProduk() {
+            // Bug Nika
+            let html = '';
+            produkData.bugNika.forEach((item, i) => {
+                html += `<div class="produk-card" style="--i:${i}" onclick="pilihProduk('Bug Nika', '${item.nama}', '${item.harga}')">
+                    <div class="produk-logo"><img src="https://images.bukaolshop.com/hosting/181218/14d64071e23b494337.png"></div>
+                    <div class="produk-nama">${item.nama}</div>
+                    <div class="produk-harga">${item.harga}</div>
+                </div>`;
+            });
+            document.getElementById('bugNikaGrid').innerHTML = html;
+
+            // Bug XCVI
+            html = '';
+            produkData.bugXcvi.forEach((item, i) => {
+                html += `<div class="produk-card" style="--i:${i}" onclick="pilihProduk('Bug XCVI', '${item.nama}', '${item.harga}')">
+                    <div class="produk-logo"><img src="https://images.bukaolshop.com/hosting/181218/5c92165b6226544752.png"></div>
+                    <div class="produk-nama">${item.nama}</div>
+                    <div class="produk-harga">${item.harga}</div>
+                </div>`;
+            });
+            document.getElementById('bugXcviGrid').innerHTML = html;
+
+            // Nokos
+            html = '';
+            produkData.nokos.forEach((item, i) => {
+                html += `<div class="produk-card" style="--i:${i}" onclick="pilihProduk('Nokos WhatsApp', '${item.nama}', '${item.harga}')">
+                    <div class="produk-logo"><img src="https://images.bukaolshop.com/hosting/181218/7266732e2e41874360.png"></div>
+                    <div class="produk-nama">${item.nama}</div>
+                    <div class="produk-harga">${item.harga}</div>
+                </div>`;
+            });
+            document.getElementById('nokosGrid').innerHTML = html;
+
+            // Panel
+            html = '';
+            produkData.panel.forEach((item, i) => {
+                html += `<div class="produk-card" style="--i:${i}" onclick="pilihProduk('Panel Pterodactyl', '${item.nama}', '${item.harga}')">
+                    <div class="produk-logo"><img src="https://images.bukaolshop.com/hosting/181218/0e2fc56f3780364168.png"></div>
+                    <div class="produk-nama">${item.nama}</div>
+                    <div class="produk-harga">${item.harga}</div>
+                </div>`;
+            });
+            document.getElementById('panelGrid').innerHTML = html;
+
+            // Sewa Bot
+            html = '';
+            produkData.sewaBot.forEach((item, i) => {
+                html += `<div class="produk-card" style="--i:${i}" onclick="pilihProduk('Sewa Bot Jaga Group', '${item.nama}', '${item.harga}')">
+                    <div class="produk-logo"><img src="https://images.bukaolshop.com/hosting/181218/0e2fc56f3780364168.png"></div>
+                    <div class="produk-nama">${item.nama}</div>
+                    <div class="produk-harga">${item.harga}</div>
+                </div>`;
+            });
+            document.getElementById('sewaBotGrid').innerHTML = html;
+
+            // Title Panel
+            html = '';
+            produkData.title.forEach((item, i) => {
+                html += `<div class="produk-card" style="--i:${i}" onclick="pilihProduk('Title Panel', '${item.nama}', '${item.harga}')">
+                    <div class="produk-logo"><img src="https://images.bukaolshop.com/hosting/181218/0e2fc56f3780364168.png"></div>
+                    <div class="produk-nama">${item.nama}</div>
+                    <div class="produk-harga">${item.harga}</div>
+                </div>`;
+            });
+            document.getElementById('titleGrid').innerHTML = html;
+        }
+
+        window.pilihProduk = (kat, nama, harga) => {
+            selectedKategori = kat; selectedNama = nama; selectedHarga = harga;
+            document.getElementById('selectedProdukInfo').innerHTML = `<h3>${kat}</h3><p>${nama}</p><p style="color:#ffb366; font-size:1.5rem;">${harga}</p>`;
+            document.getElementById('formatProduk').textContent = `${kat} - ${nama}`;
+            document.getElementById('formatHarga').textContent = harga;
+            document.getElementById('produkView').style.display = 'none';
+            document.getElementById('paymentView').style.display = 'block';
+        };
+
+        // ========== FUNGSI FORMAT ==========
+        window.copyFormat = () => {
+            const nama = document.getElementById('inputNama').value;
+            const noHP = document.getElementById('inputNoHP').value;
+            const teks = `ORDER BARU\n\nProduk: ${selectedKategori} - ${selectedNama}\nHarga: ${selectedHarga}\nNama: ${nama}\nNo. HP: ${noHP}\n\nBukti transfer menyusul.`;
+            navigator.clipboard.writeText(teks).then(() => alert('Format order disalin!'));
+        };
+        window.sendToTelegram = () => {
+            const nama = document.getElementById('inputNama').value;
+            const noHP = document.getElementById('inputNoHP').value;
+            const teks = `ORDER BARU%0A%0AProduk: ${selectedKategori} - ${selectedNama}%0AHarga: ${selectedHarga}%0ANama: ${nama}%0ANo. HP: ${noHP}%0A%0ABukti transfer menyusul.`;
+            window.open(`https://t.me/keiiofficial?text=${teks}`, '_blank');
+        };
+
+        // ========== INTRO ==========
+        function createParticles() {
+            const container = document.getElementById('particles');
+            for (let i = 0; i < 30; i++) {
+                const p = document.createElement('div');
+                p.className = 'particle';
+                p.style.left = Math.random() * 100 + '%';
+                p.style.animationDelay = Math.random() * 5 + 's';
+                p.style.animationDuration = (3 + Math.random() * 4) + 's';
+                container.appendChild(p);
+            }
+        }
+        createParticles();
+
+        const phrases = ["— ⌭ 𝐊𝐄𝐈𝐈 𝐎𝐅𝐅𝐈𝐂𝐈𝐀𝐋 | 𝐓𝟓 ⌭", "Bug Nika • Bug XCVI • Nokos", "Panel • Sewa Bot • Title"];
         let pIndex = 0, cIndex = 0, isDeleting = false;
         const typingEl = document.getElementById('typingText');
-
         function typeEffect() {
             const current = phrases[pIndex];
             if (!isDeleting && cIndex <= current.length) {
                 typingEl.textContent = current.substring(0, cIndex++);
-                setTimeout(typeEffect, 100);
+                setTimeout(typeEffect, 120);
             } else if (isDeleting && cIndex >= 0) {
                 typingEl.textContent = current.substring(0, cIndex--);
-                setTimeout(typeEffect, 50);
+                setTimeout(typeEffect, 60);
             } else {
                 isDeleting = !isDeleting;
                 if (!isDeleting) pIndex = (pIndex + 1) % phrases.length;
-                setTimeout(typeEffect, 1200);
+                setTimeout(typeEffect, 1500);
             }
         }
         setTimeout(typeEffect, 500);
 
-        // ========== LOADING PROGRESS ==========
         let prog = 0;
         const bar = document.getElementById('loadingBar');
         const per = document.getElementById('loadingPercent');
-        const loadInterval = setInterval(() => {
-            if (prog >= 100) clearInterval(loadInterval);
-            else { prog++; bar.style.width = prog + '%'; per.textContent = prog + '%'; }
-        }, 35); // total ~3.5 detik
+        setInterval(() => { if (prog < 100) { prog++; bar.style.width = prog + '%'; per.textContent = prog + '%'; } }, 35);
 
-        // ========== INTRO & AUDIO HANDLING ==========
         const intro = document.getElementById('introScreen');
         const main = document.getElementById('mainContent');
-        const enterBtn = document.getElementById('enterBtn');
-        const bgAudio = document.getElementById('bgAudio');
-        const wordsAudio = document.getElementById('wordsAudio');
+        const enter = document.getElementById('enterBtn');
+        const audio = document.getElementById('bgAudio');
+        const channelPopup = document.getElementById('channelPopup');
 
-        // Intro: putar musik intro (fyy9il.mp3) dan hentikan jika sudah masuk
-        bgAudio.play().catch(e => console.log('Autoplay intro dicegah browser, menunggu interaksi'));
-
-        // Saat tombol masuk diklik
-        enterBtn.addEventListener('click', () => {
+        audio.play().catch(() => {});
+        enter.addEventListener('click', () => {
             intro.classList.add('hide');
-            // Fade out intro musik, ganti ke musik kata-kata
-            bgAudio.pause();
-            bgAudio.currentTime = 0;
-            
-            // Putar musik kata-kata (mqv2u8.mp3) setelah main content tampil
-            setTimeout(() => {
-                intro.style.display = 'none';
+            setTimeout(() => { 
+                intro.style.display = 'none'; 
                 main.style.display = 'block';
-                wordsAudio.play().catch(e => console.log('Autoplay words dicegah, menunggu interaksi'));
+                setTimeout(() => { channelPopup.classList.add('show'); }, 500);
             }, 800);
+            audio.play().catch(() => {});
+        });
+        document.addEventListener('click', function playOnce() { if (audio.paused) audio.play().catch(() => {}); document.removeEventListener('click', playOnce); }, { once: true });
+
+        window.closeChannelPopup = () => channelPopup.classList.remove('show');
+
+        document.getElementById('backToProduk').addEventListener('click', () => {
+            document.getElementById('paymentView').style.display = 'none';
+            document.getElementById('produkView').style.display = 'block';
         });
 
-        // Jika user mengklik di mana saja setelah intro hilang, pastikan words audio jalan (fallback)
-        document.addEventListener('click', function playWords() {
-            if (intro.style.display === 'none' && wordsAudio.paused) {
-                wordsAudio.play().catch(e => {});
-                document.removeEventListener('click', playWords);
-            }
-        }, { once: true });
+        window.showDanaModal = () => document.getElementById('danaModal').style.display = 'flex';
+        window.openQrisModal = () => document.getElementById('qrisModal').style.display = 'flex';
+        window.closeModal = (id) => document.getElementById(id).style.display = 'none';
+        window.copyNumber = (num) => { navigator.clipboard.writeText(num.replace(/\s/g, '')).then(() => alert('Nomor disalin!')); };
+        window.onclick = (e) => { 
+            if (e.target.classList.contains('modal')) e.target.style.display = 'none';
+            if (e.target.classList.contains('channel-popup')) e.target.classList.remove('show');
+        };
 
-        // Jika autoplay dicegah, pengguna akan mengklik sesuatu dan musik akan jalan
+        renderProduk();
     </script>
 </body>
-</html>  
+</html>
