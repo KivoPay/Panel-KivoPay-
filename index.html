@@ -16,17 +16,16 @@
 
         body {
             background: #e0f2ff;
-            background: linear-gradient(145deg, #d4ebff, #b8dcff);
             color: #1a2b3c;
             min-height: 100vh;
         }
 
-        /* ========== INTRO LOADING BIRU CERAH ========== */
+        /* ========== INTRO LOADING UNGU ========== */
         .intro-screen {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: #004aad;
-            background: radial-gradient(circle at 30% 30%, #2a7fff, #004aad);
+            background: #1a0f2a;
+            background: radial-gradient(circle at 30% 30%, #5a2a9a, #1f0b3a);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -40,6 +39,7 @@
             pointer-events: none;
         }
 
+        /* Floating Elements Ungu */
         .floating-elements {
             position: absolute;
             width: 100%; height: 100%;
@@ -50,16 +50,24 @@
 
         .floating-elements i {
             position: absolute;
-            color: rgba(255, 255, 255, 0.15);
+            color: rgba(200, 160, 255, 0.15);
             font-size: 4rem;
             animation: float 10s infinite ease-in-out;
         }
+
+        .floating-elements i:nth-child(1) { top: 10%; left: 10%; font-size: 5rem; animation-delay: 0s; }
+        .floating-elements i:nth-child(2) { top: 20%; right: 15%; font-size: 6rem; animation-delay: 1s; }
+        .floating-elements i:nth-child(3) { bottom: 15%; left: 20%; font-size: 5.5rem; animation-delay: 2s; }
+        .floating-elements i:nth-child(4) { bottom: 25%; right: 10%; font-size: 7rem; animation-delay: 3s; }
+        .floating-elements i:nth-child(5) { top: 40%; left: 5%; font-size: 4.5rem; animation-delay: 1.5s; }
+        .floating-elements i:nth-child(6) { top: 60%; right: 5%; font-size: 5rem; animation-delay: 2.5s; }
 
         @keyframes float {
             0%,100%{ transform: translateY(0) rotate(0deg); }
             50%{ transform: translateY(-30px) rotate(10deg); }
         }
 
+        /* Partikel Ungu */
         .particles {
             position: absolute;
             width: 100%; height: 100%;
@@ -68,7 +76,7 @@
         .particle {
             position: absolute;
             width: 4px; height: 4px;
-            background: white;
+            background: #d9b0ff;
             border-radius: 50%;
             animation: particleFloat 5s infinite;
         }
@@ -80,22 +88,22 @@
         }
 
         .intro-card {
-            background: rgba(255, 255, 255, 0.15);
+            background: rgba(40, 20, 60, 0.8);
             backdrop-filter: blur(15px);
-            border: 2px solid white;
+            border: 2px solid #b77cff;
             border-radius: 60px;
             padding: 3rem 2.5rem;
             text-align: center;
             max-width: 540px;
             width: 90%;
-            box-shadow: 0 0 100px #2a7fff;
+            box-shadow: 0 0 100px #b77cff;
             position: relative;
             z-index: 10;
             animation: cardGlow 3s infinite alternate;
         }
         @keyframes cardGlow {
-            from { box-shadow: 0 0 50px #1e5fd9; }
-            to { box-shadow: 0 0 120px #7fb2ff; }
+            from { box-shadow: 0 0 50px #8a4fcf; }
+            to { box-shadow: 0 0 120px #d9b0ff; }
         }
 
         .intro-logo {
@@ -103,8 +111,8 @@
             margin: 0 auto 1.5rem;
             border-radius: 50%;
             overflow: hidden;
-            border: 4px solid white;
-            box-shadow: 0 0 60px #7fb2ff;
+            border: 4px solid #b77cff;
+            box-shadow: 0 0 60px #d9b0ff;
             background: white;
         }
         .intro-logo img {
@@ -116,16 +124,16 @@
             font-size: 2.2rem; font-weight: 800;
             color: white;
             margin-bottom: 0.5rem;
-            text-shadow: 0 0 20px #004aad;
+            text-shadow: 0 0 20px #b77cff;
         }
-        .intro-title span { color: #c3e0ff; }
+        .intro-title span { color: #d9b0ff; }
 
         .typing-container {
-            background: rgba(0, 0, 0, 0.1);
+            background: rgba(0, 0, 0, 0.2);
             border-radius: 60px;
             padding: 1rem 1.5rem;
             margin: 1.8rem 0;
-            border: 1px solid white;
+            border: 1px solid #d9b0ff;
         }
         .typing-text {
             font-size: 1.3rem;
@@ -135,7 +143,7 @@
         .typing-cursor {
             display: inline-block;
             width: 2px; height: 1.8rem;
-            background: white;
+            background: #d9b0ff;
             margin-left: 5px;
             animation: blink 1s infinite;
         }
@@ -144,38 +152,38 @@
         .loader-wrapper { margin: 2rem 0; }
         .loader-bg {
             width: 100%; height: 6px;
-            background: rgba(0, 0, 0, 0.2);
+            background: #2e1b4a;
             border-radius: 10px;
             overflow: hidden;
         }
         .loader-bar {
             height: 100%; width: 0%;
-            background: linear-gradient(90deg, white, #c3e0ff, white);
+            background: linear-gradient(90deg, #b77cff, #d9b0ff, #b77cff);
             border-radius: 10px;
             transition: width 0.1s ease;
-            box-shadow: 0 0 20px white;
+            box-shadow: 0 0 20px #d9b0ff;
         }
         .loader-text {
             margin-top: 1rem;
-            color: white;
+            color: #d9b0ff;
             font-size: 0.9rem;
             letter-spacing: 2px;
         }
 
         .enter-btn {
-            background: white;
-            border: none; color: #004aad;
+            background: linear-gradient(45deg, #b77cff, #d9b0ff);
+            border: none; color: white;
             font-weight: 700; font-size: 1.2rem;
             padding: 1rem 3rem; border-radius: 60px;
             cursor: pointer; margin-top: 1rem;
             opacity: 0; transform: translateY(20px);
             animation: fadeUp 0.6s ease 4.2s forwards;
-            box-shadow: 0 20px 40px #001f4a;
+            box-shadow: 0 20px 40px #3b1b60;
         }
-        .enter-btn:hover { transform: scale(1.03) translateY(-2px); background: #c3e0ff; }
+        .enter-btn:hover { transform: scale(1.03) translateY(-2px); }
         @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
 
-        /* ========== MAIN CONTENT ========== */
+        /* ========== MAIN CONTENT (BIRU CERAH) ========== */
         .main-content {
             max-width: 600px;
             margin: 0 auto;
@@ -208,7 +216,7 @@
             border-bottom: 1px dashed #2a7fff;
         }
 
-        /* Kategori Grid */
+        /* Kategori Grid dengan Floating Animasi */
         .kategori-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -227,9 +235,17 @@
             cursor: pointer;
             transition: 0.3s;
             box-shadow: 0 5px 15px rgba(0, 74, 173, 0.05);
+            animation: floatCard 5s infinite alternate;
+            animation-delay: calc(var(--i) * 0.2s);
         }
+
+        @keyframes floatCard {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-8px); }
+        }
+
         .kategori-card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-10px);
             border-color: #004aad;
             box-shadow: 0 15px 30px rgba(0, 74, 173, 0.15);
         }
@@ -257,7 +273,7 @@
             font-size: 0.9rem;
         }
 
-        /* Produk View (per kategori) */
+        /* Produk View */
         .produk-view {
             background: white;
             border-radius: 40px;
@@ -424,8 +440,14 @@
             align-items: center; gap: 8px;
         }
 
-        .footer { text-align: center; margin-top: 2rem; color: #2a7fff; }
-        audio { display: none; }
+        .footer {
+            text-align: center;
+            margin-top: 2rem;
+            padding: 1rem;
+            color: #2a7fff;
+            border-top: 1px dashed #7fb2ff;
+        }
+         audio { display: none; }
     </style>
 </head>
 <body>
@@ -442,10 +464,15 @@
         </div>
     </div>
 
-    <!-- INTRO LOADING -->
+    <!-- INTRO LOADING UNGU -->
     <div class="intro-screen" id="introScreen">
         <div class="floating-elements">
-            <i class="fas fa-circle"></i> <i class="fas fa-square"></i> <i class="fas fa-triangle"></i>
+            <i class="fas fa-crown"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-gem"></i>
+            <i class="fas fa-crown"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-gem"></i>
         </div>
         <div class="particles" id="particles"></div>
         <div class="intro-card">
@@ -467,48 +494,42 @@
         </div>
     </div>
 
-    <!-- MAIN CONTENT -->
+    <!-- MAIN CONTENT BIRU CERAH -->
     <div class="main-content" id="mainContent" style="display: none;">
         <div class="store-header">
             <h1>KEII OFFICIAL | T5</h1>
             <p><i class="fab fa-telegram"></i> <a href="https://t.me/keiiofficial">@keiiofficial</a></p>
         </div>
 
-        <!-- HALAMAN KATEGORI (default) -->
+        <!-- HALAMAN KATEGORI -->
         <div id="kategoriView">
             <div class="kategori-grid">
-                <!-- Kategori 1: Bug Nika -->
-                <div class="kategori-card" onclick="showKategori('bugNika')">
+                <div class="kategori-card" style="--i:0" onclick="showKategori('bugNika')">
                     <div class="kategori-logo"><img src="https://images.bukaolshop.com/hosting/181218/14d64071e23b494337.png"></div>
                     <div class="kategori-nama">BUG NIKA v27</div>
-                    <div class="kategori-desc">4 produk tersedia</div>
+                    <div class="kategori-desc">4 produk</div>
                 </div>
-                <!-- Kategori 2: Bug XCVI -->
-                <div class="kategori-card" onclick="showKategori('bugXcvi')">
+                <div class="kategori-card" style="--i:1" onclick="showKategori('bugXcvi')">
                     <div class="kategori-logo"><img src="https://images.bukaolshop.com/hosting/181218/5c92165b6226544752.png"></div>
                     <div class="kategori-nama">BUG XCVI v9</div>
-                    <div class="kategori-desc">5 produk tersedia</div>
+                    <div class="kategori-desc">5 produk</div>
                 </div>
-                <!-- Kategori 3: Nokos WhatsApp -->
-                <div class="kategori-card" onclick="showKategori('nokos')">
+                <div class="kategori-card" style="--i:2" onclick="showKategori('nokos')">
                     <div class="kategori-logo"><img src="https://images.bukaolshop.com/hosting/181218/7266732e2e41874360.png"></div>
                     <div class="kategori-nama">NOKOS WA</div>
                     <div class="kategori-desc">4 negara</div>
                 </div>
-                <!-- Kategori 4: Panel Pterodactyl -->
-                <div class="kategori-card" onclick="showKategori('panel')">
+                <div class="kategori-card" style="--i:3" onclick="showKategori('panel')">
                     <div class="kategori-logo"><img src="https://images.bukaolshop.com/hosting/181218/0e2fc56f3780364168.png"></div>
                     <div class="kategori-nama">PANEL</div>
                     <div class="kategori-desc">8 pilihan RAM</div>
                 </div>
-                <!-- Kategori 5: Sewa Bot -->
-                <div class="kategori-card" onclick="showKategori('sewaBot')">
+                <div class="kategori-card" style="--i:4" onclick="showKategori('sewaBot')">
                     <div class="kategori-logo"><img src="https://images.bukaolshop.com/hosting/181218/0e2fc56f3780364168.png"></div>
                     <div class="kategori-nama">SEWA BOT</div>
                     <div class="kategori-desc">Jaga Group</div>
                 </div>
-                <!-- Kategori 6: Title Panel -->
-                <div class="kategori-card" onclick="showKategori('title')">
+                <div class="kategori-card" style="--i:5" onclick="showKategori('title')">
                     <div class="kategori-logo"><img src="https://images.bukaolshop.com/hosting/181218/0e2fc56f3780364168.png"></div>
                     <div class="kategori-nama">TITLE PANEL</div>
                     <div class="kategori-desc">Reseller/Admin</div>
@@ -516,7 +537,7 @@
             </div>
         </div>
 
-        <!-- HALAMAN PRODUK (per kategori) -->
+        <!-- HALAMAN PRODUK -->
         <div id="produkView" style="display: none;">
             <button class="back-btn" id="backToKategori"><i class="fas fa-arrow-left"></i> Kembali</button>
             <div class="produk-view" id="produkContainer"></div>
@@ -529,7 +550,7 @@
         </div>
 
         <div class="footer">
-            <p>© 2026 KEII OFFICIAL | T5</p>
+            <p>2026 keii official store website</p>
         </div>
     </div>
 
@@ -556,7 +577,7 @@
     </audio>
 
     <script>
-      // ========== DATA PRODUK ==========
+        // ========== DATA PRODUK ==========
         const produkData = {
             bugNika: [
                 { nama: "Akses 7 Hari", harga: "Rp 25.000" },
@@ -687,7 +708,7 @@
         // ========== INTRO ==========
         function createParticles() {
             const container = document.getElementById('particles');
-            for (let i = 0; i < 20; i++) {
+            for (let i = 0; i < 25; i++) {
                 const p = document.createElement('div');
                 p.className = 'particle';
                 p.style.left = Math.random() * 100 + '%';
@@ -697,7 +718,6 @@
             }
         }
         createParticles();
-
         const phrases = ["Selamat Datang Di Keii Official", "Bug Nika • Bug XCVI • Panel", "Nokos • Sewa Bot • Title"];
         let pIndex = 0, cIndex = 0, isDeleting = false;
         const typingEl = document.getElementById('typingText');
@@ -752,4 +772,4 @@
         };
     </script>
 </body>
-</html>  
+</html>
